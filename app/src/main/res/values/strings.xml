@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SpaceNBeyond</string>
+    <string name="crie_hashtags_a_partir_da_foto_do_dia_da_nasa_e_compartilhe_seus_posts_criativos">Crie hashtags a partir da foto do dia da NASA e compartilhe seus posts criativos!</string>
+    <string name="facebook">Facebook</string>
+    <string name="ou">OU</string>
+    <string name="OU">OU</string>
+
 </resources>
