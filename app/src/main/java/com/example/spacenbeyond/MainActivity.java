@@ -11,10 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 public class MainActivity extends AppCompatActivity {
-    private EditText inputNome;
-    private EditText inputEmail;
-    private EditText inputSenha;
+    private TextInputLayout inputNome;
+    private TextInputLayout inputEmail;
+    private TextInputLayout inputSenha;
     private Button cirarButton;
     private Button loginButton;
 
@@ -27,58 +30,52 @@ public class MainActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.textInputLayout3);
         inputSenha = findViewById(R.id.textInputLayout4);
         cirarButton = findViewById(R.id.material_icon_button);
-        loginButton = findViewById(R.id.button2);
+        //loginButton = findViewById(R.id.button2);
 
         cirarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nome = inputNome.getText().toString();
-                String email = inputEmail.getText().toString();
-                String senha = inputSenha.getText().toString();
+                String nome = inputNome.getEditText().toString();
+                String email = inputEmail.getEditText().toString();
+                String senha = inputSenha.getEditText().toString();
 
                 validarCampos(nome, email, senha);
             }
         });
-
     }
 
-    private void validarCampos(String nome, String email, String senha){
-        if (nome.isEmpty() && email.isEmpty() && senha.isEmpty()){
-            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_LONG ).show();
-        }else{
-            Toast.makeText(this, "Dados estão ok! Verifique que o seu email é válido.", Toast.LENGTH_LONG ).show();
+    private void validarCampos(String nome, String email, String senha) {
+        if (nome.isEmpty() && email.isEmpty() && senha.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Dados estão ok! Verifique que o seu email é válido.", Toast.LENGTH_LONG).show();
         }
-
-        public boolean isValid(String email) {
-            String email1 = inputEmail.getText().toString();
-            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                    "[a-zA-Z0-9_+&*-]+)*@" +
-                    "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                    "A-Z]{2,7}$";
-
-            Pattern pat = Pattern.compile(emailRegex);
-            if (email1 == null)
-                return false;
-            return pat.matcher(email1).matches();
-
-            if (isValid(email)) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-
-                Bundle bundle = new Bundle();
-
-                bundle.putString("EMAIL", email1);
-
-                intent.putExtras(bundle);
-
-                startActivity(intent);
-
-        }
-            else {
-                System.out.println("Email inválido!");
-            }
-
     }
 
-
-
+//    public boolean isValid(String email) {
+//        String email1 = inputEmail.getText().toString();
+//        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";
+//
+//        Pattern pat = Pattern.compile(emailRegex);
+//        if (email1 == null) {
+//            return false;
+//        }
+//        return pat.matcher(email1).matches();
+//
+//        if (isValid(email)) {
+//            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//
+//            Bundle bundle = new Bundle();
+//
+//            bundle.putString("EMAIL", email1);
+//
+//            intent.putExtras(bundle);
+//
+//            startActivity(intent);
+//
+//        }
+//        else {
+//            System.out.println("Email inválido!");
+//        }
+//    }
 }
