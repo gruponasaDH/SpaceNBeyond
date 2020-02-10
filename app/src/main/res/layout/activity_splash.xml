@@ -27,7 +27,7 @@
         android:fontFamily="@font/montserrat"
         android:text="@string/crie_hashtags_a_partir_da_foto_do_dia_da_nasa_e_compartilhe_seus_posts_criativos"
         android:textAlignment="center"
-        android:textColor="@color/TextColor"
+        android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
