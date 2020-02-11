@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextView txtcadastreSe;
     private Button btnLogin;
+    private EditText txtEmail;
+    private EditText txtSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +27,13 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView txtEmail = (TextView)findViewById(R.id.txtEmail);
-                TextView txtSenha = (TextView)findViewById(R.id.txtSenha);
                 String email = txtEmail.getText().toString();
                 String senha = txtSenha.getText().toString();
-                if (txtEmail.equals("Leandro")&& txtSenha.equals("123")){
-                    alert("Login realizado com sucesso");
-                    Intent intent = new Intent(LoginActivity.this, TelaUsuario.class);
-                    startActivity(intent);
+                if (email != "" && senha != ""){
+                    Toast.makeText(LoginActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    alert("Login ou senha incorretos");
+                    Toast.makeText(LoginActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -56,5 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin = findViewById(R.id.btnLogin);
         txtcadastreSe = findViewById(R.id.textCadastreSe);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtSenha = findViewById(R.id.txtSenha);
     }
 }
