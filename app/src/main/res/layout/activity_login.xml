@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00243A"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_logo" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="8dp"
+        android:background="#FFFDFD"
+        android:textColorHint="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/txtSenha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageLogo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="36dp"
+            android:fontFamily="@font/montserrat"
+            android:hint="@string/e_mail"
+            android:minWidth="64dp"
+            android:textColor="@android:color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtSenha"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="16dp"
+        android:background="#FFFDFD"
+        android:textColorHint="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="36dp"
+            android:fontFamily="@font/montserrat"
+            android:hint="@string/senha"
+            android:minWidth="64dp"
+            android:textColor="@android:color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="310dp"
+        android:layout_height="57dp"
+
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="8dp"
+        android:background="#FFF03A"
+        android:fontFamily="@font/fira_sans"
+        android:text="@string/login"
+        android:textColor="@android:color/black"
+        app:backgroundTint="#FFF03A"
+        app:layout_constraintBottom_toTopOf="@+id/textEsqueci"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSenha"
+        tools:ignore="MissingConstraints"
+        tools:text="@string/login" />
+
+    <TextView
+        android:id="@+id/textEsqueci"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Esqueci minha senha"
+        android:textColor="#FFF03A"
+        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="115dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:background="#C0CCDA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textEsqueci" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="26dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginRight="33dp"
+        android:fontFamily="@font/montserrat"
+        android:text="OU"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="115dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:background="#C0CCDA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/googleButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:background="#ED2524"
+        android:fontFamily="@font/fira_sans"
+        android:text="Google"
+        android:textAppearance="@style/googleButton"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:backgroundTint="#ED2524"
+        app:icon="@drawable/ic_google"
+        app:iconSize="28dp"
+        app:iconTint="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/facebookButton"
+        app:layout_constraintEnd_toStartOf="@+id/facebookButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/facebookButton"
+        app:rippleColor="#ED2524" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/facebookButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:background="#3B5998"
+        android:fontFamily="@font/fira_sans"
+        android:text="@string/facebook"
+        android:textAppearance="@style/facebookButton"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#3B5998"
+        android:textSize="14sp"
+        app:backgroundTint="#3B5998"
+        app:icon="@drawable/ic_facebook"
+        app:iconSize="28dp"
+        app:iconTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/googleButton"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:rippleColor="#3B5998" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginLeft="128dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Ainda nao tem conta?"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/textCadastreSe"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textCadastreSe"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textCadastreSe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/cadastre_se"
+        android:textColor="#FFF03A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
