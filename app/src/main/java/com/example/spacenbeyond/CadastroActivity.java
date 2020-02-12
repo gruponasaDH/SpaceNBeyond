@@ -19,8 +19,6 @@ public class CadastroActivity extends AppCompatActivity {
     private TextInputLayout txtEmail;
     private TextInputLayout txtSenha;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

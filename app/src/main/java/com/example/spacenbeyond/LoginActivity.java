@@ -10,12 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 public class LoginActivity extends AppCompatActivity {
 
     private TextView txtcadastreSe;
     private Button btnLogin;
-    private EditText txtEmail;
-    private EditText txtSenha;
+    private TextInputLayout txtEmail;
+    private TextInputLayout txtSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = txtEmail.getText().toString();
-                String senha = txtSenha.getText().toString();
+                String email = txtEmail.getEditText().toString();
+                String senha = txtSenha.getEditText().toString();
                 if (email != "" && senha != ""){
                     Toast.makeText(LoginActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
                 }
