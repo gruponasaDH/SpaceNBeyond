@@ -29,15 +29,7 @@ public class CadastroActivity extends AppCompatActivity {
         btncriarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nome = txtNome.getEditText().toString();
-                String email = txtEmail.getEditText().toString();
-                String senha = txtSenha.getEditText().toString();
-                if (nome != "" && email != "" && senha != "") {
-                    Toast.makeText(CadastroActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    Toast.makeText(CadastroActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
-                }
+                verifyFields();
             }
         });
 
@@ -48,6 +40,18 @@ public class CadastroActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void verifyFields() {
+        String nome = txtNome.getEditText().toString();
+        String email = txtEmail.getEditText().toString();
+        String senha = txtSenha.getEditText().toString();
+        if (nome.isEmpty() && email.isEmpty() && senha.isEmpty()) {
+            Toast.makeText(CadastroActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(CadastroActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void initViews() {

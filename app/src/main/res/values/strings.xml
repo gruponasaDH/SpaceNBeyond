@@ -3,7 +3,6 @@
     <string name="j_tem_uma_conta_fa_a">Já tem uma conta? Faça</string>
     <string name="crie_hashtags_a_partir_da_foto_do_dia_da_nasa_e_compartilhe_seus_posts_criativos">Crie hashtags a partir da foto do dia da NASA e compartilhe seus posts criativos!</string>
     <string name="facebook">Facebook</string>
-    <string name="ou">OU</string>
     <string name="OU">OU</string>
     <string name="criar_conta">Criar conta</string>
     <string name="senha">Senha</string>
@@ -12,4 +11,6 @@
     <string name="login">Login</string>
     <string name="google">Google</string>
     <string name="cadastre_se">Cadastre-se</string>
+    <string name="ainda_n_o_tem_conta">Ainda não tem conta?</string>
+    <string name="esqueci_minha_senha">Esqueci minha senha</string>
 </resources>
