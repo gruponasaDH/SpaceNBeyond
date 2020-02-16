@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/imageLogo"
-        android:layout_width="80dp"
+        android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/txtEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,14 +22,14 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtEmail"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginLeft="45dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="8dp"
-        android:background="#FFFDFD"
+        android:background="@android:color/white"
         android:textColorHint="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/txtSenha"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,24 +39,22 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:height="36dp"
             android:fontFamily="@font/montserrat"
             android:hint="@string/e_mail"
-            android:minWidth="64dp"
-            android:textColor="@android:color/black" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtSenha"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="16dp"
-        android:background="#FFFDFD"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/white"
         android:textColorHint="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,11 +64,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:height="36dp"
             android:fontFamily="@font/montserrat"
-            android:hint="@string/senha"
-            android:minWidth="64dp"
-            android:textColor="@android:color/black" />
+            android:inputType="text"
+            android:hint="@string/senha"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -114,7 +110,7 @@
         android:id="@+id/view"
         android:layout_width="115dp"
         android:layout_height="1dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
         android:background="#C0CCDA"
@@ -180,7 +176,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
         android:background="#3B5998"
@@ -203,10 +199,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginLeft="128dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginLeft="124dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/ainda_n_o_tem_conta"
         android:textColor="#FFFFFF"
@@ -220,7 +214,7 @@
         android:id="@+id/textCadastreSe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/cadastre_se"
         android:textColor="#FFF03A"

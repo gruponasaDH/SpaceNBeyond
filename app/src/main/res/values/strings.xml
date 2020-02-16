@@ -13,4 +13,7 @@
     <string name="cadastre_se">Cadastre-se</string>
     <string name="ainda_n_o_tem_conta">Ainda não tem conta?</string>
     <string name="esqueci_minha_senha">Esqueci minha senha</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
