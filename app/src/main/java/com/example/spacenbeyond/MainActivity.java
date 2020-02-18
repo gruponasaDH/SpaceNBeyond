@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //replaceFragments(R.id.container, new HashtagFragment());
+
         initViews();
-
-
     }
 
     private void changeDate() {
@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         textViewAno.setText(currentDate[5].toString());
-
         datePickerTimeline.deactivateDates(dates);
     }
 
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             textViewMes.setText("Mai");
         }
         else if (month == 6) {
-            textViewMes.setText("Jul");
+            textViewMes.setText("Jun");
         }
         else if (month == 7) {
             textViewMes.setText("Jul");
@@ -124,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
             textViewMes.setText("Dez");
         }
 
-        textViewAno.setText(year);
+        String ano = String.valueOf(year);
+        textViewAno.setText(ano);
     }
 
     private void initViews() {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         datePickerTimeline = findViewById(R.id.datePickerTimeline);
 
-        datePickerTimeline.setInitialDate(2020, 1, 16);
+        datePickerTimeline.setInitialDate(1995, 6, 18);
 
         datePickerTimeline.setOnDateSelectedListener(new OnDateSelectedListener() {
             @Override
