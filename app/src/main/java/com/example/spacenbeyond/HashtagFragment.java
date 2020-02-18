@@ -9,11 +9,13 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HashtagFragment extends Fragment {
 
+    private ImageView imageViewBack;
     private FloatingActionButton floatingActionButtonCamera;
 
     public HashtagFragment() {
@@ -25,7 +27,14 @@ public class HashtagFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hashtag, container, false);
 
-        floatingActionButtonCamera = view.findViewById(R.id.floatingActionButtonCamera);
+        initViews(view);
+
+        imageViewBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closefragment();
+            }
+        });
 
         floatingActionButtonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +45,17 @@ public class HashtagFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void closefragment() {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations( R.anim.slide_up, 0, 0, R.anim.slide_down).remove(this).commit();
+    }
+
+    public void initViews(View view) {
+
+        floatingActionButtonCamera = view.findViewById(R.id.floatingActionButtonCamera);
+        imageViewBack = view.findViewById(R.id.ic_back);
     }
 
 }
