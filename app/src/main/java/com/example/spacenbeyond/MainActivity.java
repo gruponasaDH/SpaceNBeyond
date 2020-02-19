@@ -1,6 +1,7 @@
 package com.example.spacenbeyond;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                replaceFragments(R.id.container, new EditContaFragment());
 
             }
         });
@@ -261,5 +263,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+            super.onBackPressed();
     }
+
 }
