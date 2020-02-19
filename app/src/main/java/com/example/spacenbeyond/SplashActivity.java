@@ -35,7 +35,6 @@ public class SplashActivity extends AppCompatActivity {
         marca.setAnimation(topAnimation);
         descricao.setAnimation(bottomAnimation);
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -45,5 +44,4 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, splashTimeOut);
     }
-
 }

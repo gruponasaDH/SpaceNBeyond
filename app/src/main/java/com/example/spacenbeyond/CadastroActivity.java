@@ -29,15 +29,7 @@ public class CadastroActivity extends AppCompatActivity {
         btncriarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nome = txtNome.getEditText().toString();
-                String email = txtEmail.getEditText().toString();
-                String senha = txtSenha.getEditText().toString();
-                if (nome != "" && email != "" && senha != "") {
-                    Toast.makeText(CadastroActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    Toast.makeText(CadastroActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
-                }
+                verifyFields();
             }
         });
 
@@ -48,6 +40,19 @@ public class CadastroActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void verifyFields() {
+        String nome = txtNome.getEditText().getText().toString();
+        String email = txtEmail.getEditText().getText().toString();
+        String senha = txtSenha.getEditText().getText().toString();
+        if (!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
+            Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(CadastroActivity.this, "Por favor, forneça os dados necessários para cadastro.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void initViews() {

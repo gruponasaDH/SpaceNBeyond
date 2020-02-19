@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,14 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = txtEmail.getEditText().toString();
-                String senha = txtSenha.getEditText().toString();
-                if (email != "" && senha != ""){
-                    Toast.makeText(LoginActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
-                }
+               verifyFields();
             }
         });
 
@@ -49,8 +41,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void alert(String s){
-        Toast.makeText(this,s,Toast.LENGTH_LONG).show();
+    public void verifyFields() {
+        String email = txtEmail.getEditText().getText().toString();
+        String senha = txtSenha.getEditText().getText().toString();
+
+        if (!email.isEmpty() && !senha.isEmpty()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(LoginActivity.this, "Por favor, forneça os dados necessários para login.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void initViews() {
