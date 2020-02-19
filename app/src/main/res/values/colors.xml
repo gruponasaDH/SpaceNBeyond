@@ -3,4 +3,5 @@
     <color name="colorPrimary">#00243A</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#FFF03A</color>
+    <color name="botao_amarelo">#FFF03A</color>
 </resources>

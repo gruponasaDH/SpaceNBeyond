@@ -1,8 +1,10 @@
-package com.example.spacenbeyond;
+package com.example.spacenbeyond.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.spacenbeyond.R;
 
 public class TelaUsuario extends AppCompatActivity {
 

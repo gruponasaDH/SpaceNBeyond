@@ -1,4 +1,4 @@
-package com.example.spacenbeyond;
+package com.example.spacenbeyond.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.spacenbeyond.R;
 
 public class SplashActivity extends AppCompatActivity {
 
