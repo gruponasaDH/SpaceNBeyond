@@ -66,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragments(R.id.container, new HashtagFragment());
             }
         });
+
+        imageViewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void updateLabel(Calendar myCalendar) {
@@ -234,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDisabledDateSelected(int year, int month, int day, int dayOfWeek, boolean isDisabled) {
-                // Do Something
+
             }
         });
         datePickerTimeline.setDateTextColor(Color.WHITE);

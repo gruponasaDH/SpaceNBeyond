@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00243A"
+    android:background="@color/colorPrimary"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:hint="@string/senha"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,12 +81,12 @@
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="8dp"
-        android:background="#FFF03A"
+        android:background="@color/colorAccent"
         android:fontFamily="@font/fira_sans_bold"
         android:text="@string/login"
         android:textAppearance="@style/criarButton"
         android:textColor="@android:color/black"
-        app:backgroundTint="#FFF03A"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/textEsqueci"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/esqueci_minha_senha"
-        android:textColor="#FFF03A"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@+id/btnLogin"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin"
         tools:ignore="MissingConstraints" />
@@ -113,7 +113,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
-        android:background="#C0CCDA"
+        android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textEsqueci" />
 
@@ -127,7 +127,7 @@
         android:layout_marginRight="33dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/OU"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@+id/view"
         app:layout_constraintStart_toEndOf="@+id/view2"
@@ -140,7 +140,7 @@
         android:layout_height="1dp"
         android:layout_marginStart="45dp"
         android:layout_marginLeft="45dp"
-        android:background="#C0CCDA"
+        android:background="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view" />
 
@@ -153,21 +153,20 @@
         android:layout_marginLeft="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="#ED2524"
+        android:background="@color/google_button"
         android:fontFamily="@font/fira_sans"
         android:text="@string/google"
         android:textAppearance="@style/googleButton"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
         android:textSize="14sp"
-        app:backgroundTint="#ED2524"
+        app:backgroundTint="@color/google_button"
         app:icon="@drawable/ic_google"
         app:iconSize="28dp"
         app:iconTint="@null"
         app:layout_constraintBottom_toBottomOf="@+id/facebookButton"
         app:layout_constraintEnd_toStartOf="@+id/facebookButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/facebookButton"
-        app:rippleColor="#ED2524" />
+        app:layout_constraintTop_toTopOf="@+id/facebookButton" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/facebookButton"
@@ -179,21 +178,20 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
-        android:background="#3B5998"
+        android:background="@color/facebook_button"
         android:fontFamily="@font/fira_sans"
         android:text="@string/facebook"
         android:textAppearance="@style/facebookButton"
-        android:textColor="#FFFFFF"
-        android:textColorHighlight="#3B5998"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@color/facebook_button"
         android:textSize="14sp"
-        app:backgroundTint="#3B5998"
+        app:backgroundTint="@color/facebook_button"
         app:icon="@drawable/ic_facebook"
         app:iconSize="28dp"
         app:iconTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/googleButton"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:rippleColor="#3B5998" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
         android:id="@+id/textView"
@@ -203,7 +201,7 @@
         android:layout_marginLeft="124dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/ainda_n_o_tem_conta"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/textCadastreSe"
         app:layout_constraintEnd_toStartOf="@+id/textCadastreSe"
         app:layout_constraintStart_toStartOf="parent"
@@ -217,7 +215,7 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/cadastre_se"
-        android:textColor="#FFF03A"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/facebookButton"
         app:layout_constraintStart_toEndOf="@+id/textView"

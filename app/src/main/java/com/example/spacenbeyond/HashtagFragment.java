@@ -19,7 +19,7 @@ public class HashtagFragment extends Fragment {
     private FloatingActionButton floatingActionButtonCamera;
 
     public HashtagFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -57,5 +57,4 @@ public class HashtagFragment extends Fragment {
         floatingActionButtonCamera = view.findViewById(R.id.floatingActionButtonCamera);
         imageViewBack = view.findViewById(R.id.ic_back);
     }
-
 }
