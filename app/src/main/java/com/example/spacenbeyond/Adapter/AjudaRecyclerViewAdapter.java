@@ -35,14 +35,14 @@ public class AjudaRecyclerViewAdapter extends RecyclerView.Adapter<AjudaRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AjudaRecyclerViewAdapter.ViewHolder holder, int position) {
-        final Ajuda ajuda = ajuda.get(position);
-        holder.onBind(ajuda);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //final Ajuda ajuda = ajuda.get(position);
+        holder.onBind((Ajuda) ajuda);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.enviaAjuda(ajuda);
+                listener.enviaAjuda((Ajuda) ajuda);
             }
         });
     }

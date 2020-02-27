@@ -13,7 +13,7 @@ public class Ajuda implements Parcelable {
         this.subtitle = subtitle;
     }
 
-    protected Ajuda(Parcel in) {
+    public Ajuda(Parcel in) {
         title = in.readString();
         subtitle = in.readString();
     }
@@ -56,5 +56,4 @@ public class Ajuda implements Parcelable {
         dest.writeString(title);
         dest.writeString(subtitle);
     }
-
 }
