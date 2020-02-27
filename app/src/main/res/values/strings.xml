@@ -12,4 +12,7 @@
     <string name="login">Login</string>
     <string name="google">Google</string>
     <string name="cadastre_se">Cadastre-se</string>
+    <string name="ajuda">Ajuda</string>
+    <string name="msg">Title goes here</string>
+    <string name="subtitle">Subtitle here</string>
 </resources>
