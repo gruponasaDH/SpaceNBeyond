@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Views.HomeFragmento">
+
     <ImageView
         android:id="@+id/imagem"
         android:layout_width="389dp"
         android:layout_height="182dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/nasa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
@@ -21,12 +22,12 @@
         android:id="@+id/fotonome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="44dp"
         android:text="@string/nome_da_foto"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,30 +56,30 @@
 
     <ImageView
         android:id="@+id/favoritos"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="148dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="36dp"
         android:src="@mipmap/outline_favorite_border_black_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintHorizontal_bias="0.734"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/compartilhar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="232dp"
-        android:layout_marginBottom="148dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginBottom="36dp"
         android:src="@mipmap/outline_share_black_18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/dowlowd"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="148dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="36dp"
         android:src="@mipmap/outline_save_alt_black_36"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/favoritos"
@@ -87,26 +88,26 @@
 
     <Button
         android:id="@+id/buttonEng"
-        android:layout_width="76dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="148dp"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="28dp"
         android:background="@color/ColorBranco"
         android:text="@string/eng"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/compartilhar"
-        app:layout_constraintHorizontal_bias="0.679"
+        app:layout_constraintHorizontal_bias="0.896"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_pt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="148dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="28dp"
         android:background="@color/ColorBranco"
         android:text="@string/pt_br"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonEng"
-        app:layout_constraintHorizontal_bias="0.648"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
