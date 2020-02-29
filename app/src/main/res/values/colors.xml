@@ -6,4 +6,7 @@
     <color name="google_button">#ED2524</color>
     <color name="facebook_button">#3B5998</color>
     <color name="top_color_hashfragment">#C0CCDA</color>
+    <color name="ColorFundo">#00243A</color>
+    <color name="ColorButton">#C0CCDA</color>
+    <color name="ColorBranco">#FFFFFF</color>
 </resources>
