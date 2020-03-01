@@ -10,10 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/imageView_ajuda"
+            android:layout_width="320dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/container1"
+            app:layout_constraintStart_toStartOf="@id/container1"
+            app:layout_constraintTop_toTopOf="@+id/container1" />
+
         <LinearLayout
-            android:id="@+id/cotainer1"
-            android:layout_width="370dp"
-            android:layout_height="370dp"
+            android:id="@+id/container1"
+            android:layout_width="320dp"
+            android:layout_height="320dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
@@ -27,17 +37,17 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="370dp"
+                android:layout_width="320dp"
                 android:layout_height="170dp"
                 android:layout_marginTop="196dp"
                 android:background="#9AFFFFFF"
-                app:layout_constraintEnd_toEndOf="@id/cotainer1"
-                app:layout_constraintStart_toStartOf="@id/cotainer1"
-                app:layout_constraintTop_toTopOf="@id/cotainer1">>
+                app:layout_constraintEnd_toEndOf="@id/container1"
+                app:layout_constraintStart_toStartOf="@id/container1"
+                app:layout_constraintTop_toTopOf="@id/container1">
 
                 <LinearLayout
                     android:id="@+id/container2"
-                    android:layout_width="370dp"
+                    android:layout_width="320dp"
                     android:layout_height="170dp"
                     android:background="#9AFFFFFF"
                     android:orientation="vertical"
@@ -47,7 +57,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/title"
+                        android:id="@+id/text_view_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -58,7 +68,7 @@
                         android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/subtitle"
+                        android:id="@+id/text_view_subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -71,6 +81,7 @@
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -4,16 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Ajuda implements Parcelable {
-
+    private int imageView_ajuda;
     private String title;
     private String subtitle;
 
-    public Ajuda(String title, String subtitle) {
+    public Ajuda(int imageView_ajuda, String title, String subtitle) {
+        this.imageView_ajuda = imageView_ajuda;
         this.title = title;
         this.subtitle = subtitle;
     }
 
     public Ajuda(Parcel in) {
+        imageView_ajuda = in.readInt();
         title = in.readString();
         subtitle = in.readString();
     }
@@ -29,6 +31,14 @@ public class Ajuda implements Parcelable {
             return new Ajuda[size];
         }
     };
+
+    public int getImageView_ajuda() {
+        return imageView_ajuda;
+    }
+
+    public void setImageView_ajuda(int imageView_ajuda) {
+        this.imageView_ajuda = imageView_ajuda;
+    }
 
     public String getTitle() {
         return title;
@@ -53,6 +63,7 @@ public class Ajuda implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(imageView_ajuda);
         dest.writeString(title);
         dest.writeString(subtitle);
     }
