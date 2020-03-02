@@ -2,33 +2,34 @@ package com.example.spacenbeyond.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageButton;
 
-public class Ajuda implements Parcelable {
+public class DadosAjuda implements Parcelable {
     private int imageView_ajuda;
     private String title;
     private String subtitle;
 
-    public Ajuda(int imageView_ajuda, String title, String subtitle) {
+    public DadosAjuda(int imageView_ajuda, String title, String subtitle) {
         this.imageView_ajuda = imageView_ajuda;
         this.title = title;
         this.subtitle = subtitle;
     }
 
-    public Ajuda(Parcel in) {
+    public DadosAjuda(Parcel in) {
         imageView_ajuda = in.readInt();
         title = in.readString();
         subtitle = in.readString();
     }
 
-    public static final Creator<Ajuda> CREATOR = new Creator<Ajuda>() {
+    public static final Creator<DadosAjuda> CREATOR = new Creator<DadosAjuda>() {
         @Override
-        public Ajuda createFromParcel(Parcel in) {
-            return new Ajuda(in);
+        public DadosAjuda createFromParcel(Parcel in) {
+            return new DadosAjuda(in);
         }
 
         @Override
-        public Ajuda[] newArray(int size) {
-            return new Ajuda[size];
+        public DadosAjuda[] newArray(int size) {
+            return new DadosAjuda[size];
         }
     };
 

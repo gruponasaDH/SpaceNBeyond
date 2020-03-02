@@ -1,8 +1,8 @@
 package com.example.spacenbeyond.Interfaces;
 
 
-import com.example.spacenbeyond.Model.Ajuda;
+import com.example.spacenbeyond.Model.DadosAjuda;
 
 public interface AjudaListener {
-    void enviaAjuda(Ajuda ajuda);
+    void enviaAjuda(DadosAjuda dadosajuda);
 }
