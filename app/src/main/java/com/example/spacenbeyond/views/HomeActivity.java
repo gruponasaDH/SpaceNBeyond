@@ -1,0 +1,83 @@
+package com.example.spacenbeyond.views;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.example.spacenbeyond.Interface.ComunicacaoFragmentHome;
+import com.example.spacenbeyond.Model.DadosHome;
+import com.example.spacenbeyond.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import static com.example.spacenbeyond.constantes.Constantes.DADOS_HOME;
+
+public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private BottomNavigationView navigationView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+
+        replaceFragments(R.id.container, new HomeFragmento());
+    }
+
+    private void replaceFragments(int container, Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(container, fragment);
+        transaction.commit();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+
+        navigationView = (BottomNavigationView) findViewById(R.id.navigationView);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        navigationView = (BottomNavigationView) findViewById(R.id.bottomNav);
+        navigationView.setOnNavigationItemSelectedListener(this);
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_hashtags: {
+                getSupportActionBar().setTitle("Hashtag");
+                Fragment hashtagFragment = HashtagFragment.newInstance();
+                openFragment(hashtagFragment);
+                break;
+            }
+            case R.id.navigation_favoritos: {
+                getSupportActionBar().setTitle("Favoritos");
+                Fragment favoritoFragment = FavoritoFragment.newInstance();
+                openFragment(favoritoFragment);
+                break;
+            }
+            case R.id.navigation_ajuda: {
+                getSupportActionBar().setTitle("Ajuda");
+                Fragment ajudaFragment = AjudaFragment.newInstance();
+                openFragment(ajudaFragment);
+                break;
+            }
+        }
+        return true;
+    }
+    private void openFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+        }
