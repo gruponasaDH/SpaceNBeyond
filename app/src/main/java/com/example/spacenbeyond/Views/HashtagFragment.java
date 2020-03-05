@@ -1,4 +1,4 @@
-package com.example.spacenbeyond;
+package com.example.spacenbeyond.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.spacenbeyond.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HashtagFragment extends Fragment {
@@ -19,7 +20,6 @@ public class HashtagFragment extends Fragment {
     private FloatingActionButton floatingActionButtonCamera;
 
     public HashtagFragment() {
-
     }
 
     @Override
@@ -46,7 +46,6 @@ public class HashtagFragment extends Fragment {
 
         return view;
     }
-
     private void closefragment() {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations( R.anim.slide_up, 0, 0, R.anim.slide_down).remove(this).commit();

@@ -1,4 +1,4 @@
-package com.example.spacenbeyond;
+package com.example.spacenbeyond.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.spacenbeyond.R;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -38,9 +40,8 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent homeIntent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(homeIntent);
-                finish();
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         }, splashTimeOut);
     }

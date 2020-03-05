@@ -1,4 +1,4 @@
-package com.example.spacenbeyond;
+package com.example.spacenbeyond.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spacenbeyond.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -47,7 +48,7 @@ public class CadastroActivity extends AppCompatActivity {
         String email = txtEmail.getEditText().getText().toString();
         String senha = txtSenha.getEditText().getText().toString();
         if (!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
-            Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+            Intent intent = new Intent(CadastroActivity.this, HomeActivity.class);
             startActivity(intent);
         }
         else {

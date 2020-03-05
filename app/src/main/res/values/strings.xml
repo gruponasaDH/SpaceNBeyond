@@ -17,6 +17,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="activity_login">login</string>
+    <string name="nome_da_foto">NOME DA FOTO</string>
+    <string name="nome_autor">NOME AUTOR</string>
+    <string name="descri_o">Descrição</string>
+    <string name="pt_br">´PT-BR</string>
+    <string name="eng">ENG</string>
     <string name="alterar_foto">Alterar foto</string>
     <string name="salvar_alteracoes">Salvar alterações</string>
     <string name="logout">Logout</string>
