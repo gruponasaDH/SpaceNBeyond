@@ -24,7 +24,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatePickerDialog datePickerTimeline;
+    private DatePickerTimeline datePickerTimeline;
     private TextView textViewMes;
     private TextView textViewAno;
 
