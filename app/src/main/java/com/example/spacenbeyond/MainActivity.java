@@ -22,7 +22,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatePickerTimeline datePickerTimeline;
+    private DatePickerDialog datePickerTimeline;
     private TextView textViewMes;
     private TextView textViewAno;
 
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
 }
