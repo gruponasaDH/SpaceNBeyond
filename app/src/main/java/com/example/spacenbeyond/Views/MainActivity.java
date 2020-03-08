@@ -1,7 +1,6 @@
 package com.example.spacenbeyond.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.spacenbeyond.EditContaFragment;
 import com.example.spacenbeyond.R;
 import com.vivekkaushik.datepicker.DatePickerTimeline;
 import com.vivekkaushik.datepicker.OnDateSelectedListener;
@@ -228,7 +226,8 @@ public class MainActivity extends AppCompatActivity {
 
         imageViewCalendar = findViewById(R.id.imageViewCalendar);
         imageViewUser = findViewById(R.id.imageViewUser);
-        imageViewCamera = findViewById(R.id.imageViewHash);
+
+
 
         textViewMes = findViewById(R.id.textViewMes);
         textViewAno = findViewById(R.id.textViewAno);

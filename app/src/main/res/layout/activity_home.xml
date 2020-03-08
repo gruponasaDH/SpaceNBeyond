@@ -9,35 +9,37 @@
 
     <LinearLayout
         android:id="@+id/container"
-        android:layout_width="419dp"
-        android:layout_height="380dp"
+        android:layout_width="411dp"
+        android:layout_height="403dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="3"
-        android:colorText="@color/ColorBranco"
+        android:background="@color/ColorBranco"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.914" />
+        app:layout_constraintVertical_bias="0.716" />
 
     <com.vivekkaushik.datepicker.DatePickerTimeline
         android:id="@+id/datePickerTimeline"
-        android:layout_width="408dp"
-        android:layout_height="73dp"
+        android:layout_width="416dp"
+        android:layout_height="82dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="486dp"
-        android:background="@color/Write"
+        app:dateTextColor="@color/ColorBranco"
+        app:dayTextColor="@color/ColorBranco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAno"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.157"
+        app:monthTextColor="@color/ColorBranco" />
 
     <ImageView
         android:id="@+id/imageViewUser"
@@ -64,18 +66,18 @@
 
     <TextView
         android:id="@+id/textViewMes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="67dp"
+        android:layout_width="96dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/fira_sans"
-        android:textColor="@color/white"
+        android:text="Jan"
+        android:textColor="@color/ColorBranco"
         android:textSize="45sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewAno"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Jan" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewAno"
@@ -84,27 +86,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/fira_sans"
+        android:text="2020"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.561"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMes"
-        tools:text="2020" />
-
-    <ImageView
-        android:id="@+id/imageViewHash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="102dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="348dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePickerTimeline"
-        app:srcCompat="@mipmap/outline_add_a_photo_white_36" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewMes" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

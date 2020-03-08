@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/imagem"
-        android:layout_width="389dp"
-        android:layout_height="182dp"
+        android:layout_width="413dp"
+        android:layout_height="178dp"
         android:layout_marginTop="120dp"
         android:background="@drawable/marca"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,12 +22,12 @@
         android:id="@+id/fotonome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
         android:text="@string/nome_da_foto"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

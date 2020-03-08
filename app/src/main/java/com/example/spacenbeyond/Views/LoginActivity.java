@@ -10,24 +10,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spacenbeyond.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
     private TextView txtcadastreSe;
     private Button btnLogin;
-    private TextInputLayout txtEmail;
-    private TextInputLayout txtSenha;
+    private TextInputEditText txtEmail;
+    private TextInputEditText txtSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        
         initViews();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               verifyFields();
+                verifyFields();
             }
         });
 
@@ -40,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void verifyFields() {
-        String email = txtEmail.getEditText().getText().toString();
-        String senha = txtSenha.getEditText().getText().toString();
+        String email = txtEmail.getText().toString();
+        String senha = txtSenha.getText().toString();
 
         if (!email.isEmpty() && !senha.isEmpty()) {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
