@@ -9,8 +9,8 @@
 
     <LinearLayout
         android:id="@+id/container"
-        android:layout_width="411dp"
-        android:layout_height="403dp"
+        android:layout_width="412dp"
+        android:layout_height="464dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_weight="3"
@@ -18,15 +18,15 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.716" />
+        app:layout_constraintVertical_bias="0.835" />
 
     <com.vivekkaushik.datepicker.DatePickerTimeline
         android:id="@+id/datePickerTimeline"
-        android:layout_width="416dp"
-        android:layout_height="82dp"
+        android:layout_width="412dp"
+        android:layout_height="100dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="2dp"
@@ -35,10 +35,10 @@
         app:dayTextColor="@color/ColorBranco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAno"
-        app:layout_constraintVertical_bias="0.157"
+        app:layout_constraintVertical_bias="0.0"
         app:monthTextColor="@color/ColorBranco" />
 
     <ImageView
@@ -66,8 +66,8 @@
 
     <TextView
         android:id="@+id/textViewMes"
-        android:layout_width="96dp"
-        android:layout_height="51dp"
+        android:layout_width="114dp"
+        android:layout_height="59dp"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/fira_sans"
         android:text="Jan"
@@ -90,6 +90,7 @@
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.404"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMes" />
 

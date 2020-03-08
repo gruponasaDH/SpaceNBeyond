@@ -11,10 +11,9 @@
         android:id="@+id/imagem"
         android:layout_width="413dp"
         android:layout_height="178dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="84dp"
         android:background="@drawable/marca"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,12 +44,11 @@
 
     <TextView
         android:id="@+id/textDescricao"
-        android:layout_width="383dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="389dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
         android:text="@string/descri_o"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.785"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagem" />
 
@@ -58,19 +56,19 @@
         android:id="@+id/favoritos"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="24dp"
         android:src="@mipmap/outline_favorite_border_black_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintHorizontal_bias="0.868"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/compartilhar"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginBottom="24dp"
         android:src="@mipmap/outline_share_black_18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -79,35 +77,35 @@
         android:id="@+id/dowlowd"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="24dp"
         android:src="@mipmap/outline_save_alt_black_36"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/favoritos"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/compartilhar" />
 
     <Button
         android:id="@+id/buttonEng"
         android:layout_width="75dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/ColorBranco"
         android:text="@string/eng"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/compartilhar"
-        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintHorizontal_bias="0.679"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_pt"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/ColorBranco"
         android:text="@string/pt_br"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonEng"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintHorizontal_bias="0.623"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

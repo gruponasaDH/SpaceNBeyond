@@ -13,13 +13,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Views.HomeActivity"></activity>
         <activity
-            android:name=".Views.SplashActivity"
+            android:name=".Views.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Views.CadastroActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Views.LoginActivity"
+            android:name=".Views.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
