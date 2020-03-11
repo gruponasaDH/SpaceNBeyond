@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".views.HomeActivity">
+    tools:context=".Views.HomeActivity">
 
     <ImageView
         android:id="@+id/imageView6"
@@ -24,7 +24,7 @@
         android:layout_width="445dp"
         android:layout_height="416dp"
         android:layout_weight="3"
-        android:background="@color/colorBranco"
+        android:background="@color/ColorBranco"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
