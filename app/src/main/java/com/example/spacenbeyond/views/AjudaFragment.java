@@ -86,4 +86,9 @@ public class AjudaFragment extends Fragment implements AjudaListener {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(R.anim.slide_up, 0, 0, R.anim.slide_down).remove(this).commit();
     }
+
+    public static AjudaFragment newInstance() {
+        return new AjudaFragment();
+    }
+
 }
