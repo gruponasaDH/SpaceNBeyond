@@ -13,4 +13,12 @@
     <string name="cadastre_se">Cadastre-se</string>
     <string name="ainda_n_o_tem_conta">Ainda não tem conta?</string>
     <string name="esqueci_minha_senha">Esqueci minha senha</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="activity_login">login</string>
+    <string name="alterar_foto">Alterar foto</string>
+    <string name="salvar_alteracoes">Salvar alterações</string>
+    <string name="logout">Logout</string>
+    <string name="excluir_conta">Excluir conta</string>
 </resources>

@@ -42,14 +42,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void verifyFields() {
-        String email = txtEmail.getEditText().toString();
-        String senha = txtSenha.getEditText().toString();
+        String email = txtEmail.getEditText().getText().toString();
+        String senha = txtSenha.getEditText().getText().toString();
 
-        if (email.isEmpty() && senha.isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
+        if (!email.isEmpty() && !senha.isEmpty()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
         }
         else {
-            Toast.makeText(LoginActivity.this, "Assim como você estamos muito animados. Por favor, aguarde mais um pouco e teremos um app maravilhoso para você.", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Por favor, forneça os dados necessários para login.", Toast.LENGTH_LONG).show();
         }
     }
 
