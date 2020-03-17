@@ -1,19 +1,18 @@
 package com.example.spacenbeyond.views;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.spacenbeyond.Interface.ImageRecyclerViewListener;
 import com.example.spacenbeyond.Model.Imagem;
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.adapter.ImagesRecyclerViewAdapter;
+import com.example.spacenbeyond.Adapter.ImagesRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

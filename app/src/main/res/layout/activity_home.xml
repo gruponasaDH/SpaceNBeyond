@@ -5,32 +5,91 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".Views.HomeA">
+    tools:context=".views.HomeActivity">
+
+    <com.vivekkaushik.datepicker.DatePickerTimeline
+        android:id="@+id/datePickerTimeline"
+        android:layout_width="412dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="486dp"
+        app:dateTextColor="@color/ColorBranco"
+        app:dayTextColor="@color/ColorBranco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAno"
+        app:layout_constraintVertical_bias="0.0"
+        app:monthTextColor="@color/ColorBranco" />
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="58dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
+        android:id="@+id/imageViewUser"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.903"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCalendar"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/outline_account_circle_white_18" />
+        app:srcCompat="@mipmap/outline_account_circle_white_36" />
+
+    <ImageView
+        android:id="@+id/imageViewCalendar"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewMes"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/outline_date_range_white_36" />
+
+    <TextView
+        android:id="@+id/textViewMes"
+        android:layout_width="114dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/fira_sans"
+        android:text="Jan"
+        android:textColor="@color/ColorBranco"
+        android:textSize="45sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewAno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/fira_sans"
+        android:text="2020"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.404"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMes" />
 
     <LinearLayout
         android:id="@+id/container"
-        android:layout_width="445dp"
-        android:layout_height="416dp"
+        android:layout_width="406dp"
+        android:layout_height="453dp"
         android:layout_weight="3"
         android:background="@color/ColorBranco"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"
