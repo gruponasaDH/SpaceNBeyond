@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Views;
+package com.example.spacenbeyond.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spacenbeyond.R;
+import com.example.spacenbeyond.views.HomeActivity;
+import com.example.spacenbeyond.views.LoginActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class CadastroActivity extends AppCompatActivity {

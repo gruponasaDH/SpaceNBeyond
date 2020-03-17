@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.HomeFragmento">
+    tools:context=".views.HomeFragmento">
 
     <ImageView
         android:id="@+id/imagem"
         android:layout_width="389dp"
         android:layout_height="182dp"
         android:layout_marginTop="120dp"
-        android:background="@drawable/nasa"
+        android:background="@drawable/galaxia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"

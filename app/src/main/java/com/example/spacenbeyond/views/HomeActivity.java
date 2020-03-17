@@ -1,20 +1,16 @@
 package com.example.spacenbeyond.views;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
-import com.example.spacenbeyond.Interface.ComunicacaoFragmentHome;
-import com.example.spacenbeyond.Model.DadosHome;
 import com.example.spacenbeyond.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import static com.example.spacenbeyond.constantes.Constantes.DADOS_HOME;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -24,8 +20,11 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        navigationView = findViewById(R.id.navigationView);
+        navigationView.setOnNavigationItemSelectedListener(this);
 
-        replaceFragments(R.id.container, new HomeFragmento());
+
+        replaceFragments(R.id.container, new com.example.spacenbeyond.views.HomeFragmento());
     }
 
     private void replaceFragments(int container, Fragment fragment) {
@@ -33,22 +32,6 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(container, fragment);
         transaction.commit();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        navigationView = (BottomNavigationView) findViewById(R.id.navigationView);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        navigationView = (BottomNavigationView) findViewById(R.id.bottomNav);
-        navigationView.setOnNavigationItemSelectedListener(this);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

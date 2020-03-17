@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ColorFundo"
-    tools:context=".Views.ImagensFragment">
+    android:background="@color/colorPrimary"
+    tools:context=".views.ImagensFragment">
 
     <ImageView
         android:layout_width="match_parent"

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ColorFundo"
-    tools:context=".Views.FavoritoFragment">
+    android:background="@color/colorPrimary"
+    tools:context=".views.FavoritoFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_images"
