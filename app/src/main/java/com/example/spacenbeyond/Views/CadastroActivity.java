@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,9 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.views.HomeActivity;
-import com.example.spacenbeyond.views.LoginActivity;
+import com.example.spacenbeyond.Views.HomeActivity;
+import com.example.spacenbeyond.Views.LoginActivity;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Objects;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -46,9 +48,9 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     public void verifyFields() {
-        String nome = txtNome.getEditText().getText().toString();
-        String email = txtEmail.getEditText().getText().toString();
-        String senha = txtSenha.getEditText().getText().toString();
+        String nome = (txtNome.getEditText()).getText().toString();
+        String email = (txtEmail.getEditText()).getText().toString();
+        String senha = (txtSenha.getEditText()).getText().toString();
         if (!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
             Intent intent = new Intent(CadastroActivity.this, HomeActivity.class);
             startActivity(intent);
@@ -61,8 +63,8 @@ public class CadastroActivity extends AppCompatActivity {
     public void initViews() {
         btncriarConta = findViewById(R.id.material_icon_button);
         txtLogin = findViewById(R.id.textViewlogin);
-        txtNome = findViewById(R.id.textInputLayout);
-        txtEmail = findViewById(R.id.textInputLayout3);
-        txtSenha = findViewById(R.id.textInputLayout4);
+        txtNome = findViewById(R.id.textInputLayoutNome);
+        txtEmail = findViewById(R.id.textInputLayoutEmail);
+        txtSenha = findViewById(R.id.textInputLayoutSenha);
     }
 }

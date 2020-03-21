@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary">
 
     <ImageButton
-        android:id="@+id/bttn_voltar"
+        android:id="@+id/btnVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

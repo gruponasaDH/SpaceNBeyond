@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import android.os.Bundle;
 
@@ -10,10 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.spacenbeyond.Interface.ImageRecyclerViewListener;
+import com.example.spacenbeyond.Adapter.ImagesRecyclerViewAdapter;
+import com.example.spacenbeyond.Interfaces.ImageRecyclerViewListener;
 import com.example.spacenbeyond.Model.Imagem;
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.adapter.ImagesRecyclerViewAdapter;
+import com.example.spacenbeyond.Adapter.ImagesRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +35,23 @@ public class FavoritoFragment extends Fragment implements ImageRecyclerViewListe
     }
 
 
+    public static FavoritoFragment newInstance() {
+        return new FavoritoFragment();
+    }
+
+    private List<Imagem> getListImages() {
+        List<Imagem> listaImagens = new ArrayList<>();
+
+        return listaImagens;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorito, container, false);
 
-        recyclerViewImages = view.findViewById(R.id.recyclerView_images);
+        recyclerViewImages = view.findViewById(R.id.RecyclerView_images);
 
         adapter = new ImagesRecyclerViewAdapter(getListImages(), (ImageRecyclerViewListener) this);
 
@@ -51,16 +62,10 @@ public class FavoritoFragment extends Fragment implements ImageRecyclerViewListe
         return view;
     }
 
-    private List<Imagem> getListImages() {
-        List<Imagem> listaImagens = new ArrayList<>();
-
-        return listaImagens;
-    }
-
     @Override
     public void enviaImages(Imagem imagem) {
 
-        Fragment fragment = new ImagensFragment();
+        Fragment fragment = new com.example.spacenbeyond.Views.ImagensFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(IMAGES_CHAVES, imagem);
         fragment.setArguments(bundle);
@@ -68,14 +73,9 @@ public class FavoritoFragment extends Fragment implements ImageRecyclerViewListe
         replaceFragment(fragment);
     }
 
-
     private void replaceFragment(Fragment fragment) {
         getActivity().getSupportFragmentManager()
                 .beginTransaction().replace(R.id.container, fragment)
                 .commit();
-    }
-
-    public static FavoritoFragment newInstance() {
-        return new FavoritoFragment();
     }
 }

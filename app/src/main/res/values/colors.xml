@@ -10,4 +10,6 @@
     <color name="top_color_hashfragment">#C0CCDA</color>
     <color name="ColorButton">#C0CCDA</color>
     <color name="ColorBranco">#FFFFFF</color>
+    <color name="ColorPreto">#000000</color>
+    <color name="ColorBtn">#C0CCDA</color>
 </resources>

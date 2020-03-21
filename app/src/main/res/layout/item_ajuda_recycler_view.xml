@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="32dp"
+    android:layout_margin="16dp"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,24 +12,21 @@
 
         <ImageView
             android:id="@+id/imageView_ajuda"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_marginTop="8dp"
-            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="@id/container1"
             app:layout_constraintStart_toStartOf="@id/container1"
             app:layout_constraintTop_toTopOf="@+id/container1" />
 
         <LinearLayout
             android:id="@+id/container1"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_height="320dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="36dp"
             android:background="#C0CCDA"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,9 +34,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="320dp"
-                android:layout_height="170dp"
-                android:layout_marginTop="196dp"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginTop="195dp"
                 android:background="#9AFFFFFF"
                 app:layout_constraintEnd_toEndOf="@id/container1"
                 app:layout_constraintStart_toStartOf="@id/container1"
@@ -47,8 +44,8 @@
 
                 <LinearLayout
                     android:id="@+id/container2"
-                    android:layout_width="320dp"
-                    android:layout_height="170dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
                     android:background="#9AFFFFFF"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"

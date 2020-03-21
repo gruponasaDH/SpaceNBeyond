@@ -1,10 +1,9 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +14,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.spacenbeyond.Interface.ComuicacaoFragmentHome;
+import com.example.spacenbeyond.Interfaces.ComunicacaoFragmentHome;
 import com.example.spacenbeyond.Model.DadosHome;
 import com.example.spacenbeyond.R;
 
-import java.util.Objects;
-
 import static com.example.spacenbeyond.constantes.Constantes.DADOS_HOME;
-import static java.util.Objects.*;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragmento extends Fragment implements ComuicacaoFragmentHome {
-    private ComuicacaoFragmentHome dadosHome;
+public class HomeFragmento extends Fragment implements ComunicacaoFragmentHome {
+    private ComunicacaoFragmentHome dadosHome;
 
     private Button eng;
     private Button pt;
@@ -44,7 +40,7 @@ public class HomeFragmento extends Fragment implements ComuicacaoFragmentHome {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            dadosHome = (ComuicacaoFragmentHome) context;
+            dadosHome = (ComunicacaoFragmentHome) context;
         } catch (Exception ex){
         ex.printStackTrace();
     } }
@@ -62,12 +58,12 @@ public class HomeFragmento extends Fragment implements ComuicacaoFragmentHome {
         return view;
     }
     private void initViews(View view) {
-        eng = view.findViewById(R.id.buttonEng);
-        pt = view.findViewById(R.id.button_pt);
+        eng = view.findViewById(R.id.btnEng);
+        pt = view.findViewById(R.id.btnPt);
         imagem = view.findViewById(R.id.imagem);
-        nomeAutor = view.findViewById(R.id.nome_Autor);
+        nomeAutor = view.findViewById(R.id.nomeAutor);
         dowlo = view.findViewById(R.id.dowlowd);
-        nomeFoto = view.findViewById(R.id.fotonome);
+        nomeFoto = view.findViewById(R.id.fotoNome);
         compartilhar = view.findViewById(R.id.compartilhar);
         favoritos = view.findViewById(R.id.favoritos);
         descricao = view.findViewById(R.id.descricao);

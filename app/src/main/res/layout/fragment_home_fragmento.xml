@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".views.HomeFragmento">
+    tools:context=".Views.HomeFragmento">
 
     <ImageView
         android:id="@+id/imagem"
-        android:layout_width="389dp"
-        android:layout_height="182dp"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
         android:layout_marginTop="120dp"
         android:background="@drawable/galaxia"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,38 +19,45 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fotonome"
+        android:id="@+id/fotoNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="28dp"
         android:text="@string/nome_da_foto"
         android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nome_Autor"
+        android:id="@+id/nomeAutor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/nome_autor"
         android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/imagem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fotonome" />
+        app:layout_constraintTop_toBottomOf="@+id/fotoNome"
+        app:layout_constraintVertical_bias="0.116" />
 
     <TextView
         android:id="@+id/textDescricao"
-        android:layout_width="383dp"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/descri_o"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.785"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagem" />
 
@@ -58,19 +65,19 @@
         android:id="@+id/favoritos"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="32dp"
         android:src="@mipmap/outline_favorite_border_black_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/compartilhar"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginStart="268dp"
+        android:layout_marginBottom="32dp"
         android:src="@mipmap/outline_share_black_18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -79,36 +86,42 @@
         android:id="@+id/dowlowd"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="32dp"
         android:src="@mipmap/outline_save_alt_black_36"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/favoritos"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toEndOf="@+id/compartilhar" />
 
-    <Button
-        android:id="@+id/buttonEng"
-        android:layout_width="75dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="28dp"
-        android:background="@color/ColorBranco"
-        android:text="@string/eng"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/compartilhar"
-        app:layout_constraintHorizontal_bias="0.896"
-        app:layout_constraintStart_toStartOf="parent" />
+    <View
+        android:id="@+id/strokeHome"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btnEng"
+        tools:layout_editor_absoluteX="-32dp" />
 
     <Button
-        android:id="@+id/button_pt"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="28dp"
-        android:background="@color/ColorBranco"
+        android:id="@+id/btnPt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/pt_br"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonEng"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="@drawable/button_custom"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="660dp" />
+
+    <Button
+        android:id="@+id/btnEng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_custom"
+        android:text="@string/eng"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="124dp"
+        tools:layout_editor_absoluteY="660dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

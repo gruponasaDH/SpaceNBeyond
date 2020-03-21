@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         navigationView.setOnNavigationItemSelectedListener(this);
 
 
-        replaceFragments(R.id.container, new com.example.spacenbeyond.views.HomeFragmento());
+        replaceFragments(R.id.container, new com.example.spacenbeyond.Views.HomeFragmento());
     }
 
     private void replaceFragments(int container, Fragment fragment) {

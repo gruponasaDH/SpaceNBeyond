@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,9 +46,8 @@ public class HashtagFragment extends Fragment {
         return view;
     }
 
-    private void closefragment() {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.slide_up, 0, 0, R.anim.slide_down).remove(this).commit();
+    public static HashtagFragment newInstance() {
+        return new HashtagFragment();
     }
 
     public void initViews(View view) {
@@ -57,8 +56,9 @@ public class HashtagFragment extends Fragment {
         imageViewBack = view.findViewById(R.id.ic_back);
     }
 
-    public static HashtagFragment newInstance() {
-        return new HashtagFragment();
+    private void closefragment() {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.slide_up, 0, 0, R.anim.slide_down).remove(this).commit();
     }
 
 }
