@@ -1,7 +1,7 @@
-package com.example.spacenbeyond.Interface;
+package com.example.spacenbeyond.Interfaces;
 
 import com.example.spacenbeyond.Model.DadosHome;
 
-public interface ComuicacaoFragmentHome {
+public interface ComunicacaoFragmentHome {
     void enviarDadosFragmentHome(DadosHome dadosHome);
 }

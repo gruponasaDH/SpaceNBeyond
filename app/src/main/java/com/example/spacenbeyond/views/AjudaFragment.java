@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.spacenbeyond.Adapter.AjudaRecyclerViewAdapter;
+import com.example.spacenbeyond.Views.Adapter.AjudaRecyclerViewAdapter;
 import com.example.spacenbeyond.Interfaces.AjudaListener;
 import com.example.spacenbeyond.Model.DadosAjuda;
 import com.example.spacenbeyond.R;
