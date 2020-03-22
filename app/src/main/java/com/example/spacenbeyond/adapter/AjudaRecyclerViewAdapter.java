@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Adapter;
+package com.example.spacenbeyond.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.spacenbeyond.Interfaces.AjudaListener;
-import com.example.spacenbeyond.Model.DadosAjuda;
+import com.example.spacenbeyond.model.DadosAjuda;
 import com.example.spacenbeyond.R;
 
 import static android.media.CamcorderProfile.get;

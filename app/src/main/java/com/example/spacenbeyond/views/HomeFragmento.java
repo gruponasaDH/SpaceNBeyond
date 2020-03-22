@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Views;
+package com.example.spacenbeyond.views;
 
 
 import android.content.Context;
@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.spacenbeyond.Interfaces.ComunicacaoFragmentHome;
-import com.example.spacenbeyond.Model.DadosHome;
+import com.example.spacenbeyond.model.DadosHome;
 import com.example.spacenbeyond.R;
 
 import static com.example.spacenbeyond.constantes.Constantes.DADOS_HOME;

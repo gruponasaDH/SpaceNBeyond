@@ -1,7 +1,6 @@
-package com.example.spacenbeyond.Views;
+package com.example.spacenbeyond.views;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.spacenbeyond.Model.Imagem;
+import com.example.spacenbeyond.model.Imagem;
 import com.example.spacenbeyond.R;
 
 import static com.example.spacenbeyond.constantes.Constantes.IMAGES_CHAVES;

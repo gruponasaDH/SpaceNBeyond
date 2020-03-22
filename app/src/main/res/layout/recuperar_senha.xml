@@ -39,7 +39,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutEmail"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="65dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="45dp"
@@ -66,7 +66,6 @@
         android:background="@color/colorAccent"
         android:fontFamily="@font/fira_sans_medium"
         android:text="@string/enviar"
-        android:textAppearance="Enviar"
         android:textColor="@color/ColorPreto"
         android:textSize="14sp"
         app:backgroundTint="@color/colorAccent"

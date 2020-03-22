@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Adapter;
+package com.example.spacenbeyond.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.spacenbeyond.Interfaces.ImageRecyclerViewListener;
-import com.example.spacenbeyond.Model.Imagem;
+import com.example.spacenbeyond.model.Imagem;
 import com.example.spacenbeyond.R;
 
 import java.util.List;

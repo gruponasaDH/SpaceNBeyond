@@ -1,9 +1,8 @@
-package com.example.spacenbeyond.Model;
+package com.example.spacenbeyond.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.Button;
-import android.widget.ImageView;
 
 public class DadosHome implements Parcelable {
     private Button eng;

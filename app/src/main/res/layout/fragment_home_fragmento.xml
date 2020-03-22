@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="415dp"
     android:orientation="vertical"
-    tools:context=".Views.HomeFragmento">
+    tools:context=".views.HomeFragmento">
 
     <ImageView
         android:id="@+id/imagem"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_marginTop="120dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/galaxia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="@string/nome_da_foto"
         android:textSize="14sp"
         android:textColor="@color/colorPrimary"
@@ -38,9 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/nome_autor"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/imagem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -52,7 +52,7 @@
         android:id="@+id/textDescricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/descri_o"
@@ -65,7 +65,7 @@
         android:id="@+id/favoritos"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:src="@mipmap/outline_favorite_border_black_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +77,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="268dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:src="@mipmap/outline_share_black_18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -86,7 +86,7 @@
         android:id="@+id/dowlowd"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:src="@mipmap/outline_save_alt_black_36"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/favoritos"
@@ -105,22 +105,28 @@
         android:id="@+id/btnPt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/top_color_hashfragment"
         android:text="@string/pt_br"
-        android:background="@drawable/button_custom"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnEng"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="660dp" />
+        app:layout_constraintTop_toTopOf="@+id/btnEng"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnEng"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_custom"
+        android:layout_marginLeft="70dp"
+        android:backgroundTint="@color/top_color_hashfragment"
         android:text="@string/eng"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="660dp" />
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/compartilhar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/compartilhar"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

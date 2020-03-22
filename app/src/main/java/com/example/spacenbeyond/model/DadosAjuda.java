@@ -1,8 +1,7 @@
-package com.example.spacenbeyond.Model;
+package com.example.spacenbeyond.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageButton;
 
 public class DadosAjuda implements Parcelable {
     private int imageView_ajuda;

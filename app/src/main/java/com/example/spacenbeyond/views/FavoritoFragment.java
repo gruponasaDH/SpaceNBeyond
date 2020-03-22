@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Views;
+package com.example.spacenbeyond.views;
 
 import android.os.Bundle;
 
@@ -10,11 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.spacenbeyond.Adapter.ImagesRecyclerViewAdapter;
+import com.example.spacenbeyond.adapter.ImagesRecyclerViewAdapter;
 import com.example.spacenbeyond.Interfaces.ImageRecyclerViewListener;
-import com.example.spacenbeyond.Model.Imagem;
+import com.example.spacenbeyond.model.Imagem;
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.Adapter.ImagesRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,7 @@ public class FavoritoFragment extends Fragment implements ImageRecyclerViewListe
     @Override
     public void enviaImages(Imagem imagem) {
 
-        Fragment fragment = new com.example.spacenbeyond.Views.ImagensFragment();
+        Fragment fragment = new com.example.spacenbeyond.views.ImagensFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(IMAGES_CHAVES, imagem);
         fragment.setArguments(bundle);

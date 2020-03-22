@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".Views.LoginActivity">
+    tools:context=".views.LoginActivity">
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -22,7 +22,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtEmail"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="65dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="45dp"
@@ -45,7 +45,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtSenha"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="65dp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="45dp"
         android:layout_marginBottom="32dp"

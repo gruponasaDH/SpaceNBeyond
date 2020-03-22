@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/btnCustom"
+        android:drawable="@drawable/btn_custom"
         >
     </item>
 
