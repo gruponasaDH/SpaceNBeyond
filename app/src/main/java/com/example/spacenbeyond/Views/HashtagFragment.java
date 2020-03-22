@@ -1,15 +1,14 @@
-package com.example.spacenbeyond.Views;
+package com.example.spacenbeyond.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.spacenbeyond.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,9 +45,10 @@ public class HashtagFragment extends Fragment {
 
         return view;
     }
+
     private void closefragment() {
         getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations( R.anim.slide_up, 0, 0, R.anim.slide_down).remove(this).commit();
+                .setCustomAnimations(R.anim.slide_up, 0, 0, R.anim.slide_down).remove(this).commit();
     }
 
     public void initViews(View view) {
@@ -56,4 +56,9 @@ public class HashtagFragment extends Fragment {
         floatingActionButtonCamera = view.findViewById(R.id.floatingActionButtonCamera);
         imageViewBack = view.findViewById(R.id.ic_back);
     }
+
+    public static HashtagFragment newInstance() {
+        return new HashtagFragment();
+    }
+
 }
