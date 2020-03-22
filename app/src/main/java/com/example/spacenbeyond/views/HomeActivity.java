@@ -1,14 +1,11 @@
 package com.example.spacenbeyond.views;
-
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.spacenbeyond.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -20,9 +17,8 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        navigationView = findViewById(R.id.navigationView);
+        navigationView = (BottomNavigationView) findViewById(R.menu.navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
-
 
         replaceFragments(R.id.container, new com.example.spacenbeyond.views.HomeFragmento());
     }
@@ -31,8 +27,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(container, fragment);
-        transaction.commit();
+        transaction.commit();   
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -63,4 +60,4 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         transaction.addToBackStack(null);
         transaction.commit();
     }
-        }
+}
