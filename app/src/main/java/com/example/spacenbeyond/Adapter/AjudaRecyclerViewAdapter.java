@@ -2,12 +2,13 @@ package com.example.spacenbeyond.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import com.example.spacenbeyond.Interfaces.AjudaListener;
 import com.example.spacenbeyond.Model.DadosAjuda;
 import com.example.spacenbeyond.R;
