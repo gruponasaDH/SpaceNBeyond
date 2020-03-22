@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/navigation_hashtags"
         android:icon="@drawable/ic_hashtag"
@@ -15,5 +14,4 @@
         android:id="@+id/navigation_ajuda"
         android:icon="@drawable/ic_doubt"
         android:title="Ajuda"/>
-
 </menu>

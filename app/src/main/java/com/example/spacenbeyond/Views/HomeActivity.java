@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,13 +9,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.spacenbeyond.Interface.ComunicacaoFragmentHome;
-import com.example.spacenbeyond.Model.DadosHome;
 import com.example.spacenbeyond.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import static com.example.spacenbeyond.constantes.Constantes.DADOS_HOME;
-
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView navigationView;
@@ -47,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        navigationView = (BottomNavigationView) findViewById(R.id.bottomNav);
+        navigationView = (BottomNavigationView) findViewById(R.menu.navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
     }
     @Override
