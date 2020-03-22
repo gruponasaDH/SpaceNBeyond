@@ -1,3 +1,5 @@
+package com.example.spacenbeyond.views;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.spacenbeyond.Interface.ImageRecyclerViewListener;
+import com.example.spacenbeyond.Interfaces.ImageRecyclerViewListener;
 import com.example.spacenbeyond.Model.Imagem;
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.adapter.ImagesRecyclerViewAdapter;

@@ -1,16 +1,14 @@
 package com.example.spacenbeyond.views;
-
+import android.os.Bundle;
+import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.example.spacenbeyond.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView navigationView;
@@ -19,32 +17,19 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        navigationView = (BottomNavigationView) findViewById(R.menu.navigation);
+        navigationView.setOnNavigationItemSelectedListener(this);
 
-        replaceFragments(R.id.container, new HomeFragmento());
+        replaceFragments(R.id.container, new com.example.spacenbeyond.views.HomeFragmento());
     }
 
     private void replaceFragments(int container, Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(container, fragment);
-        transaction.commit();
+        transaction.commit();   
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        navigationView = (BottomNavigationView) findViewById(R.id.navigationView);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        navigationView = (BottomNavigationView) findViewById(R.menu.navigation);
-        navigationView.setOnNavigationItemSelectedListener(this);
-    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -75,4 +60,4 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         transaction.addToBackStack(null);
         transaction.commit();
     }
-        }
+}
