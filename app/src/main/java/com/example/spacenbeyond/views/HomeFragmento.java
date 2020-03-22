@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.spacenbeyond.Interfaces.ComunicacaoFragmentHome;
+import com.example.spacenbeyond.interfaces.ComunicacaoFragmentHome;
 import com.example.spacenbeyond.model.DadosHome;
 import com.example.spacenbeyond.R;
 

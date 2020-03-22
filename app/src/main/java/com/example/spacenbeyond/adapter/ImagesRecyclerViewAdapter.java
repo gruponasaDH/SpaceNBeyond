@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
-import com.example.spacenbeyond.Interfaces.ImageRecyclerViewListener;
+import com.example.spacenbeyond.interfaces.ImageRecyclerViewListener;
 import com.example.spacenbeyond.model.Imagem;
 import com.example.spacenbeyond.R;
 

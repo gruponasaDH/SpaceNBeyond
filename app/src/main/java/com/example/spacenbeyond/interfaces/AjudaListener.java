@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Interfaces;
+package com.example.spacenbeyond.interfaces;
 
 
 import com.example.spacenbeyond.model.DadosAjuda;

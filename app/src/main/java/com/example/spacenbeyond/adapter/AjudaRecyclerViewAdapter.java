@@ -8,7 +8,7 @@ import android.widget.TextView;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.spacenbeyond.Interfaces.AjudaListener;
+import com.example.spacenbeyond.interfaces.AjudaListener;
 import com.example.spacenbeyond.model.DadosAjuda;
 import com.example.spacenbeyond.R;
 

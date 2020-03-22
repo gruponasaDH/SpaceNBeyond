@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.spacenbeyond.adapter.ImagesRecyclerViewAdapter;
-import com.example.spacenbeyond.Interfaces.ImageRecyclerViewListener;
+import com.example.spacenbeyond.interfaces.ImageRecyclerViewListener;
 import com.example.spacenbeyond.model.Imagem;
 import com.example.spacenbeyond.R;
 

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.spacenbeyond.adapter.AjudaRecyclerViewAdapter;
-import com.example.spacenbeyond.Interfaces.AjudaListener;
+import com.example.spacenbeyond.interfaces.AjudaListener;
 import com.example.spacenbeyond.model.DadosAjuda;
 import com.example.spacenbeyond.R;
 import java.util.ArrayList;
