@@ -4,12 +4,10 @@
         android:id="@+id/navigation_hashtags"
         android:icon="@drawable/ic_hashtag"
         android:title="Hashtags"/>
-
     <item
         android:id="@+id/navigation_favoritos"
         android:icon="@drawable/ic_heart"
         android:title="Favoritos"/>
-
     <item
         android:id="@+id/navigation_ajuda"
         android:icon="@drawable/ic_doubt"

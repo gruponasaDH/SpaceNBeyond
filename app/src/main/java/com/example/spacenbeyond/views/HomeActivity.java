@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Views;
+package com.example.spacenbeyond.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
