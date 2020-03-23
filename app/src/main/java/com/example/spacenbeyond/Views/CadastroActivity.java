@@ -48,7 +48,7 @@ public class CadastroActivity extends AppCompatActivity {
         String email = txtEmail.getEditText().getText().toString();
         String senha = txtSenha.getEditText().getText().toString();
         if (!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
-            Intent intent = new Intent(CadastroActivity.this, HomeActivity.class);
+            Intent intent = new Intent(CadastroActivity.this, HoActivity.class);
             startActivity(intent);
         }
         else {

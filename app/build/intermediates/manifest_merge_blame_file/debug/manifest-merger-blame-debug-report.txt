@@ -1,0 +1,99 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.spacenbeyond"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+8-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml
+10
+11    <permission android:name="android.permission.CAMERA" />
+11-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:5:5-60
+11-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:5:17-57
+12
+13    <application
+13-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:7:5-38:19
+14        android:allowBackup="true"
+14-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:8:9-35
+15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+15-->[androidx.core:core:1.1.0] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\e9dab9c67c1ee3668e0bbf86c6d8cbd8\core-1.1.0\AndroidManifest.xml:24:18-86
+16        android:debuggable="true"
+17        android:icon="@mipmap/ic_launcher"
+17-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:9:9-43
+18        android:label="@string/app_name"
+18-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:10:9-41
+19        android:roundIcon="@mipmap/ic_launcher_round"
+19-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:11:9-54
+20        android:supportsRtl="true"
+20-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:12:9-35
+21        android:theme="@style/AppTheme" >
+21-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:13:9-40
+22        <activity android:name="com.example.spacenbeyond.views.HomeActivity" />
+22-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:14:9-65
+22-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:14:19-53
+23        <activity
+23-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:15:9-17:52
+24            android:name="com.example.spacenbeyond.views.MainActivity"
+24-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:16:13-47
+25            android:screenOrientation="portrait" />
+25-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:17:13-49
+26        <activity
+26-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:18:9-20:52
+27            android:name="com.example.spacenbeyond.views.CadastroActivity"
+27-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:19:13-51
+28            android:screenOrientation="portrait" />
+28-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:20:13-49
+29        <activity
+29-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:22:9-24:52
+30            android:name="com.example.spacenbeyond.views.LoginActivity"
+30-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:23:13-48
+31            android:screenOrientation="portrait" />
+31-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:24:13-49
+32        <activity
+32-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:25:9-33:20
+33            android:name="com.example.spacenbeyond.views.SplashActivity"
+33-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:26:13-49
+34            android:screenOrientation="portrait" >
+34-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:27:13-49
+35            <intent-filter>
+35-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:28:13-32:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:29:17-69
+36-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:29:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:31:17-77
+38-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:31:27-74
+39            </intent-filter>
+40        </activity>
+41
+42        <meta-data
+42-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:35:9-37:57
+43            android:name="preloaded_fonts"
+43-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:36:13-43
+44            android:resource="@array/preloaded_fonts" />
+44-->C:\Users\jsouzago\Documents\projects\test_projects\SpaceNBeyond\app\src\main\AndroidManifest.xml:37:13-54
+45
+46        <service
+46-->[androidx.room:room-runtime:2.2.3] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\5f03ae9a4ec8352b57fd369ab039a2f8\room-runtime-2.2.3\AndroidManifest.xml:25:9-27:40
+47            android:name="androidx.room.MultiInstanceInvalidationService"
+47-->[androidx.room:room-runtime:2.2.3] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\5f03ae9a4ec8352b57fd369ab039a2f8\room-runtime-2.2.3\AndroidManifest.xml:26:13-74
+48            android:exported="false" />
+48-->[androidx.room:room-runtime:2.2.3] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\5f03ae9a4ec8352b57fd369ab039a2f8\room-runtime-2.2.3\AndroidManifest.xml:27:13-37
+49
+50        <provider
+50-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\58629c19fa6c616abd60edc0d2bb07b8\lifecycle-process-2.2.0\AndroidManifest.xml:25:9-29:43
+51            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+51-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\58629c19fa6c616abd60edc0d2bb07b8\lifecycle-process-2.2.0\AndroidManifest.xml:26:13-79
+52            android:authorities="com.example.spacenbeyond.lifecycle-process"
+52-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\58629c19fa6c616abd60edc0d2bb07b8\lifecycle-process-2.2.0\AndroidManifest.xml:27:13-69
+53            android:exported="false"
+53-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\58629c19fa6c616abd60edc0d2bb07b8\lifecycle-process-2.2.0\AndroidManifest.xml:28:13-37
+54            android:multiprocess="true" />
+54-->[androidx.lifecycle:lifecycle-process:2.2.0] C:\Users\jsouzago\.gradle\caches\transforms-2\files-2.1\58629c19fa6c616abd60edc0d2bb07b8\lifecycle-process-2.2.0\AndroidManifest.xml:29:13-40
+55    </application>
+56
+57</manifest>

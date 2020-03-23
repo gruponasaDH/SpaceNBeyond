@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         String senha = txtSenha.getEditText().getText().toString();
 
         if (!email.isEmpty() && !senha.isEmpty()) {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HoActivity.class);
             startActivity(intent);
         }
         else {

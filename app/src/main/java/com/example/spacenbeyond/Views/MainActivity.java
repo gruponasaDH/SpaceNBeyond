@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.Views.HashtagFragment;
 import com.vivekkaushik.datepicker.DatePickerTimeline;
 import com.vivekkaushik.datepicker.OnDateSelectedListener;
 
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragments(R.id.container, new HashtagFragment());
+                replaceFragments(R.id.container, new HasFragment());
             }
         });
 
