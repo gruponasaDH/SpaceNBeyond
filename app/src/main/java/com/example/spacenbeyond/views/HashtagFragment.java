@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import android.content.Intent;
 import android.os.Bundle;

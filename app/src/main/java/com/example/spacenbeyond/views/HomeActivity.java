@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.spacenbeyond.R;
+import com.example.spacenbeyond.Views.FavoritoFragment;
+import com.example.spacenbeyond.Views.HashtagFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -20,7 +22,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         navigationView = findViewById(R.id.navigationView);
         navigationView.setOnNavigationItemSelectedListener(this);
 
-        replaceFragments(R.id.container, new com.example.spacenbeyond.views.HomeFragmento());
+        replaceFragments(R.id.container, new HomeFragmento());
     }
 
     private void replaceFragments(int container, Fragment fragment) {
@@ -34,17 +36,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_hashtags: {
-                Fragment hashtagFragment = com.example.spacenbeyond.views.HashtagFragment.newInstance();
+                Fragment hashtagFragment = HashtagFragment.newInstance();
                 openFragment(hashtagFragment);
                 break;
             }
             case R.id.navigation_favoritos: {
-                Fragment favoritoFragment = com.example.spacenbeyond.views.FavoritoFragment.newInstance();
+                Fragment favoritoFragment = FavoritoFragment.newInstance();
                 openFragment(favoritoFragment);
                 break;
             }
             case R.id.navigation_ajuda: {
-                Fragment ajudaFragment = com.example.spacenbeyond.views.AjudaFragment.newInstance();
+                Fragment ajudaFragment = AjudaFragment.newInstance();
                 openFragment(ajudaFragment);
                 break;
             }

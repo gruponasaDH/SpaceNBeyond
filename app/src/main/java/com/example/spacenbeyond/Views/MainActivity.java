@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.spacenbeyond.R;
+import com.example.spacenbeyond.Views.HashtagFragment;
 import com.vivekkaushik.datepicker.DatePickerTimeline;
 import com.vivekkaushik.datepicker.OnDateSelectedListener;
 

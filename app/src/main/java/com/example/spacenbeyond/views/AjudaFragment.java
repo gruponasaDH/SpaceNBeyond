@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -62,7 +62,7 @@ public class AjudaFragment extends Fragment implements AjudaListener {
 
     @Override
     public void enviaAjuda(DadosAjuda dadosAjuda) {
-        Fragment fragment = new com.example.spacenbeyond.views.TopicoAjuda();
+        Fragment fragment = new TopicoAjuda();
         Bundle bundle = new Bundle();
         bundle.putParcelable(AJUDA_CHAVE, dadosAjuda);
         fragment.setArguments(bundle);

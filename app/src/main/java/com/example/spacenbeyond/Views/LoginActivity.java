@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.views;
+package com.example.spacenbeyond.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         txtcadastreSe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, com.example.spacenbeyond.views.CadastroActivity.class);
+                Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(intent);
             }
         });
