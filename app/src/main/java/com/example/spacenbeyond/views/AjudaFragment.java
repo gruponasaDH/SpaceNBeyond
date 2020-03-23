@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Views;
+package com.example.spacenbeyond.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.spacenbeyond.Interfaces.AjudaListener;
-import com.example.spacenbeyond.Model.DadosAjuda;
+import com.example.spacenbeyond.interfaces.AjudaListener;
+import com.example.spacenbeyond.model.DadosAjuda;
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.Views.Adapter.AjudaRecyclerViewAdapter;
+import com.example.spacenbeyond.views.adapter.AjudaRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class AjudaFragment extends Fragment implements AjudaListener {
     }
 
     private void init(View view) {
-        bttn_voltar = view.findViewById(R.id.bttn_voltar);
+        bttn_voltar = view.findViewById(R.id.btnVoltar);
         ajudaRecyclerView = view.findViewById(R.id.recycler_view_ajuda);
         imageView_ajuda = view.findViewById(R.id.imageView_ajuda);
         textViewTitle = view.findViewById(R.id.text_view_title);

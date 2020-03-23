@@ -76,7 +76,7 @@ public final class SpaceDatabase_DadosHomeDataBase_Impl extends SpaceDatabase.Da
         final TableInfo _infoDadosHome = new TableInfo("DadosHome", _columnsDadosHome, _foreignKeysDadosHome, _indicesDadosHome);
         final TableInfo _existingDadosHome = TableInfo.read(_db, "DadosHome");
         if (! _infoDadosHome.equals(_existingDadosHome)) {
-          throw new IllegalStateException("Migration didn't properly handle DadosHome(com.example.spacenbeyond.Model.DadosHome).\n"
+          throw new IllegalStateException("Migration didn't properly handle DadosHome(com.example.spacenbeyond.model.DadosHome).\n"
                   + " Expected:\n" + _infoDadosHome + "\n"
                   + " Found:\n" + _existingDadosHome);
         }
@@ -87,7 +87,7 @@ public final class SpaceDatabase_DadosHomeDataBase_Impl extends SpaceDatabase.Da
         final TableInfo _infoImagem = new TableInfo("Imagem", _columnsImagem, _foreignKeysImagem, _indicesImagem);
         final TableInfo _existingImagem = TableInfo.read(_db, "Imagem");
         if (! _infoImagem.equals(_existingImagem)) {
-          throw new IllegalStateException("Migration didn't properly handle Imagem(com.example.spacenbeyond.Model.Imagem).\n"
+          throw new IllegalStateException("Migration didn't properly handle Imagem(com.example.spacenbeyond.model.Imagem).\n"
                   + " Expected:\n" + _infoImagem + "\n"
                   + " Found:\n" + _existingImagem);
         }

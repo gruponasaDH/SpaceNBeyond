@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".Views.HomeA">
+    tools:context=".views.HoActivity">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imageViewUser"
         android:layout_width="58dp"
         android:layout_height="60dp"
         android:layout_marginStart="32dp"
@@ -21,8 +21,8 @@
 
     <LinearLayout
         android:id="@+id/container"
-        android:layout_width="445dp"
-        android:layout_height="416dp"
+        android:layout_width="415dp"
+        android:layout_height="501dp"
         android:layout_weight="3"
         android:background="@color/ColorBranco"
         android:orientation="vertical"
@@ -30,7 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.604" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"

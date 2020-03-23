@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.Views;
+package com.example.spacenbeyond.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

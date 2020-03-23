@@ -2,7 +2,7 @@ package com.example.spacenbeyond.repository;
 
 import androidx.room.TypeConverter;
 
-import com.example.spacenbeyond.Model.DadosHome;
+import com.example.spacenbeyond.model.DadosHome;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
