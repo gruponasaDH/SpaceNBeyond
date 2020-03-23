@@ -4,23 +4,23 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#00243A</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="facebookButton" parent="@android:style/TextAppearance">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/ColorBranco</item>
     </style>
 
     <style name="googleButton" parent="@android:style/TextAppearance">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">@color/ColorBranco</item>
     </style>
 
     <style name="criarButton" parent="@android:style/TextAppearance">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">@color/ColorPreto</item>
     </style>
 
 </resources>

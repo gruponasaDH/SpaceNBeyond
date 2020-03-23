@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.HomeFragmento">
+    tools:context=".views.HomeFragmento">
 
     <ImageView
         android:id="@+id/imagem"
         android:layout_width="389dp"
         android:layout_height="182dp"
         android:layout_marginTop="120dp"
-        android:background="@drawable/nasa"
+        android:background="@drawable/galaxia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,27 +88,40 @@
 
     <Button
         android:id="@+id/buttonEng"
-        android:layout_width="75dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="28dp"
-        android:background="@color/ColorBranco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:backgroundTint="@color/top_color_hashfragment"
         android:text="@string/eng"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toStartOf="@+id/compartilhar"
-        app:layout_constraintHorizontal_bias="0.896"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/compartilhar"
+        tools:ignore="MissingConstraints" />
+
 
     <Button
         android:id="@+id/button_pt"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="28dp"
-        android:background="@color/ColorBranco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/top_color_hashfragment"
         android:text="@string/pt_br"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonEng"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnEng"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnEng"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/strokeHome"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btnEng"
+        tools:layout_editor_absoluteX="-34dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
