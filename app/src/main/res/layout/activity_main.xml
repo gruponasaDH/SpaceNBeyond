@@ -10,8 +10,8 @@
 
     <com.vivekkaushik.datepicker.DatePickerTimeline
         android:id="@+id/datePickerTimeline"
-        android:layout_width="488dp"
-        android:layout_height="182dp"
+        android:layout_width="470dp"
+        android:layout_height="96dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="486dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,29 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAno"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imageViewUser"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewCalendar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/outline_account_circle_white_36" />
-
-    <ImageView
-        android:id="@+id/imageViewCalendar"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="283dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewUser"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/outline_date_range_white_36" />
 
     <TextView
         android:id="@+id/textViewMes"

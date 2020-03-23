@@ -222,10 +222,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-
-        imageViewCalendar = findViewById(R.id.imageViewCalendar);
         imageViewUser = findViewById(R.id.imageViewUser);
-
         textViewMes = findViewById(R.id.textViewMes);
         textViewAno = findViewById(R.id.textViewAno);
 
