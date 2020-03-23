@@ -63,7 +63,7 @@ public class AjudaRecyclerViewAdapter extends RecyclerView.Adapter<AjudaRecycler
             super(itemView);
 
             image = itemView.findViewById(R.id.imageView_ajuda);
-            titleAjuda = itemView.findViewById(R.id.title);
+            titleAjuda = itemView.findViewById(R.id.text_view_title);
             subtitleAjuda = itemView.findViewById(R.id.text_view_subtitle);
         }
 

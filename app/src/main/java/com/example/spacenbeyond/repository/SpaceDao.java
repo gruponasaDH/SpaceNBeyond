@@ -13,12 +13,12 @@ import io.reactivex.Flowable;
 
 @Dao
 public interface SpaceDao {
-    @Insert void insereListaBD(List<DadosHome> dadosHomeList) ;
+/*    @Insert void insereListaBD(List<DadosHome> dadosHomeList) ;
 
     @Query("SELECT * FROM dadosHome")
     Flowable<Imagem> recuperadadosHomeBD();
 
     @Delete
-    void apagaProdutoBd(DadosHome dadosHome);
+    void apagaProdutoBd(DadosHome dadosHome);*/
 }
 

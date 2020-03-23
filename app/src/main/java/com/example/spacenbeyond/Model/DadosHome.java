@@ -5,24 +5,48 @@ import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+
+@Entity
 public class DadosHome implements Parcelable {
-    private Button eng;
-    private Button pt;
+    @PrimaryKey
+    private int id;
+    @ColumnInfo(name = "imagem")
     private int imagem;
+    @ColumnInfo(name = "nomeFoto")
     private String nomeFoto;
+    @ColumnInfo(name = "nomeAutor")
     private String nomeAutor;
+    @ColumnInfo(name = "descricao")
     private String descricao;
+    @ColumnInfo(name = "favoritos")
     private int favoritos;
+    @ColumnInfo(name = "compartilhar")
     private int compartilhar;
+    @ColumnInfo(name = "dowlo")
     private int dowlo;
 
-    public Button getEng() { return eng; }
+    public DadosHome(int id, int imagem, String nomeFoto, String nomeAutor, String descricao, int favoritos, int compartilhar, int dowlo) {
+        this.id = id;
+        this.imagem = imagem;
+        this.nomeFoto = nomeFoto;
+        this.nomeAutor = nomeAutor;
+        this.descricao = descricao;
+        this.favoritos = favoritos;
+        this.compartilhar = compartilhar;
+        this.dowlo = dowlo;
+    }
 
-    public void setEng(Button eng) { this.eng = eng;}
+    public int getId() {
+        return id;
+    }
 
-    public Button getPt() { return pt; }
-
-    public void setPt(Button pt) { this.pt = pt; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getImagem() { return imagem; }
 
@@ -57,8 +81,6 @@ public class DadosHome implements Parcelable {
     public DadosHome(Button eng, Button pt, int imagem, String nomeFoto,
                      String nomeAutor, String descricao, int favoritos, int compartilhar,
                      int dowlo) {
-        this.eng = eng;
-        this.pt = pt;
         this.imagem = imagem;
         this.nomeFoto = nomeFoto;
         this.nomeAutor = nomeAutor;

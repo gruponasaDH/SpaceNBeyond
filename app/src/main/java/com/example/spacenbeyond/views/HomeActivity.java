@@ -17,7 +17,7 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        navigationView = (BottomNavigationView) findViewById(R.menu.navigation);
+        navigationView = findViewById(R.id.navigationView);
         navigationView.setOnNavigationItemSelectedListener(this);
 
         replaceFragments(R.id.container, new com.example.spacenbeyond.views.HomeFragmento());
@@ -34,20 +34,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_hashtags: {
-                getSupportActionBar().setTitle("Hashtag");
-                Fragment hashtagFragment = HashtagFragment.newInstance();
+                Fragment hashtagFragment = com.example.spacenbeyond.views.HashtagFragment.newInstance();
                 openFragment(hashtagFragment);
                 break;
             }
             case R.id.navigation_favoritos: {
-                getSupportActionBar().setTitle("Favoritos");
-                Fragment favoritoFragment = FavoritoFragment.newInstance();
+                Fragment favoritoFragment = com.example.spacenbeyond.views.FavoritoFragment.newInstance();
                 openFragment(favoritoFragment);
                 break;
             }
             case R.id.navigation_ajuda: {
-                getSupportActionBar().setTitle("Ajuda");
-                Fragment ajudaFragment = AjudaFragment.newInstance();
+                Fragment ajudaFragment = com.example.spacenbeyond.views.AjudaFragment.newInstance();
                 openFragment(ajudaFragment);
                 break;
             }

@@ -3,7 +3,12 @@ package com.example.spacenbeyond.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Imagem implements Parcelable {
+    @PrimaryKey
     private int imagem;
 
     public Imagem(int imagem) {

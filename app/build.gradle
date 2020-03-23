@@ -38,7 +38,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //########### ROOM DATABASE ORM ##########
-    implementation "android.arch.persistence.room:runtime:1.1.1"
+    implementation "androidx.room:room-runtime:2.2.3"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 
     //########### Lifecycle components ###########
