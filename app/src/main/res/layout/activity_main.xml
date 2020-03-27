@@ -14,8 +14,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toStartOf="@+id/bottom_navigation"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -25,9 +23,13 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation"
-        app:itemIconTint="@color/branco"
-        app:itemTextColor="@color/branco"
-        android:background="@color/fundo_bnav"/>
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        android:background="@color/fundo_bnav"
+        app:labelVisibilityMode="selected"
+        app:itemHorizontalTranslationEnabled="true"
+        app:itemRippleColor="@color/branco"
+        android:theme="@style/Widget.BottomNavigation"/>
 
     
 </androidx.constraintlayout.widget.ConstraintLayout>
