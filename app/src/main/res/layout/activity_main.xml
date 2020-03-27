@@ -8,80 +8,26 @@
     android:id="@+id/container"
     tools:context=".MainActivity">
 
-    <com.vivekkaushik.datepicker.DatePickerTimeline
-        android:id="@+id/datePickerTimeline"
+    <LinearLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toStartOf="@+id/bottom_navigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginBottom="486dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAno" />
+        app:menu="@menu/bottom_navigation"
+        app:itemIconTint="@color/branco"
+        app:itemTextColor="@color/branco"
+        android:background="@color/fundo_bnav"/>
 
-    <ImageView
-        android:id="@+id/imageViewUser"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toEndOf="@+id/imageViewCalendar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/outline_account_circle_white_36" />
-
-    <ImageView
-        android:id="@+id/imageViewCalendar"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/textViewMes"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/outline_date_range_white_36" />
-
-    <TextView
-        android:id="@+id/textViewMes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:fontFamily="@font/fira_sans"
-        android:textColor="@color/white"
-        android:textSize="45sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAno"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Jan" />
-
-    <TextView
-        android:id="@+id/textViewAno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/fira_sans"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMes"
-        tools:text="2020" />
-
-    <ImageView
-        android:id="@+id/imageViewHash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="102dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="348dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePickerTimeline"
-        app:srcCompat="@mipmap/outline_add_a_photo_white_36" />
-
-
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

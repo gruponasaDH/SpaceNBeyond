@@ -107,7 +107,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:src="@mipmap/outline_favorite_border_black_36"
+            android:src="@drawable/ic_favorite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ic_share"
             app:layout_constraintTop_toTopOf="parent" />
