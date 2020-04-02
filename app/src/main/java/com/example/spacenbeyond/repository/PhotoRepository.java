@@ -4,7 +4,7 @@ import com.example.spacenbeyond.model.PhotoResponse;
 
 import io.reactivex.Observable;
 
-import static com.example.spacenbeyond.data.remote.RetrofitService.getApiService;
+import static com.example.spacenbeyond.data.remote.PhotoRetrofitService.getApiService;
 
 public class PhotoRepository {
 

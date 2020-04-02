@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
@@ -17,7 +18,9 @@ import android.widget.TextView;
 
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoResponse;
+import com.example.spacenbeyond.model.TranslateBody;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
+import com.example.spacenbeyond.viewmodel.TranslateViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 import com.vivekkaushik.datepicker.DatePickerTimeline;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private PhotoViewModel photoViewModel;
-
+    private TranslateViewModel translateViewModel;
     private TextView textViewFoto;
     private TextView textViewAutor;
     private ImageView imageViewFoto;
@@ -92,6 +95,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        materialButtonPT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TranslateBody body = new TranslateBody(textViewDescricao.getText().toString(), "pt-br", "en", "text");
+                translateViewModel.getPhotoOfDayTranslated(body);
+                translateViewModel.liveData.observe( MainActivity.this, result -> {
+                    textViewDescricao.setText(result.getTranslatedText());
+                });
+            }
+        });
+
+        materialButtonENG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TranslateBody body = new TranslateBody(textViewDescricao.getText().toString(), "en", "pt-br", "text");
+                translateViewModel.getPhotoOfDayTranslated(body);
+                translateViewModel.liveData.observe( MainActivity.this, result -> {
+                    textViewDescricao.setText(result.getTranslatedText());
+                });
+            }
+        });
+
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String todayString = formatter.format(currentTime);
@@ -107,6 +132,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         photoViewModel.getLoading().observe(this, loading -> {
+            if (loading) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+            else {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        translateViewModel.getLoading().observe(this, loading -> {
             if (loading) {
                 progressBar.setVisibility(View.VISIBLE);
             }
@@ -312,6 +346,7 @@ public class MainActivity extends AppCompatActivity {
         datePickerTimeline.setMonthTextColor(Color.WHITE);
 
         photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
+        translateViewModel = ViewModelProviders.of(this).get(TranslateViewModel.class);
 
         progressBar = findViewById(R.id.progress_bar);
 
