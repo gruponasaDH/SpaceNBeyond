@@ -18,7 +18,7 @@
             android:id="@+id/datePickerTimeline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/card"
+            app:layout_constraintBottom_toTopOf="@+id/progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewAno" />
@@ -73,6 +73,17 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewMes"
             tools:text="2020" />
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePickerTimeline" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"
             android:layout_width="match_parent"
@@ -81,7 +92,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/datePickerTimeline">
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,8 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="194dp"
                     android:contentDescription=""
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/bhshredder_nasa_1080" />
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -223,17 +233,6 @@
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/datePickerTimeline"
-            app:layout_constraintEnd_toStartOf="@+id/textViewMes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

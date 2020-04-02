@@ -2,7 +2,6 @@ package com.example.spacenbeyond.data.remote;
 
 import com.example.spacenbeyond.model.TranslateBody;
 import com.example.spacenbeyond.model.Translation;
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

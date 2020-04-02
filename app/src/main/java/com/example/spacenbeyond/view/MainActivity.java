@@ -1,9 +1,11 @@
 package com.example.spacenbeyond.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.spacenbeyond.R;
@@ -22,6 +25,8 @@ import com.example.spacenbeyond.model.TranslateBody;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.example.spacenbeyond.viewmodel.TranslateViewModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 import com.vivekkaushik.datepicker.DatePickerTimeline;
 import com.vivekkaushik.datepicker.OnDateSelectedListener;
@@ -30,8 +35,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+import static android.widget.Toast.LENGTH_LONG;
 
+public class MainActivity extends AppCompatActivity {
     private DatePickerTimeline datePickerTimeline;
     private TextView textViewMes;
     private TextView textViewAno;
@@ -51,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewDescricao;
     private MaterialButton materialButtonPT;
     private MaterialButton materialButtonENG;
-
+    private ScrollView container;
+    public String dateRequest;
     public static final String API_KEY = "xePvTtG6Ef3It4NuYb1mdPnKkRTFXnAAmgk0taFl";
 
     public static String nomeFotoEN;
@@ -78,6 +85,36 @@ public class MainActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel(myCalendar);
+                String mes = "";
+                if (monthOfYear == 1) {
+                    mes = "01";
+                }
+                else if (monthOfYear == 2) {
+                    mes = "02";
+                }
+                else if (monthOfYear == 3) {
+                    mes = "03";
+                }
+                else if (monthOfYear == 4) {
+                    mes = "04";
+                }
+                else if (monthOfYear == 5) {
+                    mes = "05";
+                }
+                else if (monthOfYear == 6) {
+                    mes = "06";
+                }
+                else if (monthOfYear == 7) {
+                    mes = "07";
+                }
+                else if (monthOfYear == 8) {
+                    mes = "08";
+                }
+                else if (monthOfYear == 9) {
+                    mes = "09";
+                }
+                dateRequest = year + "/" + mes + "/" + dayOfMonth;
+                getPhotoOfDay();
             }
         };
 
@@ -98,37 +135,15 @@ public class MainActivity extends AppCompatActivity {
         materialButtonPT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TranslateBody body = new TranslateBody(textViewDescricao.getText().toString(), "pt-br", "en", "text");
-                translateViewModel.getPhotoOfDayTranslated(body);
-                translateViewModel.liveData.observe( MainActivity.this, result -> {
-                    textViewDescricao.setText(result.getTranslatedText());
-                });
+                getTranslatedText("pt-br", "en");
             }
         });
 
         materialButtonENG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TranslateBody body = new TranslateBody(textViewDescricao.getText().toString(), "en", "pt-br", "text");
-                translateViewModel.getPhotoOfDayTranslated(body);
-                translateViewModel.liveData.observe( MainActivity.this, result -> {
-                    textViewDescricao.setText(result.getTranslatedText());
-                });
+                getTranslatedText("en", "pt-br");
             }
-        });
-
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String todayString = formatter.format(currentTime);
-        photoViewModel.getPhotoOfDay(todayString, API_KEY);
-        photoViewModel.liveData.observe(this, result -> {
-            textViewFoto.setText(result.getTitle());
-            textViewAutor.setText(result.getCopyright());
-            Picasso.get().load(result.getUrl()).into(imageViewFoto);
-            textViewDescricao.setText(result.getExplanation());
-
-            nomeFotoEN = result.getTitle();
-            descricaoFotoEN = result.getExplanation();
         });
 
         photoViewModel.getLoading().observe(this, loading -> {
@@ -138,6 +153,26 @@ public class MainActivity extends AppCompatActivity {
             else {
                 progressBar.setVisibility(View.GONE);
             }
+        });
+
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String todayString = formatter.format(currentTime);
+        photoViewModel.getPhotoOfDay(todayString, API_KEY);
+        photoViewModel.liveData.observe(this, result -> {
+            textViewFoto.setText(result.getTitle());
+            if (result.getCopyright() != null) {
+                textViewAutor.setVisibility(View.VISIBLE);
+                textViewAutor.setText(result.getCopyright());
+            }
+            else {
+                textViewAutor.setVisibility(View.GONE);
+            }
+            Picasso.get().load(result.getUrl()).into(imageViewFoto);
+            textViewDescricao.setText(result.getExplanation());
+
+            nomeFotoEN = result.getTitle();
+            descricaoFotoEN = result.getExplanation();
         });
 
         translateViewModel.getLoading().observe(this, loading -> {
@@ -318,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-
+        container = findViewById(R.id.scrollViewHome);
         imageViewCalendar = findViewById(R.id.imageViewCalendar);
         imageViewUser = findViewById(R.id.imageViewUser);
         //imageViewCamera = findViewById(R.id.imageViewHash);
@@ -328,12 +363,46 @@ public class MainActivity extends AppCompatActivity {
 
         datePickerTimeline = findViewById(R.id.datePickerTimeline);
 
+        datePickerTimeline.setDateTextColor(Color.WHITE);
+        datePickerTimeline.setDayTextColor(Color.WHITE);
+        datePickerTimeline.setMonthTextColor(Color.WHITE);
         datePickerTimeline.setInitialDate(1995, 5, 18);
 
         datePickerTimeline.setOnDateSelectedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(int year, int month, int day, int dayOfWeek) {
                 setTextDate(month, year);
+                String mes = "";
+                month++;
+                if (month == 1) {
+                    mes = "01";
+                }
+                else if (month == 2) {
+                    mes = "02";
+                }
+                else if (month == 3) {
+                    mes = "03";
+                }
+                else if (month == 4) {
+                    mes = "04";
+                }
+                else if (month == 5) {
+                    mes = "05";
+                }
+                else if (month == 6) {
+                    mes = "06";
+                }
+                else if (month == 7) {
+                    mes = "07";
+                }
+                else if (month == 8) {
+                    mes = "08";
+                }
+                else if (month == 9) {
+                    mes = "09";
+                }
+                dateRequest = year + "-" + mes + "-" + day;
+                getPhotoOfDay();
             }
 
             @Override
@@ -341,9 +410,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        datePickerTimeline.setDateTextColor(Color.WHITE);
-        datePickerTimeline.setDayTextColor(Color.WHITE);
-        datePickerTimeline.setMonthTextColor(Color.WHITE);
 
         photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
         translateViewModel = ViewModelProviders.of(this).get(TranslateViewModel.class);
@@ -368,8 +434,41 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    private void getTranslatedText(String origin, String destiny) {
+        TranslateBody body = new TranslateBody(textViewDescricao.getText().toString(), origin, destiny, "text");
+        translateViewModel.getPhotoOfDayTranslated(body);
+        translateViewModel.liveData.observe(this, result -> {
+            textViewDescricao.setText(result.getTranslatedText());
+        });
+    }
+
+    private void getPhotoOfDay () {
+        photoViewModel.getPhotoOfDay(dateRequest, API_KEY);
+        photoViewModel.photo.observe(this, result -> {
+
+//            if (!dateRequest.equals(result.getDate())) {
+//                Snackbar.make(container, R.string.nao_ha_imagem, Snackbar.LENGTH_LONG).show();
+//            }
+
+            textViewFoto.setText(result.getTitle());
+            if (result.getCopyright() != null) {
+                textViewAutor.setVisibility(View.VISIBLE);
+                textViewAutor.setText(result.getCopyright());
+            }
+            else {
+                textViewAutor.setVisibility(View.GONE);
+            }
+            Picasso.get().load(result.getUrl()).into(imageViewFoto);
+            textViewDescricao.setText(result.getExplanation());
+
+            nomeFotoEN = result.getTitle();
+            descricaoFotoEN = result.getExplanation();
+
+        });
+    }
+
     @Override
     public void onBackPressed() {
-            super.onBackPressed();
+        super.onBackPressed();
     }
 }

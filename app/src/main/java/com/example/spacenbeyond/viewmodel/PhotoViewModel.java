@@ -16,7 +16,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class PhotoViewModel extends AndroidViewModel {
-    private MutableLiveData<PhotoResponse> photo = new MutableLiveData<>();
+    public MutableLiveData<PhotoResponse> photo = new MutableLiveData<>();
     public LiveData<PhotoResponse> liveData = photo;
     private MutableLiveData<Boolean> loading = new MutableLiveData<>();
     private CompositeDisposable disposable = new CompositeDisposable();

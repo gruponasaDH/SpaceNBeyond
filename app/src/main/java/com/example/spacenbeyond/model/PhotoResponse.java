@@ -85,5 +85,4 @@ public class PhotoResponse {
     public void setUrl(String url) {
         mUrl = url;
     }
-
 }

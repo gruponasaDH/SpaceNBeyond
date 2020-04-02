@@ -23,4 +23,5 @@
     <string name="excluir_conta">Excluir conta</string>
     <string name="pt_br">PT-BR</string>
     <string name="eng">ENG</string>
+    <string name="nao_ha_imagem">Não há imagem para esta data</string>
 </resources>
