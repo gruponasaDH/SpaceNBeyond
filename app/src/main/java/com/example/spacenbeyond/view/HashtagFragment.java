@@ -1,4 +1,4 @@
-package com.example.spacenbeyond;
+package com.example.spacenbeyond.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.spacenbeyond.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HashtagFragment extends Fragment {

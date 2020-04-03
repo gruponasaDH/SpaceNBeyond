@@ -6,16 +6,18 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:id="@+id/container"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
+
 
     <LinearLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -31,5 +33,4 @@
         app:itemRippleColor="@color/branco"
         android:theme="@style/Widget.BottomNavigation"/>
 
-    
 </androidx.constraintlayout.widget.ConstraintLayout>

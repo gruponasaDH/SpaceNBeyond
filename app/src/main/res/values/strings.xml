@@ -21,4 +21,6 @@
     <string name="salvar_alteracoes">Salvar alterações</string>
     <string name="logout">Logout</string>
     <string name="excluir_conta">Excluir conta</string>
+    <string name="pt">PT</string>
+    <string name="eng">ENG</string>
 </resources>

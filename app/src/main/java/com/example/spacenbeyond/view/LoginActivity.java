@@ -1,4 +1,4 @@
-package com.example.spacenbeyond;
+package com.example.spacenbeyond.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,64 +19,64 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spacenbeyond.R;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class CadastroActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    private TextView txtLogin;
-    private Button btncriarConta;
-    private TextInputLayout txtNome;
+    private TextView txtCadastro;
+    private Button btnLogin;
     private TextInputLayout txtEmail;
     private TextInputLayout txtSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_login);
 
         initViews();
 
         textoClicavel();
 
-        btncriarConta.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyFields();
+               verifyFields();
             }
         });
 
     }
 
     public void verifyFields() {
-        String nome = txtNome.getEditText().getText().toString();
         String email = txtEmail.getEditText().getText().toString();
         String senha = txtSenha.getEditText().getText().toString();
-        if (!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
-            Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+
+        if (!email.isEmpty() && !senha.isEmpty()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
         else {
-            Toast.makeText(CadastroActivity.this, "Por favor, forneça os dados necessários para cadastro.", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Por favor, forneça os dados necessários para login.", Toast.LENGTH_LONG).show();
         }
     }
 
     public void initViews() {
-        btncriarConta = findViewById(R.id.material_icon_button);
-        txtLogin = findViewById(R.id.textViewLogin);
-        txtNome = findViewById(R.id.textInputLayout);
-        txtEmail = findViewById(R.id.textInputLayout3);
-        txtSenha = findViewById(R.id.textInputLayout4);
+
+        btnLogin = findViewById(R.id.btnLogin);
+        txtCadastro = findViewById(R.id.textViewCadastreSe);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtSenha = findViewById(R.id.txtSenha);
     }
 
 
     private void textoClicavel() {
-        String text = "Já tem conta? Faça login.";
+        String text = "Ainda não tem conta? Cadastre-se.";
         SpannableString str = new SpannableString(text);
 
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
-                Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(intent);
             }
 
@@ -88,9 +88,9 @@ public class CadastroActivity extends AppCompatActivity {
             }
         };
 
-        str.setSpan(clickableSpan, 19, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        str.setSpan(new StyleSpan(Typeface.BOLD), 19, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        txtLogin.setText(str);
-        txtLogin.setMovementMethod(LinkMovementMethod.getInstance());
+        str.setSpan(clickableSpan, 21, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        str.setSpan(new StyleSpan(Typeface.BOLD), 21, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        txtCadastro.setText(str);
+        txtCadastro.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

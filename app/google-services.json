@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1078975234638",
+    "firebase_url": "https://spacebeyond-11d6e.firebaseio.com",
+    "project_id": "spacebeyond-11d6e",
+    "storage_bucket": "spacebeyond-11d6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078975234638:android:09c65388607971116ef91f",
+        "android_client_info": {
+          "package_name": "com.example.spacenbeyond"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078975234638-14bh96q4moopan03u72pike3agcmeo4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spacenbeyond",
+            "certificate_hash": "aaa3ce010dd99852e11641ec1b36f863dfe632b3"
+          }
+        },
+        {
+          "client_id": "1078975234638-863ltc66pntfpfnu7qo2264s05nbv57r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAG0lj3-qb3i0heUBRNeEOU6MIVX3DRpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078975234638-863ltc66pntfpfnu7qo2264s05nbv57r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
