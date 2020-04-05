@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/LastVersionGuiNasaProjeto-SpaceNBeyond.iml" filepath="$PROJECT_DIR$/LastVersionGuiNasaProjeto-SpaceNBeyond.iml" group="SpaceNBeyond" />
       <module fileurl="file://$PROJECT_DIR$/SpaceNBeyond.iml" filepath="$PROJECT_DIR$/SpaceNBeyond.iml" group="SpaceNBeyond" />
+      <module fileurl="file://$PROJECT_DIR$/app/SpaceNBeyond-app.iml" filepath="$PROJECT_DIR$/app/SpaceNBeyond-app.iml" group="SpaceNBeyond/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="SpaceNBeyond/app" />
     </modules>
   </component>

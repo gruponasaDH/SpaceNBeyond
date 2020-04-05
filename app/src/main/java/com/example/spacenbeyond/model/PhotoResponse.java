@@ -1,7 +1,10 @@
 
 package com.example.spacenbeyond.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class PhotoResponse {
 
@@ -21,6 +24,16 @@ public class PhotoResponse {
     private String mTitle;
     @SerializedName("url")
     private String mUrl;
+    @Expose
+    private List<Photo> photos;
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
 
     public String getCopyright() {
         return mCopyright;
