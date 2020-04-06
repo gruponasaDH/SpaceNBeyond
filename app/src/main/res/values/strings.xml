@@ -23,4 +23,14 @@
     <string name="excluir_conta">Excluir conta</string>
     <string name="pt">PT</string>
     <string name="eng">ENG</string>
+    <string name="hashtag_do_dia"># do dia</string>
+    <string name="ajuda">Ajuda</string>
+    <string name="escolha_foto">1| Escolha a foto do dia</string>
+    <string name="clique_no">Clique no dia desejado ou abra o calendário.</string>
+    <string name="deslize_para">Deslize para a direita para ver as fotos dos dias anteriores.</string>
+    <string name="escolha_idioma">Escolha o idioma da descrição da foto.</string>
+    <string name="gerando_hashtags">2 | Gerando as Hashtags</string>
+    <string name="clique_icone">Clique no ícone Hashtag na barra de navegação.</string>
+    <string name="app_sorteara">O app sorteará duas palavras da descrição da foto do dia para criar as hashtags.</string>
+    <string name="clique_camera">Clique na câmera e tire fotos inspiradas nas hashtags sorteadas!</string>
 </resources>

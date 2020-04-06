@@ -69,7 +69,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:src="@mipmap/outline_keyboard_backspace_black_36"
+            android:src="@drawable/ic_voltar_primary"
             app:layout_constraintEnd_toStartOf="@+id/ic_download"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -135,7 +135,7 @@
             android:layout_marginRight="211dp"
             android:layout_marginBottom="264dp"
             android:fontFamily="@font/fira_sans"
-            tools:text="# do dia"
+            android:text="@string/hashtag_do_dia"
             android:textColor="@android:color/white"
             android:textSize="45sp"
             app:layout_constraintBottom_toBottomOf="parent"
