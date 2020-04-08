@@ -11,20 +11,26 @@
     <string name="login">Login</string>
     <string name="google">Google</string>
     <string name="cadastre_se">Cadastre-se</string>
-    <string name="ajuda">Ajuda</string>
-    <string name="msg">Title goes here</string>
-    <string name="subtitle">Subtitle here</string>
-    <string name="Texto_descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel mauris elementum, pellentesque diam eget, venenatis mauris. Sed vitae turpis bibendum, consequat felis ut, egestas ipsum. Aliquam nibh libero, fringilla sit amet elementum pretium, eleifend id libero. Vestibulum vestibulum in turpis et iaculis. Integer ac dignissim felis. Suspendisse vel nulla ex. Quisque maximus laoreet ante quis aliquet. Quisque vitae enim vitae dolor blandit tincidunt eget sit amet nisi. Nullam eu felis odio. Aliquam erat volutpat. Praesent a tincidunt sapien, vitae consequat lectus.  Nulla semper, sapien fringilla pellentesque posuere, felis purus vehicula magna, non dapibus quam velit ut nunc. Fusce vel tempus leo, at maximus mauris. Nam elementum tincidunt eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. In auctor a dui ac pulvinar. Ut vel volutpat dui, id convallis turpis. Sed et erat sit amet eros sollicitudin volutpat nec sed elit. Quisque varius, neque in pellentesque hendrerit, sem justo dignissim massa, vel viverra lorem lectus maximus felis. Vestibulum eget ante sed mi mattis maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean sit amet convallis dui, vel condimentum sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pharetra malesuada faucibus. Phasellus eget vehicula libero.</string>
     <string name="ainda_n_o_tem_conta">Ainda não tem conta?</string>
     <string name="esqueci_minha_senha">Esqueci minha senha</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="activity_login">login</string>
-    <string name="nome_da_foto">NOME DA FOTO</string>
-    <string name="nome_autor">Nome autor</string>
-    <string name="descri_o">Descrição</string>
-    <string name="pt_br">PT-BR</string>
+    <string name="alterar_foto">Alterar foto</string>
+    <string name="salvar_alteracoes">Salvar alterações</string>
+    <string name="logout">Logout</string>
+    <string name="excluir_conta">Excluir conta</string>
+    <string name="pt">PT</string>
     <string name="eng">ENG</string>
-    <string name="favorito">Favorito</string>
-    <string name="recuperacao">Recuperaçã de Senha</string>
-    <string name="enviar">Enviar</string>
+    <string name="hashtag_do_dia"># do dia</string>
+    <string name="ajuda">Ajuda</string>
+    <string name="escolha_foto">1| Escolha a foto do dia</string>
+    <string name="clique_no">Clique no dia desejado ou abra o calendário.</string>
+    <string name="deslize_para">Deslize para a direita para ver as fotos dos dias anteriores.</string>
+    <string name="escolha_idioma">Escolha o idioma da descrição da foto.</string>
+    <string name="gerando_hashtags">2 | Gerando as Hashtags</string>
+    <string name="clique_icone">Clique no ícone Hashtag na barra de navegação.</string>
+    <string name="app_sorteara">O app sorteará duas palavras da descrição da foto do dia para criar as hashtags.</string>
+    <string name="clique_camera">Clique na câmera e tire fotos inspiradas nas hashtags sorteadas!</string>
 </resources>
