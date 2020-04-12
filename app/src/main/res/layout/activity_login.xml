@@ -17,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logo" />
+        app:srcCompat="@drawable/ic_logo"
+        android:contentDescription="@string/marca_do_app"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtEmail"
@@ -112,19 +113,15 @@
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
         android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textEsqueci" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="26dp"
         android:layout_height="28dp"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginEnd="33dp"
-        android:layout_marginRight="33dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/OU"
         android:textColor="@android:color/white"
@@ -139,7 +136,6 @@
         android:layout_width="115dp"
         android:layout_height="1dp"
         android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
         android:background="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view" />
@@ -150,9 +146,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="@color/google_button"
         android:fontFamily="@font/fira_sans"
         android:text="@string/google"
@@ -162,7 +156,7 @@
         app:backgroundTint="@color/google_button"
         app:icon="@drawable/ic_google"
         app:iconSize="28dp"
-        app:iconTint="@null"
+        app:iconTint="@color/branco"
         app:layout_constraintBottom_toBottomOf="@+id/facebookButton"
         app:layout_constraintEnd_toStartOf="@+id/facebookButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -174,10 +168,8 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
         android:background="@color/facebook_button"
         android:fontFamily="@font/fira_sans"
         android:text="@string/facebook"
@@ -188,7 +180,7 @@
         app:backgroundTint="@color/facebook_button"
         app:icon="@drawable/ic_facebook"
         app:iconSize="28dp"
-        app:iconTint="@null"
+        app:iconTint="@color/branco"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/googleButton"
         app:layout_constraintTop_toBottomOf="@+id/view" />

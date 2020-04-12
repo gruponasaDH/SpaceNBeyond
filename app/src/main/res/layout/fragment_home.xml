@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/frameContainer"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ScrollView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/scrollViewHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -39,7 +37,9 @@
                 app:layout_constraintHorizontal_bias="0.571"
                 app:layout_constraintStart_toEndOf="@+id/imageViewCalendar"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/outline_account_circle_white_36" />
+                app:srcCompat="@drawable/ic_user"
+                android:tint="@color/branco"
+                android:contentDescription="@string/botao_editar_conta"/>
 
             <ImageView
                 android:id="@+id/imageViewCalendar"
@@ -49,7 +49,9 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toEndOf="@+id/textViewMes"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/outline_date_range_white_36" />
+                app:srcCompat="@drawable/ic_calendar"
+                android:tint="@color/branco"
+                android:contentDescription="@string/botao_calendario"/>
 
             <TextView
                 android:id="@+id/textViewMes"
@@ -136,7 +138,7 @@
                         android:id="@+id/imageViewFoto"
                         android:layout_width="match_parent"
                         android:layout_height="194dp"
-                        android:contentDescription=""
+                        android:contentDescription="@string/foto_do_dia_da_nasa"
                         android:scaleType="centerCrop" />
 
                     <LinearLayout
@@ -200,12 +202,13 @@
 
                         <ImageView
                             android:id="@+id/ic_download"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="29dp"
+                            android:layout_height="32dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="8dp"
-                            android:src="@mipmap/outline_save_alt_black_24"
+                            android:contentDescription="@string/botao_download"
+                            android:src="@drawable/ic_download"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/ic_share"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -217,10 +220,11 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="8dp"
-                            android:src="@mipmap/outline_share_black_24"
+                            android:src="@drawable/ic_share"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/ic_favorite"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/botao_compartilhar"/>
 
                         <ImageView
                             android:id="@+id/ic_favorite"
@@ -228,10 +232,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            android:src="@mipmap/outline_favorite_border_black_24"
+                            android:src="@drawable/ic_favorite"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/botao_favoritar"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

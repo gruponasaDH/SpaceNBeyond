@@ -16,11 +16,11 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class PhotoViewModel extends AndroidViewModel {
-    public MutableLiveData<PhotoResponse> photo = new MutableLiveData<>();
-    public LiveData<PhotoResponse> liveData = photo;
-    private MutableLiveData<Boolean> loading = new MutableLiveData<>();
-    private CompositeDisposable disposable = new CompositeDisposable();
-    private PhotoRepository repository = new PhotoRepository();
+    public final MutableLiveData<PhotoResponse> photo = new MutableLiveData<>();
+    public final LiveData<PhotoResponse> liveData = photo;
+    private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
+    private final CompositeDisposable disposable = new CompositeDisposable();
+    private final PhotoRepository repository = new PhotoRepository();
 
     public PhotoViewModel(@NonNull Application application) {
         super(application);
@@ -41,10 +41,8 @@ public class PhotoViewModel extends AndroidViewModel {
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable1 -> loading.setValue(true))
                         .doOnTerminate(() -> loading.setValue(false))
-                        .subscribe(photoResult -> photo.setValue(photoResult),
-                                throwable -> {
-                                    Log.i("LOG", "erro" + throwable.getMessage());
-                                })
+                        .subscribe(photo::setValue,
+                                throwable -> Log.i("LOG", "erro" + throwable.getMessage()))
         );
     }
 

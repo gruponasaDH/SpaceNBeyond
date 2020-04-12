@@ -7,23 +7,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
@@ -47,8 +40,6 @@ public class HomeFragment extends Fragment {
     private ImageView imageViewCalendar;
     private ImageView imageViewUser;
 
-    private FragmentManager manager;
-
     private ProgressBar progressBar;
     private PhotoViewModel photoViewModel;
     private TextView textViewFoto;
@@ -57,13 +48,14 @@ public class HomeFragment extends Fragment {
     private TextView textViewDescricao;
     private MaterialButton materialButtonPT;
     private MaterialButton materialButtonENG;
-    private ScrollView container;
-    public String dateRequest;
+    private String dateRequest;
     public static final String API_KEY = "xePvTtG6Ef3It4NuYb1mdPnKkRTFXnAAmgk0taFl";
 
     private Context context;
 
-    public HomeFragment(){ }
+    public HomeFragment(){
+
+    }
 
     @Override
     public void onAttach(Context context){
@@ -78,80 +70,59 @@ public class HomeFragment extends Fragment {
         initViews(view);
 
         final Calendar myCalendar = Calendar.getInstance();
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        final DatePickerDialog.OnDateSetListener date = (view1, year, monthOfYear, dayOfMonth) -> {
 
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(myCalendar);
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel(myCalendar);
 
-                String mes = "";
-                if (monthOfYear == 1) {
-                    mes = "01";
-                }
-                else if (monthOfYear == 2) {
-                    mes = "02";
-                }
-                else if (monthOfYear == 3) {
-                    mes = "03";
-                }
-                else if (monthOfYear == 4) {
-                    mes = "04";
-                }
-                else if (monthOfYear == 5) {
-                    mes = "05";
-                }
-                else if (monthOfYear == 6) {
-                    mes = "06";
-                }
-                else if (monthOfYear == 7) {
-                    mes = "07";
-                }
-                else if (monthOfYear == 8) {
-                    mes = "08";
-                }
-                else if (monthOfYear == 9) {
-                    mes = "09";
-                }
-                dateRequest = year + "/" + mes + "/" + dayOfMonth;
-                getPhotoOfDay();
+            String mes = "";
+            if (monthOfYear == 1) {
+                mes = "01";
             }
+            else if (monthOfYear == 2) {
+                mes = "02";
+            }
+            else if (monthOfYear == 3) {
+                mes = "03";
+            }
+            else if (monthOfYear == 4) {
+                mes = "04";
+            }
+            else if (monthOfYear == 5) {
+                mes = "05";
+            }
+            else if (monthOfYear == 6) {
+                mes = "06";
+            }
+            else if (monthOfYear == 7) {
+                mes = "07";
+            }
+            else if (monthOfYear == 8) {
+                mes = "08";
+            }
+            else if (monthOfYear == 9) {
+                mes = "09";
+            }
+            dateRequest = year + "/" + mes + "/" + dayOfMonth;
+            getPhotoOfDay();
         };
 
-        imageViewCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(context, date, myCalendar .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-        imageViewUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragments(R.id.frameContainer, new EditContaFragment());
-            }
-        });
+        imageViewCalendar.setOnClickListener(v -> new DatePickerDialog(context, date, myCalendar .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+        imageViewUser.setOnClickListener(v -> replaceFragments(new EditContaFragment()));
 
-        materialButtonPT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                getPortugueseTitle();
-                getPortugueseDescription();
-                progressBar.setVisibility(View.GONE);
-            }
+        materialButtonPT.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
+            getPortugueseTitle();
+            getPortugueseDescription();
+            progressBar.setVisibility(View.GONE);
         });
-        materialButtonENG.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                getEnglishTitle();
-                getEnglishDescription();
-                progressBar.setVisibility(View.GONE);
-            }
+        materialButtonENG.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
+            getEnglishTitle();
+            getEnglishDescription();
+            progressBar.setVisibility(View.GONE);
         });
 
         photoViewModel.getLoading().observe(this, loading -> {
@@ -190,44 +161,46 @@ public class HomeFragment extends Fragment {
         String d = currentTime.toString();
         String[] currentDate = d.split(" ");
 
-        if (currentDate[1].equals("Jan")) {
-            textViewMes.setText("Jan");
-        }
-        else if (currentDate[1].equals("Feb")) {
-            textViewMes.setText("Fev");
-        }
-        else if (currentDate[1].equals("Mar")) {
-            textViewMes.setText("Mar");
-        }
-        else if (currentDate[1].equals("Apr")) {
-            textViewMes.setText("Abr");
-        }
-        else if (currentDate[1].equals("May")) {
-            textViewMes.setText("Mai");
-        }
-        else if (currentDate[1].equals("Jun")) {
-            textViewMes.setText("Jul");
-        }
-        else if (currentDate[1].equals("Jul")) {
-            textViewMes.setText("Jul");
-        }
-        else if (currentDate[1].equals("Aug")) {
-            textViewMes.setText("Ago");
-        }
-        else if (currentDate[1].equals("Sep")) {
-            textViewMes.setText("Set");
-        }
-        else if (currentDate[1].equals("Oct")) {
-            textViewMes.setText("Out");
-        }
-        else if (currentDate[1].equals("Nov")) {
-            textViewMes.setText("Nov");
-        }
-        else if (currentDate[1].equals("Dec")) {
-            textViewMes.setText("Dez");
+        switch (currentDate[1]) {
+            case "Jan":
+                textViewMes.setText(getString(R.string.jan));
+                break;
+            case "Feb":
+                textViewMes.setText(getString(R.string.fev));
+                break;
+            case "Mar":
+                textViewMes.setText(getString(R.string.mar));
+                break;
+            case "Apr":
+                textViewMes.setText(getString(R.string.abr));
+                break;
+            case "May":
+                textViewMes.setText(getString(R.string.mai));
+                break;
+            case "Jun":
+                textViewMes.setText(getString(R.string.jun));
+                break;
+            case "Jul":
+                textViewMes.setText(getString(R.string.jul));
+                break;
+            case "Aug":
+                textViewMes.setText(getString(R.string.ago));
+                break;
+            case "Sep":
+                textViewMes.setText(getString(R.string.set));
+                break;
+            case "Oct":
+                textViewMes.setText(getString(R.string.out));
+                break;
+            case "Nov":
+                textViewMes.setText(getString(R.string.nov));
+                break;
+            case "Dec":
+                textViewMes.setText(getString(R.string.dez));
+                break;
         }
 
-        textViewAno.setText(currentDate[5].toString());
+        textViewAno.setText(currentDate[5]);
         datePickerTimeline.deactivateDates(dates);
         datePickerTimeline.setActiveDate(myCalendar);
     }
@@ -240,88 +213,90 @@ public class HomeFragment extends Fragment {
         String d = currentTime.toString();
         String[] currentDate = d.split(" ");
 
-        if (currentDate[1].equals("Jan")) {
-            textViewMes.setText("Jan");
-        }
-        else if (currentDate[1].equals("Feb")) {
-            textViewMes.setText("Fev");
-        }
-        else if (currentDate[1].equals("Mar")) {
-            textViewMes.setText("Mar");
-        }
-        else if (currentDate[1].equals("Apr")) {
-            textViewMes.setText("Abr");
-        }
-        else if (currentDate[1].equals("May")) {
-            textViewMes.setText("Mai");
-        }
-        else if (currentDate[1].equals("Jun")) {
-            textViewMes.setText("Jul");
-        }
-        else if (currentDate[1].equals("Jul")) {
-            textViewMes.setText("Jul");
-        }
-        else if (currentDate[1].equals("Aug")) {
-            textViewMes.setText("Ago");
-        }
-        else if (currentDate[1].equals("Sep")) {
-            textViewMes.setText("Set");
-        }
-        else if (currentDate[1].equals("Out")) {
-            textViewMes.setText("Out");
-        }
-        else if (currentDate[1].equals("Nov")) {
-            textViewMes.setText("Nov");
-        }
-        else if (currentDate[1].equals("Dec")) {
-            textViewMes.setText("Dez");
+        switch (currentDate[1]) {
+            case "Jan":
+                textViewMes.setText(getString(R.string.jan));
+                break;
+            case "Feb":
+                textViewMes.setText(getString(R.string.fev));
+                break;
+            case "Mar":
+                textViewMes.setText(getString(R.string.mar));
+                break;
+            case "Apr":
+                textViewMes.setText(getString(R.string.abr));
+                break;
+            case "May":
+                textViewMes.setText(getString(R.string.mai));
+                break;
+            case "Jun":
+                textViewMes.setText(getString(R.string.jun));
+                break;
+            case "Jul":
+                textViewMes.setText(getString(R.string.jul));
+                break;
+            case "Aug":
+                textViewMes.setText(getString(R.string.ago));
+                break;
+            case "Sep":
+                textViewMes.setText(getString(R.string.set));
+                break;
+            case "Out":
+                textViewMes.setText(getString(R.string.out));
+                break;
+            case "Nov":
+                textViewMes.setText(getString(R.string.nov));
+                break;
+            case "Dec":
+                textViewMes.setText(getString(R.string.dez));
+                break;
         }
 
         final Calendar myCalendar = Calendar.getInstance();
 
-        textViewAno.setText(currentDate[5].toString());
+        textViewAno.setText(currentDate[5]);
         datePickerTimeline.deactivateDates(dates);
         datePickerTimeline.setActiveDate(myCalendar);
         datePickerTimeline.setNextFocusUpId(800);
     }
 
-    public void setTextDate(int month, int year) {
+    private void setTextDate(int month, int year) {
         month++;
         if (month == 1) {
-            textViewMes.setText("Jan");
+            textViewMes.setText(getString(R.string.jan));
         }
         else if (month == 2) {
-            textViewMes.setText("Fev");
+            textViewMes.setText(getString(R.string.fev));
         }
         else if (month == 3) {
-            textViewMes.setText("Mar");
+            textViewMes.setText(getString(R.string.mar));
         }
         else if (month == 4) {
-            textViewMes.setText("Abr");
+            textViewMes.setText(getString(R.string.abr));
         }
         else if (month == 5) {
-            textViewMes.setText("Mai");
+            textViewMes.setText(getString(R.string.mai));
         }
         else if (month == 6) {
-            textViewMes.setText("Jun");
+            textViewMes.setText(getString(R.string.jun));
         }
         else if (month == 7) {
-            textViewMes.setText("Jul");
+            textViewMes.setText(getString(R.string.jul));
         }
         else if (month == 8) {
-            textViewMes.setText("Ago");
+            textViewMes.setText(getString(R.string.ago));
         }
         else if (month == 9) {
-            textViewMes.setText("Set");
+            textViewMes.setText(getString(R.string.set));
         }
         else if (month == 10) {
-            textViewMes.setText("Out");
+            textViewMes.setText(getString(R.string.out));
         }
         else if (month == 11) {
-            textViewMes.setText("Nov");
+            textViewMes.setText(getString(R.string.nov));
         }
         else if (month == 12) {
-            textViewMes.setText("Dez");
+            textViewMes.setText(getString(R.string.dez));
         }
 
         String ano = String.valueOf(year);
@@ -420,155 +395,95 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public void getPortugueseDescription() {
+    private void getPortugueseDescription() {
         FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder().setSourceLanguage(FirebaseTranslateLanguage.EN).setTargetLanguage(FirebaseTranslateLanguage.PT).build();
         final FirebaseTranslator englishPortugueseTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-                        // Model downloaded successfully. Okay to start translating.
-                        // (Set a flag, unhide the translation UI, etc.)
-                        englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
-                                new OnSuccessListener<String>() {
-                                    @Override
-                                    public void onSuccess(@NonNull String translatedText) {
-                                        textViewDescricao.setText(translatedText);
-                                    }
-                                }).addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Error.
-                                        // ...
-                                    }
-                                });
-                    }
+                v -> {
+                    // Model downloaded successfully. Okay to start translating.
+                    // (Set a flag, unhide the translation UI, etc.)
+                    englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
+                            translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
+                            e -> {
+                                // Error.
+                                // ...
+                            });
                 }).addOnFailureListener(
-                new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Model couldn’t be downloaded or other internal error.
-                        // ...
-                    }
+                e -> {
+                    // Model couldn’t be downloaded or other internal error.
+                    // ...
                 });
     }
 
-    public void getEnglishDescription() {
+    private void getEnglishDescription() {
         FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder().setSourceLanguage(FirebaseTranslateLanguage.PT).setTargetLanguage(FirebaseTranslateLanguage.EN).build();
         final FirebaseTranslator englishPortugueseTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-                        // Model downloaded successfully. Okay to start translating.
-                        // (Set a flag, unhide the translation UI, etc.)
-                        englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
-                                new OnSuccessListener<String>() {
-                                    @Override
-                                    public void onSuccess(@NonNull String translatedText) {
-                                        textViewDescricao.setText(translatedText);
-                                    }
-                                }).addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Error.
-                                        // ...
-                                    }
-                                });
-                    }
+                v -> {
+                    // Model downloaded successfully. Okay to start translating.
+                    // (Set a flag, unhide the translation UI, etc.)
+                    englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
+                            translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
+                            e -> {
+                                // Error.
+                                // ...
+                            });
                 }).addOnFailureListener(
-                new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Model couldn’t be downloaded or other internal error.
-                        // ...
-                    }
+                e -> {
+                    // Model couldn’t be downloaded or other internal error.
+                    // ...
                 });
     }
 
-    public void getPortugueseTitle() {
+    private void getPortugueseTitle() {
         FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder().setSourceLanguage(FirebaseTranslateLanguage.EN).setTargetLanguage(FirebaseTranslateLanguage.PT).build();
         final FirebaseTranslator englishPortugueseTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-                        // Model downloaded successfully. Okay to start translating.
-                        // (Set a flag, unhide the translation UI, etc.)
-                        englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
-                                new OnSuccessListener<String>() {
-                                    @Override
-                                    public void onSuccess(@NonNull String translatedText) {
-                                        textViewFoto.setText(translatedText);
-                                    }
-                                }).addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Error.
-                                        // ...
-                                    }
-                                });
-                    }
+                v -> {
+                    // Model downloaded successfully. Okay to start translating.
+                    // (Set a flag, unhide the translation UI, etc.)
+                    englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
+                            translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
+                            e -> {
+                                // Error.
+                                // ...
+                            });
                 }).addOnFailureListener(
-                new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Model couldn’t be downloaded or other internal error.
-                        // ...
-                    }
+                e -> {
+                    // Model couldn’t be downloaded or other internal error.
+                    // ...
                 });
     }
 
-    public void getEnglishTitle() {
+    private void getEnglishTitle() {
         FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder().setSourceLanguage(FirebaseTranslateLanguage.PT).setTargetLanguage(FirebaseTranslateLanguage.EN).build();
         final FirebaseTranslator englishPortugueseTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void v) {
-                        // Model downloaded successfully. Okay to start translating.
-                        // (Set a flag, unhide the translation UI, etc.)
-                        englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
-                                new OnSuccessListener<String>() {
-                                    @Override
-                                    public void onSuccess(@NonNull String translatedText) {
-                                        textViewFoto.setText(translatedText);
-                                    }
-                                }).addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Error.
-                                        // ...
-                                    }
-                                });
-                    }
+                v -> {
+                    // Model downloaded successfully. Okay to start translating.
+                    // (Set a flag, unhide the translation UI, etc.)
+                    englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
+                            translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
+                            e -> {
+                                // Error.
+                                // ...
+                            });
                 }).addOnFailureListener(
-                new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Model couldn’t be downloaded or other internal error.
-                        // ...
-                    }
+                e -> {
+                    // Model couldn’t be downloaded or other internal error.
+                    // ...
                 });
     }
 
-    private void replaceFragments(int container, Fragment fragment){
-        manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction()
-                .setCustomAnimations( R.anim.slide_up, 0, 0, R.anim.slide_down);
-        transaction.replace(container, fragment);
-        transaction.commit();
+    private void replaceFragments(Fragment fragment){
+        getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_up, R.animator.slide_up, R.animator.slide_down, R.animator.slide_down).replace(R.id.frameContainer, fragment).commit();
     }
 }

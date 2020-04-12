@@ -39,16 +39,11 @@ public class CadastroActivity extends AppCompatActivity {
 
         textoClicavel();
 
-        btncriarConta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyFields();
-            }
-        });
+        btncriarConta.setOnClickListener(v -> verifyFields());
 
     }
 
-    public void verifyFields() {
+    private void verifyFields() {
         String nome = txtNome.getEditText().getText().toString();
         String email = txtEmail.getEditText().getText().toString();
         String senha = txtSenha.getEditText().getText().toString();
@@ -61,7 +56,7 @@ public class CadastroActivity extends AppCompatActivity {
         }
     }
 
-    public void initViews() {
+    private void initViews() {
         btncriarConta = findViewById(R.id.material_icon_button);
         txtLogin = findViewById(R.id.textViewLogin);
         txtNome = findViewById(R.id.textInputLayout);

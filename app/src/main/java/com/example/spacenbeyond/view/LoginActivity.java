@@ -38,16 +38,11 @@ public class LoginActivity extends AppCompatActivity {
 
         textoClicavel();
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               verifyFields();
-            }
-        });
+        btnLogin.setOnClickListener(v -> verifyFields());
 
     }
 
-    public void verifyFields() {
+    private void verifyFields() {
         String email = txtEmail.getEditText().getText().toString();
         String senha = txtSenha.getEditText().getText().toString();
 
@@ -60,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void initViews() {
+    private void initViews() {
 
         btnLogin = findViewById(R.id.btnLogin);
         txtCadastro = findViewById(R.id.textViewCadastreSe);

@@ -123,7 +123,7 @@
         android:src="@drawable/ic_exit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/botao_salvar"
-        />
+        android:contentDescription="@string/botao_sair"/>
 
     <TextView
         android:id="@+id/textViewLogout"
@@ -147,10 +147,10 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewLogout"
-        tools:layout_editor_absoluteY="544dp" />
+        tools:layout_editor_absoluteY="544dp"
+        android:contentDescription="@string/botao_apagar_conta"/>
 
     <TextView
-        android:id="@+id/textViewExcluirConta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
