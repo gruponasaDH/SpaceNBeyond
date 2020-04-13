@@ -1,7 +1,7 @@
 package com.example.spacenbeyond.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -16,35 +16,44 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class PhotoViewModel extends AndroidViewModel {
-    public final MutableLiveData<PhotoResponse> photo = new MutableLiveData<>();
-    public final LiveData<PhotoResponse> liveData = photo;
-    private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
-    private final CompositeDisposable disposable = new CompositeDisposable();
-    private final PhotoRepository repository = new PhotoRepository();
+    private PhotoRepository repository = new PhotoRepository();
+
+    private MutableLiveData<PhotoResponse> mutablePhoto = new MutableLiveData<PhotoResponse>();
+
+    public LiveData<PhotoResponse> liveDataPhoto = mutablePhoto;
+
+    private CompositeDisposable disposable = new CompositeDisposable();
+
+    private MutableLiveData<String> errorMutable = new MutableLiveData<>();
+    public LiveData<String> erro = errorMutable;
 
     public PhotoViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public LiveData<PhotoResponse> getPhoto() {
-        return this.photo;
-    }
+    public void getTodosPhotos(Context context, String date, String apiKey) {
 
-    public LiveData<Boolean> getLoading() {
-        return this.loading;
-    }
-
-    public void getPhotoOfDay(String date, String apiKey) {
         disposable.add(
+
                 repository.getPhotoOfDay(date, apiKey)
-                        .subscribeOn(Schedulers.io())
+
+                        .subscribeOn(Schedulers.newThread())
+
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe(disposable1 -> loading.setValue(true))
-                        .doOnTerminate(() -> loading.setValue(false))
-                        .subscribe(photo::setValue,
-                                throwable -> Log.i("LOG", "erro" + throwable.getMessage()))
+
+                        .subscribe(photos -> {
+
+                                    mutablePhoto.setValue(photos);
+                                },
+
+                                throwable -> {
+                                    errorMutable.setValue(throwable.getMessage());
+                                })
         );
+
+
     }
+
 
     @Override
     protected void onCleared() {
@@ -52,3 +61,9 @@ public class PhotoViewModel extends AndroidViewModel {
         disposable.clear();
     }
 }
+
+
+
+
+
+
