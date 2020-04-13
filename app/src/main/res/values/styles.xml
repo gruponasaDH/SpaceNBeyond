@@ -1,17 +1,17 @@
 <resources>
 
-    <!-- Base application theme. -->
+
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#00243A</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
-    <style name="facebookButton" parent="@android:style/TextAppearance">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+    <style name="StyleFundoBranco" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@color/branco</item>
     </style>
+
 
     <style name="googleButton" parent="@android:style/TextAppearance">
         <item name="android:textSize">14sp</item>

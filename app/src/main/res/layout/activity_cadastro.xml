@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".view.CadastroActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -158,14 +157,14 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/login"
+        android:contentDescription="@string/marca_do_app"
         android:maxWidth="70dp"
         android:maxHeight="70dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logo" />
+        app:srcCompat="@drawable/icone_marca" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/google_button"
@@ -200,7 +199,7 @@
         android:background="@color/facebook_button"
         android:fontFamily="@font/fira_sans"
         android:text="@string/facebook"
-        android:textAppearance="@style/facebookButton"
+        android:textAppearance="@style/googleButton"
         android:textColor="@android:color/white"
         android:textColorHighlight="@color/facebook_button"
         android:textSize="14sp"

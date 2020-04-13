@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(@NonNull Context context){
         this.context = context;
         super.onAttach(context);
     }
@@ -484,6 +485,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void replaceFragments(Fragment fragment){
-        getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_up, R.animator.slide_up, R.animator.slide_down, R.animator.slide_down).replace(R.id.frameContainer, fragment).commit();
+        getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_up, 0, 0, R.animator.slide_down).replace(R.id.fragment_container, fragment).commit();
     }
 }

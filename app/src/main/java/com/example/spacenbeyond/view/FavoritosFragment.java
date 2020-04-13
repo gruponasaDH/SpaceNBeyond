@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.spacenbeyond.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class FavoritosFragment extends Fragment {
 
     public FavoritosFragment() {
@@ -23,6 +21,7 @@ public class FavoritosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_favoritos, container, false);
+        View view = inflater.inflate(R.layout.fragment_favoritos, container, false);
+        return view;
     }
 }

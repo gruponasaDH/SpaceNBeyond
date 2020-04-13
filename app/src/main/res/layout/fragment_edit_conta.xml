@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    style="@style/StyleFundoBranco">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -121,6 +122,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/ic_exit"
+        android:backgroundTint="@color/branco"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/botao_salvar"
         android:contentDescription="@string/botao_sair"/>
@@ -145,6 +147,7 @@
         android:layout_marginStart="32dp"
         android:src="@drawable/ic_delete"
         android:layout_marginTop="8dp"
+        android:backgroundTint="@color/branco"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewLogout"
         tools:layout_editor_absoluteY="544dp"

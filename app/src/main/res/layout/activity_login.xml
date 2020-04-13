@@ -4,20 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".view.LoginActivity">
 
     <ImageView
         android:id="@+id/imageLogo"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="70dp"
+        android:maxHeight="70dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toTopOf="@+id/txtEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_logo"
+        app:srcCompat="@drawable/icone_marca"
         android:contentDescription="@string/marca_do_app"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -99,7 +101,7 @@
         android:id="@+id/textEsqueci"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/esqueci_minha_senha"
         android:textColor="@color/colorAccent"
@@ -111,7 +113,7 @@
         android:id="@+id/view"
         android:layout_width="115dp"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="45dp"
         android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -173,7 +175,7 @@
         android:background="@color/facebook_button"
         android:fontFamily="@font/fira_sans"
         android:text="@string/facebook"
-        android:textAppearance="@style/facebookButton"
+        android:textAppearance="@style/googleButton"
         android:textColor="@android:color/white"
         android:textColorHighlight="@color/facebook_button"
         android:textSize="14sp"
