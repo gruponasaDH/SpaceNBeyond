@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.repository.PhotoRepository;
@@ -15,7 +16,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class PhotoViewModel extends AndroidViewModel {
+public class PhotoViewModel extends ViewModel {
+
+
+
     private PhotoRepository repository = new PhotoRepository();
 
     private MutableLiveData<PhotoResponse> mutablePhoto = new MutableLiveData<PhotoResponse>();
@@ -27,9 +31,6 @@ public class PhotoViewModel extends AndroidViewModel {
     private MutableLiveData<String> errorMutable = new MutableLiveData<>();
     public LiveData<String> erro = errorMutable;
 
-    public PhotoViewModel(@NonNull Application application) {
-        super(application);
-    }
 
     public void getTodosPhotos(Context context, String date, String apiKey) {
 

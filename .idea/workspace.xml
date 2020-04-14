@@ -15,12 +15,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="842167b3-b120-42c5-84c6-e3912b6ba075" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spacenbeyond/model/PhotoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spacenbeyond/model/PhotoResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/spacenbeyond/viewmodel/PhotoViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/spacenbeyond/viewmodel/PhotoViewModel.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,7 +24,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="520075f0fa5bb4ab" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_API_R" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
