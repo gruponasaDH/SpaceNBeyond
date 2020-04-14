@@ -23,6 +23,6 @@ public interface PhotoDao {
     @Query("SELECT * from photo")
     Flowable<List<Photo>> todosOsphotosBd();
 
-    @Query("SELECT * FROM photos  WHERE title=:title")
-    Photo getPhotoporTileBd(String title);
+    @Query("SELECT * FROM photo  WHERE title=:title")
+    Photo getPhotoPorTitleBd(String title);
 }
