@@ -59,4 +59,5 @@
     <string name="out">Out</string>
     <string name="nov">Nov</string>
     <string name="dez">Dez</string>
+    <string name="nao_ha_imagem">Não há imagem para esta data</string>
 </resources>

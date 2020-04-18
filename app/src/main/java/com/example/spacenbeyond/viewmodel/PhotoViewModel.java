@@ -19,6 +19,7 @@ public class PhotoViewModel extends AndroidViewModel {
     public final MutableLiveData<PhotoResponse> photo = new MutableLiveData<>();
     public final LiveData<PhotoResponse> liveData = photo;
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> found = new MutableLiveData<>();
     private final CompositeDisposable disposable = new CompositeDisposable();
     private final PhotoRepository repository = new PhotoRepository();
 
@@ -34,6 +35,10 @@ public class PhotoViewModel extends AndroidViewModel {
         return this.loading;
     }
 
+    public LiveData<Boolean> getFound() {
+        return this.found;
+    }
+
     public void getPhotoOfDay(String date, String apiKey) {
         disposable.add(
                 repository.getPhotoOfDay(date, apiKey)
@@ -41,9 +46,16 @@ public class PhotoViewModel extends AndroidViewModel {
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(disposable1 -> loading.setValue(true))
                         .doOnTerminate(() -> loading.setValue(false))
-                        .subscribe(photo::setValue,
-                                throwable -> Log.i("LOG", "erro" + throwable.getMessage()))
+                        .subscribe(this::resp,
+                                //throwable -> Log.i("LOG", "erro api nasa" + throwable.getMessage()),
+                                throwable -> found.setValue(false)
+                        )
         );
+    }
+
+    public void resp(PhotoResponse resp) {
+        photo.setValue(resp);
+        found.setValue(true);
     }
 
     @Override

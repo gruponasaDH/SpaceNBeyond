@@ -12,14 +12,6 @@
     android:layout_height="wrap_content"
     android:id="@+id/container">
 
-            <com.vivekkaushik.datepicker.DatePickerTimeline
-                android:id="@+id/datePickerTimeline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewAno" />
-
             <ImageView
                 android:id="@+id/imageViewUser"
                 android:layout_width="34dp"
@@ -47,19 +39,19 @@
                 android:tint="@color/branco"
                 android:contentDescription="@string/botao_calendario"/>
 
-            <TextView
-                android:id="@+id/textViewMes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:fontFamily="@font/fira_sans"
-                android:textColor="@color/white"
-                android:textSize="45sp"
-                app:layout_constraintBottom_toTopOf="@+id/textViewAno"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Jan" />
+    <TextView
+        android:id="@+id/textViewMes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/fira_sans"
+        android:textColor="@color/white"
+        android:textSize="45sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Jan" />
 
             <TextView
                 android:id="@+id/textViewAno"
@@ -68,22 +60,22 @@
                 android:fontFamily="@font/fira_sans"
                 android:textColor="@color/white"
                 android:textSize="25sp"
-                app:layout_constraintBottom_toTopOf="@+id/datePickerTimeline"
+                app:layout_constraintBottom_toTopOf="@+id/progress_bar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMes"
                 tools:text="2020" />
 
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/card"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/datePickerTimeline" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAno" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card"

@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage;
@@ -34,9 +36,9 @@ import java.util.Date;
 
 public class HomeFragment extends Fragment {
 
-    private DatePickerTimeline datePickerTimeline;
     private TextView textViewMes;
     private TextView textViewAno;
+    private ConstraintLayout containerSnack;
 
     private ImageView imageViewCalendar;
     private ImageView imageViewUser;
@@ -79,34 +81,43 @@ public class HomeFragment extends Fragment {
             updateLabel(myCalendar);
 
             String mes = "";
-            if (monthOfYear == 1) {
+            if (monthOfYear == 0) {
                 mes = "01";
             }
-            else if (monthOfYear == 2) {
+            else if (monthOfYear == 1) {
                 mes = "02";
             }
-            else if (monthOfYear == 3) {
+            else if (monthOfYear == 2) {
                 mes = "03";
             }
-            else if (monthOfYear == 4) {
+            else if (monthOfYear == 3) {
                 mes = "04";
             }
-            else if (monthOfYear == 5) {
+            else if (monthOfYear == 4) {
                 mes = "05";
             }
-            else if (monthOfYear == 6) {
+            else if (monthOfYear == 5) {
                 mes = "06";
             }
-            else if (monthOfYear == 7) {
+            else if (monthOfYear == 6) {
                 mes = "07";
             }
-            else if (monthOfYear == 8) {
+            else if (monthOfYear == 7) {
                 mes = "08";
             }
-            else if (monthOfYear == 9) {
+            else if (monthOfYear == 8) {
                 mes = "09";
             }
-            dateRequest = year + "/" + mes + "/" + dayOfMonth;
+            else if (monthOfYear == 9) {
+                mes = "10";
+            }
+            else if (monthOfYear == 10) {
+                mes = "11";
+            }
+            else if (monthOfYear == 11) {
+                mes = "12";
+            }
+            dateRequest = year + "-" + mes + "-" + dayOfMonth;
             getPhotoOfDay();
         };
 
@@ -129,6 +140,15 @@ public class HomeFragment extends Fragment {
         photoViewModel.getLoading().observe(this, loading -> {
             if (loading) {
                 progressBar.setVisibility(View.VISIBLE);
+            }
+            else {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
+        photoViewModel.getFound().observe(this, found -> {
+            if (found) {
+                Snackbar.make(containerSnack, R.string.nao_ha_imagem, Snackbar.LENGTH_LONG).show();
             }
             else {
                 progressBar.setVisibility(View.GONE);
@@ -202,8 +222,6 @@ public class HomeFragment extends Fragment {
         }
 
         textViewAno.setText(currentDate[5]);
-        datePickerTimeline.deactivateDates(dates);
-        datePickerTimeline.setActiveDate(myCalendar);
     }
 
     private void changeDate() {
@@ -253,114 +271,18 @@ public class HomeFragment extends Fragment {
                 break;
         }
 
-        final Calendar myCalendar = Calendar.getInstance();
-
         textViewAno.setText(currentDate[5]);
-        datePickerTimeline.deactivateDates(dates);
-        datePickerTimeline.setActiveDate(myCalendar);
-        datePickerTimeline.setNextFocusUpId(800);
-    }
-
-    private void setTextDate(int month, int year) {
-        month++;
-        if (month == 1) {
-            textViewMes.setText(getString(R.string.jan));
-        }
-        else if (month == 2) {
-            textViewMes.setText(getString(R.string.fev));
-        }
-        else if (month == 3) {
-            textViewMes.setText(getString(R.string.mar));
-        }
-        else if (month == 4) {
-            textViewMes.setText(getString(R.string.abr));
-        }
-        else if (month == 5) {
-            textViewMes.setText(getString(R.string.mai));
-        }
-        else if (month == 6) {
-            textViewMes.setText(getString(R.string.jun));
-        }
-        else if (month == 7) {
-            textViewMes.setText(getString(R.string.jul));
-        }
-        else if (month == 8) {
-            textViewMes.setText(getString(R.string.ago));
-        }
-        else if (month == 9) {
-            textViewMes.setText(getString(R.string.set));
-        }
-        else if (month == 10) {
-            textViewMes.setText(getString(R.string.out));
-        }
-        else if (month == 11) {
-            textViewMes.setText(getString(R.string.nov));
-        }
-        else if (month == 12) {
-            textViewMes.setText(getString(R.string.dez));
-        }
-
-        String ano = String.valueOf(year);
-        textViewAno.setText(ano);
     }
 
     private void initViews(View view) {
+
+        containerSnack = view.findViewById(R.id.container);
 
         imageViewCalendar = view.findViewById(R.id.imageViewCalendar);
         imageViewUser = view.findViewById(R.id.imageViewUser);
 
         textViewMes = view.findViewById(R.id.textViewMes);
         textViewAno = view.findViewById(R.id.textViewAno);
-
-        datePickerTimeline = view.findViewById(R.id.datePickerTimeline);
-
-        datePickerTimeline.setDateTextColor(Color.WHITE);
-        datePickerTimeline.setDayTextColor(Color.WHITE);
-        datePickerTimeline.setMonthTextColor(Color.WHITE);
-        datePickerTimeline.setInitialDate(1995, 5, 18);
-
-        datePickerTimeline.setOnDateSelectedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(int year, int month, int day, int dayOfWeek) {
-                setTextDate(month, year);
-                String mes = "";
-                month++;
-                if (month == 1) {
-                    mes = "01";
-                }
-                else if (month == 2) {
-                    mes = "02";
-                }
-                else if (month == 3) {
-                    mes = "03";
-                }
-                else if (month == 4) {
-                    mes = "04";
-                }
-                else if (month == 5) {
-                    mes = "05";
-                }
-                else if (month == 6) {
-                    mes = "06";
-                }
-                else if (month == 7) {
-                    mes = "07";
-                }
-                else if (month == 8) {
-                    mes = "08";
-                }
-                else if (month == 9) {
-                    mes = "09";
-                }
-                dateRequest = year + "-" + mes + "-" + day;
-                getPhotoOfDay();
-            }
-
-            @Override
-            public void onDisabledDateSelected(int year, int month, int day, int dayOfWeek, boolean isDisabled) {
-
-            }
-        });
 
         photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
 
@@ -376,6 +298,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getPhotoOfDay () {
+
         photoViewModel.getPhotoOfDay(dateRequest, API_KEY);
         photoViewModel.photo.observe(this, result -> {
 
@@ -393,6 +316,12 @@ public class HomeFragment extends Fragment {
             }
             Picasso.get().load(result.getUrl()).into(imageViewFoto);
             textViewDescricao.setText(result.getExplanation());
+        });
+
+        photoViewModel.getFound().observe(this, found -> {
+            if (!found) {
+                Snackbar.make(containerSnack, R.string.nao_ha_imagem, Snackbar.LENGTH_LONG).show();
+            }
         });
     }
 
