@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.spacenbeyond.R;
+import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment {
     private TextView textViewFoto;
     private TextView textViewAutor;
     private ImageView imageViewFoto;
+    private ImageView imageFavorite;
     private TextView textViewDescricao;
     private MaterialButton materialButtonPT;
     private MaterialButton materialButtonENG;
@@ -126,6 +128,15 @@ public class HomeFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         });
 
+        imageFavorite.setOnClickListener(new View.OnClickListener() {
+            private PhotoResponse photoResponse;
+
+            @Override
+            public void onClick(View view) {
+                photoViewModel.salvarFavorito(photoResponse);
+            }
+        });
+
         photoViewModel.getLoading().observe(this, loading -> {
             if (loading) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -139,7 +150,7 @@ public class HomeFragment extends Fragment {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String todayString = formatter.format(currentTime);
         photoViewModel.getPhotoOfDay(todayString, API_KEY);
-        photoViewModel.liveData.observe(this, result -> {
+        photoViewModel.liveData.observe(this, (PhotoResponse result) -> {
             textViewFoto.setText(result.getTitle());
             if (result.getCopyright() != null) {
                 textViewAutor.setVisibility(View.VISIBLE);
@@ -369,6 +380,7 @@ public class HomeFragment extends Fragment {
         textViewFoto = view.findViewById(R.id.textViewFoto);
         textViewAutor = view.findViewById(R.id.textViewAutor);
         imageViewFoto = view.findViewById(R.id.imageViewFoto);
+        imageFavorite = view.findViewById(R.id.ic_favorite);
         textViewDescricao = view.findViewById(R.id.textViewDescricao);
         materialButtonPT = view.findViewById(R.id.materialButtonPT);
         materialButtonENG = view.findViewById(R.id.materialButtonENG);
@@ -379,9 +391,6 @@ public class HomeFragment extends Fragment {
         photoViewModel.getPhotoOfDay(dateRequest, API_KEY);
         photoViewModel.photo.observe(this, result -> {
 
-//            if (!dateRequest.equals(result.getDate())) {
-//                Snackbar.make(container, R.string.nao_ha_imagem, Snackbar.LENGTH_LONG).show();
-//            }
 
             textViewFoto.setText(result.getTitle());
             if (result.getCopyright() != null) {
@@ -403,18 +412,15 @@ public class HomeFragment extends Fragment {
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
                 v -> {
-                    // Model downloaded successfully. Okay to start translating.
-                    // (Set a flag, unhide the translation UI, etc.)
+
                     englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
                             translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
                             e -> {
-                                // Error.
-                                // ...
+
                             });
                 }).addOnFailureListener(
                 e -> {
-                    // Model couldn’t be downloaded or other internal error.
-                    // ...
+
                 });
     }
 
@@ -425,18 +431,15 @@ public class HomeFragment extends Fragment {
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
                 v -> {
-                    // Model downloaded successfully. Okay to start translating.
-                    // (Set a flag, unhide the translation UI, etc.)
+
                     englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
                             translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
                             e -> {
-                                // Error.
-                                // ...
+
                             });
                 }).addOnFailureListener(
                 e -> {
-                    // Model couldn’t be downloaded or other internal error.
-                    // ...
+
                 });
     }
 
@@ -447,18 +450,15 @@ public class HomeFragment extends Fragment {
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
                 v -> {
-                    // Model downloaded successfully. Okay to start translating.
-                    // (Set a flag, unhide the translation UI, etc.)
+
                     englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
                             translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
                             e -> {
-                                // Error.
-                                // ...
+
                             });
                 }).addOnFailureListener(
                 e -> {
-                    // Model couldn’t be downloaded or other internal error.
-                    // ...
+
                 });
     }
 
@@ -469,20 +469,18 @@ public class HomeFragment extends Fragment {
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
                 v -> {
-                    // Model downloaded successfully. Okay to start translating.
-                    // (Set a flag, unhide the translation UI, etc.)
+
                     englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
                             translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
                             e -> {
-                                // Error.
-                                // ...
+
                             });
                 }).addOnFailureListener(
                 e -> {
-                    // Model couldn’t be downloaded or other internal error.
-                    // ...
+
                 });
     }
+
 
     private void replaceFragments(Fragment fragment){
         getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_up, 0, 0, R.animator.slide_down).replace(R.id.fragment_container, fragment).commit();

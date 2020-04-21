@@ -195,18 +195,6 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:rippleColor="#C0CCDA" />
 
-                        <ImageView
-                            android:id="@+id/ic_download"
-                            android:layout_width="29dp"
-                            android:layout_height="32dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:contentDescription="@string/botao_download"
-                            android:src="@drawable/ic_download"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/ic_share"
-                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/ic_share"

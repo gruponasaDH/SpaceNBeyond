@@ -3,6 +3,7 @@ package com.example.spacenbeyond.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,14 +21,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spacenbeyond.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
 
     private TextView txtCadastro;
     private Button btnLogin;
+    private Button gButton;
+    private Button fButton;
     private TextInputLayout txtEmail;
     private TextInputLayout txtSenha;
+    private GoogleSignInClient googleSignInClient;
+
+    public static final String GOOGLE_ACCOUNT = "google_account";
+    public static int RC_SIGN_IN = 101;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +55,39 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(v -> verifyFields());
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        gButton.setOnClickListener(view -> {
+            Intent signInIntent = googleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK)
+            if (requestCode == RC_SIGN_IN) {
+                try {
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    onLoggedIn(account);
+                } catch (ApiException e) {
+                    Toast.makeText(getApplicationContext(), "Não foi possível fazer o login", Toast.LENGTH_SHORT).show();
+                }
+            }
+    }
+
+    private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(GOOGLE_ACCOUNT, googleSignInAccount);
+        startActivity(intent);
+        finish();
     }
 
     private void verifyFields() {
@@ -61,6 +109,8 @@ public class LoginActivity extends AppCompatActivity {
         txtCadastro = findViewById(R.id.textViewCadastreSe);
         txtEmail = findViewById(R.id.txtEmail);
         txtSenha = findViewById(R.id.txtSenha);
+        gButton = findViewById(R.id.googleButton);
+        fButton = findViewById(R.id.facebookButton);
     }
 
 
