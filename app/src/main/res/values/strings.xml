@@ -29,7 +29,6 @@
     <string name="clique_camera">Clique na câmera e tire fotos inspiradas nas hashtags sorteadas!</string>
     <string name="home">Home</string>
     <string name="hashtags">Hashtags</string>
-    <string name="favoritos">Favoritos</string>
     <string name="ajuda">Ajuda</string>
     <string name="marca_do_app">Marca do App</string>
     <string name="botao_voltar">botão voltar</string>
@@ -59,4 +58,5 @@
     <string name="out">Out</string>
     <string name="nov">Nov</string>
     <string name="dez">Dez</string>
+    <string name="favoritos">Favoritos</string>
 </resources>
