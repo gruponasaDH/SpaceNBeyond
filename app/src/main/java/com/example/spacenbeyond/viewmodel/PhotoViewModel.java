@@ -3,6 +3,7 @@ package com.example.spacenbeyond.viewmodel;
 import android.app.Application;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -12,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.repository.PhotoRepository;
 import com.example.spacenbeyond.util.AppUtil;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,7 +63,6 @@ public class PhotoViewModel extends AndroidViewModel {
         disposable.clear();
     }
 
-
     public void salvarFavorito(PhotoResponse photoResponse){
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -79,6 +80,7 @@ public class PhotoViewModel extends AndroidViewModel {
                         existe = true;
                     }
                 }
+
                 if (existe) {
                     resultLiveDataError.setValue(new Throwable("A foto do dia: " + photoResponse.getDate() + "já está nos seus favoritos."));
                 } else {
@@ -88,7 +90,7 @@ public class PhotoViewModel extends AndroidViewModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(getApplication(), databaseError.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }

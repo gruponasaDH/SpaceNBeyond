@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.interfaces.FavoritosClick;
+import com.example.spacenbeyond.model.FirebasePhoto;
+import com.example.spacenbeyond.view.FavoritosClick;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.squareup.picasso.Picasso;
 
@@ -18,10 +19,10 @@ import java.util.List;
 public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<FavoritosRecyclerViewAdapter.ViewHolder> {
 
 
-    private List<PhotoResponse> listaFotos;
+    private List<FirebasePhoto> listaFotos;
     private FavoritosClick listener;
 
-    public FavoritosRecyclerViewAdapter(List<PhotoResponse> listaFotos, FavoritosFragment listener) {
+    public FavoritosRecyclerViewAdapter(List<FirebasePhoto> listaFotos, FavoritosFragment listener) {
         this.listaFotos = listaFotos;
         this.listener = listener;
     }
@@ -37,7 +38,7 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
     @Override
     public void onBindViewHolder(@NonNull FavoritosRecyclerViewAdapter.ViewHolder holder, int position) {
 
-        PhotoResponse photoResponse = listaFotos.get(position);
+        FirebasePhoto photoResponse = listaFotos.get(position);
         holder.bind(photoResponse);
 
         holder.fotoFavoritos.setOnClickListener(new View.OnClickListener() {
@@ -49,11 +50,10 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
 
     }
 
-    public void update(List<PhotoResponse> listaFotos){
+    public void update(List<FirebasePhoto> listaFotos){
         this.listaFotos = listaFotos;
         notifyDataSetChanged();
     }
-
 
     @Override
     public int getItemCount() {
@@ -70,11 +70,8 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
             fotoFavoritos = itemView.findViewById(R.id.imageFavoritos);
         }
 
-        public void bind(PhotoResponse photoResponse){
+        public void bind(FirebasePhoto photoResponse){
             Picasso.get().load(photoResponse.getUrl()).into(fotoFavoritos);
         }
-
-        }
-
-
+    }
 }

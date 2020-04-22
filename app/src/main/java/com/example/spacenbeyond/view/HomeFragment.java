@@ -35,6 +35,8 @@ import java.util.Date;
 
 public class HomeFragment extends Fragment {
 
+    private PhotoResponse photoResponse;
+
     private DatePickerTimeline datePickerTimeline;
     private TextView textViewMes;
     private TextView textViewAno;
@@ -108,7 +110,7 @@ public class HomeFragment extends Fragment {
             else if (monthOfYear == 9) {
                 mes = "09";
             }
-            dateRequest = year + "/" + mes + "/" + dayOfMonth;
+            dateRequest = year + "-" + mes + "-" + dayOfMonth;
             getPhotoOfDay();
         };
 
@@ -129,7 +131,7 @@ public class HomeFragment extends Fragment {
         });
 
         imageFavorite.setOnClickListener(new View.OnClickListener() {
-            private PhotoResponse photoResponse;
+            //private PhotoResponse photoResponse;
 
             @Override
             public void onClick(View view) {
@@ -151,6 +153,9 @@ public class HomeFragment extends Fragment {
         String todayString = formatter.format(currentTime);
         photoViewModel.getPhotoOfDay(todayString, API_KEY);
         photoViewModel.liveData.observe(this, (PhotoResponse result) -> {
+
+            photoResponse = result;
+
             textViewFoto.setText(result.getTitle());
             if (result.getCopyright() != null) {
                 textViewAutor.setVisibility(View.VISIBLE);
@@ -374,6 +379,7 @@ public class HomeFragment extends Fragment {
         });
 
         photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
+        photoResponse = new PhotoResponse();
 
         progressBar = view.findViewById(R.id.progress_bar);
 
@@ -391,6 +397,7 @@ public class HomeFragment extends Fragment {
         photoViewModel.getPhotoOfDay(dateRequest, API_KEY);
         photoViewModel.photo.observe(this, result -> {
 
+            photoResponse = result;
 
             textViewFoto.setText(result.getTitle());
             if (result.getCopyright() != null) {

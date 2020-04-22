@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.spacenbeyond.R;
+import com.example.spacenbeyond.model.FirebasePhoto;
 import com.example.spacenbeyond.view.FavoritosClick;
 import com.example.spacenbeyond.model.PhotoResponse;
 
@@ -34,12 +35,9 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
     FirebaseDatabase database;
     DatabaseReference reference;
 
-
     public FavoritosFragment() {
 
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,10 +62,10 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
         reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<PhotoResponse> listaFotos = new ArrayList<>();
+                List<FirebasePhoto> listaFotos = new ArrayList<>();
 
                 for (DataSnapshot child : dataSnapshot.getChildren()){
-                    PhotoResponse photoResponse = child.getValue(PhotoResponse.class);
+                    FirebasePhoto photoResponse = child.getValue(FirebasePhoto.class);
                     listaFotos.add(photoResponse);
                 }
 
@@ -81,9 +79,8 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
         });
     }
 
-
     @Override
-    public void favoritosClickListener(PhotoResponse photoResponse) {
+    public void favoritosClickListener(FirebasePhoto photoResponse) {
 
         reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
