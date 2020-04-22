@@ -4,7 +4,20 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-public class FirebasePhoto {
+@Entity(tableName = "favorite")
+public class PhotoEntity {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private long id;
+
+    public PhotoEntity(String copyright, String date, String explanation, String title, String url) {
+        this.copyright = copyright;
+        this.date = date;
+        this.explanation = explanation;
+        this.title = title;
+        this.url = url;
+    }
 
     private String copyright;
 
@@ -15,14 +28,6 @@ public class FirebasePhoto {
     private String title;
 
     private String url;
-
-    public FirebasePhoto(String copyright, String date, String explanation, String title, String url) {
-        this.copyright = copyright;
-        this.date = date;
-        this.explanation = explanation;
-        this.title = title;
-        this.url = url;
-    }
 
     public String getCopyright() {
         return copyright;
@@ -62,5 +67,13 @@ public class FirebasePhoto {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

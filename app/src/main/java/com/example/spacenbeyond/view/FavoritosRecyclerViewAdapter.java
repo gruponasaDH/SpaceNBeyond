@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.FirebasePhoto;
+import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.view.FavoritosClick;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.squareup.picasso.Picasso;
@@ -19,10 +20,10 @@ import java.util.List;
 public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<FavoritosRecyclerViewAdapter.ViewHolder> {
 
 
-    private List<FirebasePhoto> listaFotos;
+    private List<PhotoEntity> listaFotos;
     private FavoritosClick listener;
 
-    public FavoritosRecyclerViewAdapter(List<FirebasePhoto> listaFotos, FavoritosFragment listener) {
+    public FavoritosRecyclerViewAdapter(List<PhotoEntity> listaFotos, FavoritosFragment listener) {
         this.listaFotos = listaFotos;
         this.listener = listener;
     }
@@ -38,7 +39,7 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
     @Override
     public void onBindViewHolder(@NonNull FavoritosRecyclerViewAdapter.ViewHolder holder, int position) {
 
-        FirebasePhoto photoResponse = listaFotos.get(position);
+        PhotoEntity photoResponse = listaFotos.get(position);
         holder.bind(photoResponse);
 
         holder.fotoFavoritos.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +51,7 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
 
     }
 
-    public void update(List<FirebasePhoto> listaFotos){
+    public void update(List<PhotoEntity> listaFotos){
         this.listaFotos = listaFotos;
         notifyDataSetChanged();
     }
@@ -70,7 +71,7 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
             fotoFavoritos = itemView.findViewById(R.id.imageFavoritos);
         }
 
-        public void bind(FirebasePhoto photoResponse){
+        public void bind(PhotoEntity photoResponse){
             Picasso.get().load(photoResponse.getUrl()).into(fotoFavoritos);
         }
     }

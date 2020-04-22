@@ -50,5 +50,8 @@ public class PhotoResponse {
         return mUrl;
     }
 
+    public void setmCopyright(String mCopyright) {
+        this.mCopyright = mCopyright;
+    }
 }
 

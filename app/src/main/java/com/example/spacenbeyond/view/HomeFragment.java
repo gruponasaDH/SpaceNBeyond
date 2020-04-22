@@ -2,6 +2,7 @@ package com.example.spacenbeyond.view;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.spacenbeyond.R;
+import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -26,18 +29,17 @@ import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguag
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 import com.squareup.picasso.Picasso;
-import com.vivekkaushik.datepicker.DatePickerTimeline;
-import com.vivekkaushik.datepicker.OnDateSelectedListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
+
 public class HomeFragment extends Fragment {
 
     private PhotoResponse photoResponse;
 
-    private DatePickerTimeline datePickerTimeline;
     private TextView textViewMes;
     private TextView textViewAno;
 
@@ -50,6 +52,7 @@ public class HomeFragment extends Fragment {
     private TextView textViewAutor;
     private ImageView imageViewFoto;
     private ImageView imageFavorite;
+    private ImageView imageShare;
     private TextView textViewDescricao;
     private MaterialButton materialButtonPT;
     private MaterialButton materialButtonENG;
@@ -135,7 +138,27 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                photoViewModel.salvarFavorito(photoResponse);
+
+                if (verificaConexaoComInternet(getContext())) {
+                    photoViewModel.salvarFavorito(photoResponse);
+                }
+                else {
+                    PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
+                    photoViewModel.insereDadosBd(photoEntity);
+                }
+            }
+        });
+
+        imageShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
             }
         });
 
@@ -172,7 +195,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateLabel(Calendar myCalendar) {
-        Date[] dates = { myCalendar.getTime() };
         Date currentTime = myCalendar.getTime();
 
         String d = currentTime.toString();
@@ -218,13 +240,10 @@ public class HomeFragment extends Fragment {
         }
 
         textViewAno.setText(currentDate[5]);
-        datePickerTimeline.deactivateDates(dates);
-        datePickerTimeline.setActiveDate(myCalendar);
     }
 
     private void changeDate() {
 
-        Date[] dates = { Calendar.getInstance().getTime() };
         Date currentTime = Calendar.getInstance().getTime();
 
         String d = currentTime.toString();
@@ -269,55 +288,7 @@ public class HomeFragment extends Fragment {
                 break;
         }
 
-        final Calendar myCalendar = Calendar.getInstance();
-
         textViewAno.setText(currentDate[5]);
-        datePickerTimeline.deactivateDates(dates);
-        datePickerTimeline.setActiveDate(myCalendar);
-        datePickerTimeline.setNextFocusUpId(800);
-    }
-
-    private void setTextDate(int month, int year) {
-        month++;
-        if (month == 1) {
-            textViewMes.setText(getString(R.string.jan));
-        }
-        else if (month == 2) {
-            textViewMes.setText(getString(R.string.fev));
-        }
-        else if (month == 3) {
-            textViewMes.setText(getString(R.string.mar));
-        }
-        else if (month == 4) {
-            textViewMes.setText(getString(R.string.abr));
-        }
-        else if (month == 5) {
-            textViewMes.setText(getString(R.string.mai));
-        }
-        else if (month == 6) {
-            textViewMes.setText(getString(R.string.jun));
-        }
-        else if (month == 7) {
-            textViewMes.setText(getString(R.string.jul));
-        }
-        else if (month == 8) {
-            textViewMes.setText(getString(R.string.ago));
-        }
-        else if (month == 9) {
-            textViewMes.setText(getString(R.string.set));
-        }
-        else if (month == 10) {
-            textViewMes.setText(getString(R.string.out));
-        }
-        else if (month == 11) {
-            textViewMes.setText(getString(R.string.nov));
-        }
-        else if (month == 12) {
-            textViewMes.setText(getString(R.string.dez));
-        }
-
-        String ano = String.valueOf(year);
-        textViewAno.setText(ano);
     }
 
     private void initViews(View view) {
@@ -328,56 +299,6 @@ public class HomeFragment extends Fragment {
         textViewMes = view.findViewById(R.id.textViewMes);
         textViewAno = view.findViewById(R.id.textViewAno);
 
-        datePickerTimeline = view.findViewById(R.id.datePickerTimeline);
-
-        datePickerTimeline.setDateTextColor(Color.WHITE);
-        datePickerTimeline.setDayTextColor(Color.WHITE);
-        datePickerTimeline.setMonthTextColor(Color.WHITE);
-        datePickerTimeline.setInitialDate(1995, 5, 18);
-
-        datePickerTimeline.setOnDateSelectedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(int year, int month, int day, int dayOfWeek) {
-                setTextDate(month, year);
-                String mes = "";
-                month++;
-                if (month == 1) {
-                    mes = "01";
-                }
-                else if (month == 2) {
-                    mes = "02";
-                }
-                else if (month == 3) {
-                    mes = "03";
-                }
-                else if (month == 4) {
-                    mes = "04";
-                }
-                else if (month == 5) {
-                    mes = "05";
-                }
-                else if (month == 6) {
-                    mes = "06";
-                }
-                else if (month == 7) {
-                    mes = "07";
-                }
-                else if (month == 8) {
-                    mes = "08";
-                }
-                else if (month == 9) {
-                    mes = "09";
-                }
-                dateRequest = year + "-" + mes + "-" + day;
-                getPhotoOfDay();
-            }
-
-            @Override
-            public void onDisabledDateSelected(int year, int month, int day, int dayOfWeek, boolean isDisabled) {
-
-            }
-        });
-
         photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
         photoResponse = new PhotoResponse();
 
@@ -387,6 +308,7 @@ public class HomeFragment extends Fragment {
         textViewAutor = view.findViewById(R.id.textViewAutor);
         imageViewFoto = view.findViewById(R.id.imageViewFoto);
         imageFavorite = view.findViewById(R.id.ic_favorite);
+        imageShare = view.findViewById(R.id.ic_share);
         textViewDescricao = view.findViewById(R.id.textViewDescricao);
         materialButtonPT = view.findViewById(R.id.materialButtonPT);
         materialButtonENG = view.findViewById(R.id.materialButtonENG);
@@ -487,7 +409,6 @@ public class HomeFragment extends Fragment {
 
                 });
     }
-
 
     private void replaceFragments(Fragment fragment){
         getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_up, 0, 0, R.animator.slide_down).replace(R.id.fragment_container, fragment).commit();

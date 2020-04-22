@@ -10,6 +10,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.spacenbeyond.model.FirebasePhoto;
+import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.repository.PhotoRepository;
 import com.example.spacenbeyond.util.AppUtil;
@@ -20,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -27,11 +31,19 @@ import io.reactivex.schedulers.Schedulers;
 public class PhotoViewModel extends AndroidViewModel {
     public final MutableLiveData<PhotoResponse> photo = new MutableLiveData<>();
     public final LiveData<PhotoResponse> liveData = photo;
+
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>();
     private final CompositeDisposable disposable = new CompositeDisposable();
     private final PhotoRepository repository = new PhotoRepository();
+
     public MutableLiveData<Throwable> resultLiveDataError = new MutableLiveData<>();
-    public MutableLiveData<PhotoResponse> favoriteAdded = new MutableLiveData<>();
+    public MutableLiveData<PhotoEntity> favoriteAdded = new MutableLiveData<>();
+
+    public MutableLiveData<List<PhotoEntity>> mutableLiveDataPhoto = new MutableLiveData<>();
+    public LiveData<List<PhotoEntity>> liveDataPhoto = mutableLiveDataPhoto;
+
+    public MutableLiveData<String> mutableLiveDataErro = new MutableLiveData<>();
+    public LiveData<String> liveDataErro = mutableLiveDataErro;
 
     public PhotoViewModel(@NonNull Application application) {
         super(application);
@@ -53,7 +65,7 @@ public class PhotoViewModel extends AndroidViewModel {
                         .doOnSubscribe(disposable1 -> loading.setValue(true))
                         .doOnTerminate(() -> loading.setValue(false))
                         .subscribe(photo::setValue,
-                                throwable -> Log.i("LOG", "erro" + throwable.getMessage()))
+                                throwable -> Toast.makeText(getApplication(), throwable.getMessage().toString(), Toast.LENGTH_LONG).show())
         );
     }
 
@@ -84,6 +96,12 @@ public class PhotoViewModel extends AndroidViewModel {
                 if (existe) {
                     resultLiveDataError.setValue(new Throwable("A foto do dia: " + photoResponse.getDate() + "já está nos seus favoritos."));
                 } else {
+
+                    if (photoResponse.getCopyright() != null) { }
+                    else {
+                        photoResponse.setmCopyright(" ");
+                    }
+
                     salvarFavoritoVerificado(reference, photoResponse);
                 }
             }
@@ -95,7 +113,6 @@ public class PhotoViewModel extends AndroidViewModel {
         });
     }
 
-
     private void salvarFavoritoVerificado(DatabaseReference reference, PhotoResponse photoResponse){
         String key = reference.push().getKey();
         reference.child(key).setValue(photoResponse);
@@ -105,15 +122,39 @@ public class PhotoViewModel extends AndroidViewModel {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 PhotoResponse photoResponse1 = dataSnapshot.getValue(PhotoResponse.class);
-                favoriteAdded.setValue(photoResponse1);
+                PhotoEntity photoEntity = new PhotoEntity(photoResponse1.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
+                favoriteAdded.setValue(photoEntity);
+
+                insereDadosBd(photoEntity);
+
+                Toast.makeText(getApplication(), "Imagem " + photoEntity.getTitle() + " favoritada com sucesso.", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(getApplication(), databaseError.toString(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    public void carregaDadosBD() {
+        disposable.add(
+                repository.retornaPhotosBD(getApplication())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(subscription -> loading.setValue(true))
+                        .doAfterTerminate(() -> loading.setValue(false))
+                        .subscribe(albumList ->
+                                        mutableLiveDataPhoto.setValue(albumList),
+                                throwable ->
+                                        mutableLiveDataErro.setValue(throwable.getMessage() + "problema banco de dados"))
+        );
+    }
 
+    public void insereDadosBd(PhotoEntity photoEntity) {
+
+        new Thread(() -> {
+            repository.inserePhotoBd(photoEntity, getApplication());
+        }).start();
+    }
 }
