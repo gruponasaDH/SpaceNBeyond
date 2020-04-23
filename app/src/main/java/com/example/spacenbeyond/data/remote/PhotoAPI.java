@@ -1,7 +1,6 @@
 package com.example.spacenbeyond.data.remote;
 
 import com.example.spacenbeyond.model.PhotoResponse;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

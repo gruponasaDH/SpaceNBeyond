@@ -1,17 +1,12 @@
 package com.example.spacenbeyond.repository;
 
 import android.content.Context;
-
 import com.example.spacenbeyond.data.remote.PhotoDatabase;
-import com.example.spacenbeyond.model.FirebasePhoto;
 import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
-
 import java.util.List;
-
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
-
 import static com.example.spacenbeyond.data.remote.PhotoRetrofitService.getApiService;
 
 public class PhotoRepository {

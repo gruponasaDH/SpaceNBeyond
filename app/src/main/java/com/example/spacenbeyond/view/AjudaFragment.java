@@ -12,16 +12,12 @@ import com.example.spacenbeyond.R;
 
 public class AjudaFragment extends Fragment {
 
-    public AjudaFragment() {
-    }
-
+    public AjudaFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ajuda, container, false);
 
         return view;
-
     }
-
 }

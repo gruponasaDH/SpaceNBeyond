@@ -3,21 +3,17 @@ package com.example.spacenbeyond.view;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
@@ -29,7 +25,6 @@ import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguag
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -134,7 +129,6 @@ public class HomeFragment extends Fragment {
         });
 
         imageFavorite.setOnClickListener(new View.OnClickListener() {
-            //private PhotoResponse photoResponse;
 
             @Override
             public void onClick(View view) {

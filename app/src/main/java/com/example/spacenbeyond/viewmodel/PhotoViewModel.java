@@ -1,29 +1,24 @@
 package com.example.spacenbeyond.viewmodel;
 
 import android.app.Application;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.spacenbeyond.model.FirebasePhoto;
 import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.repository.PhotoRepository;
 import com.example.spacenbeyond.util.AppUtil;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.spacenbeyond.view.FavoritosRecyclerViewAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -44,6 +39,7 @@ public class PhotoViewModel extends AndroidViewModel {
 
     public MutableLiveData<String> mutableLiveDataErro = new MutableLiveData<>();
     public LiveData<String> liveDataErro = mutableLiveDataErro;
+
 
     public PhotoViewModel(@NonNull Application application) {
         super(application);
@@ -135,6 +131,37 @@ public class PhotoViewModel extends AndroidViewModel {
                 Toast.makeText(getApplication(), databaseError.toString(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void carregaFavoritos(FavoritosRecyclerViewAdapter adapter){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
+                reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        List<PhotoEntity> listaFotos = new ArrayList<>();
+                        for (DataSnapshot child : dataSnapshot.getChildren()){
+                            FirebasePhoto photoResponse = new FirebasePhoto();
+                            photoResponse = child.getValue(FirebasePhoto.class);
+                            PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
+                            listaFotos.add(photoEntity);
+                        }
+
+                        adapter.update(listaFotos);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getApplication(), databaseError.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }).start();
     }
 
     public void carregaDadosBD() {

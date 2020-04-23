@@ -1,8 +1,6 @@
 package com.example.spacenbeyond.data.remote;
 
 import androidx.room.TypeConverter;
-
-import com.example.spacenbeyond.model.FirebasePhoto;
 import com.example.spacenbeyond.model.PhotoEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

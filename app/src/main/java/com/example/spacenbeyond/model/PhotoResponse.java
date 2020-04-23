@@ -1,4 +1,3 @@
-
 package com.example.spacenbeyond.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -54,4 +53,3 @@ public class PhotoResponse {
         this.mCopyright = mCopyright;
     }
 }
-

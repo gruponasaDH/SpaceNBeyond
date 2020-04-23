@@ -1,9 +1,5 @@
 package com.example.spacenbeyond.model;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 public class FirebasePhoto {
 
     private String copyright;
@@ -15,6 +11,10 @@ public class FirebasePhoto {
     private String title;
 
     private String url;
+
+    public FirebasePhoto() {
+
+    }
 
     public FirebasePhoto(String copyright, String date, String explanation, String title, String url) {
         this.copyright = copyright;

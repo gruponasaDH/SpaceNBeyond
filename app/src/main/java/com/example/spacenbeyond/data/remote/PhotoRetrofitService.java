@@ -2,9 +2,7 @@ package com.example.spacenbeyond.data.remote;
 
 import com.facebook.stetho.BuildConfig;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

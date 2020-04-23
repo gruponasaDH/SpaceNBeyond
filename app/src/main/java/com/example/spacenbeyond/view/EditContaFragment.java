@@ -1,24 +1,15 @@
 package com.example.spacenbeyond.view;
 
-
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.spacenbeyond.R;
-
 
 public class EditContaFragment extends Fragment {
 
-
-    public EditContaFragment() {
-
-    }
-
+    public EditContaFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,5 +19,4 @@ public class EditContaFragment extends Fragment {
 
         return view;
     }
-
 }

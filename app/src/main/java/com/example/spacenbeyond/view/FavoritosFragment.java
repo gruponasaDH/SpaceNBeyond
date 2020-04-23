@@ -11,29 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.model.FirebasePhoto;
 import com.example.spacenbeyond.model.PhotoEntity;
-import com.example.spacenbeyond.view.FavoritosClick;
-import com.example.spacenbeyond.model.PhotoResponse;
 
 import com.example.spacenbeyond.util.AppUtil;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
-
 
 public class FavoritosFragment extends Fragment implements FavoritosClick {
 
@@ -57,7 +50,7 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         if (verificaConexaoComInternet(getContext())) {
-            carregaFavoritos();
+            photoViewModel.carregaFavoritos(adapter);
         } else {
             photoViewModel.carregaDadosBD();
             photoViewModel.liveDataPhoto.observe(this, (List<PhotoEntity> result) -> {
@@ -86,34 +79,6 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference(AppUtil.getIdUsuario(getContext()) + "/favorites");
-    }
-
-    private void carregaFavoritos(){
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        List<PhotoEntity> listaFotos = new ArrayList<>();
-                        for (DataSnapshot child : dataSnapshot.getChildren()){
-                            PhotoResponse photoResponse = child.getValue(PhotoResponse.class);
-                            PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
-                            listaFotos.add(photoEntity);
-                        }
-
-                        adapter.update(listaFotos);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(getContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        }).start();
-
     }
 
     @Override

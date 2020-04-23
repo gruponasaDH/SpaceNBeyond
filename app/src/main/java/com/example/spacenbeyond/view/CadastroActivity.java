@@ -40,7 +40,6 @@ public class CadastroActivity extends AppCompatActivity {
         textoClicavel();
 
         btncriarConta.setOnClickListener(v -> verifyFields());
-
     }
 
     private void verifyFields() {
@@ -63,7 +62,6 @@ public class CadastroActivity extends AppCompatActivity {
         txtEmail = findViewById(R.id.textInputLayout3);
         txtSenha = findViewById(R.id.textInputLayout4);
     }
-
 
     private void textoClicavel() {
         String text = "Já tem conta? Faça login.";

@@ -2,15 +2,12 @@ package com.example.spacenbeyond.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.example.spacenbeyond.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,9 +16,7 @@ public class HashtagFragment extends Fragment {
     private ImageView imageViewBack;
     private FloatingActionButton floatingActionButtonCamera;
 
-    public HashtagFragment() {
-
-    }
+    public HashtagFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +41,6 @@ public class HashtagFragment extends Fragment {
     }
 
     private void initViews(View view) {
-
         floatingActionButtonCamera = view.findViewById(R.id.floatingActionButtonCamera);
         imageViewBack = view.findViewById(R.id.ic_back);
     }

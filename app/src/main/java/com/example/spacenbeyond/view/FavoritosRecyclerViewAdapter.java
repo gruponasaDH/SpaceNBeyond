@@ -4,21 +4,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.model.FirebasePhoto;
 import com.example.spacenbeyond.model.PhotoEntity;
-import com.example.spacenbeyond.view.FavoritosClick;
-import com.example.spacenbeyond.model.PhotoResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<FavoritosRecyclerViewAdapter.ViewHolder> {
-
 
     private List<PhotoEntity> listaFotos;
     private FavoritosClick listener;
@@ -27,7 +21,6 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
         this.listaFotos = listaFotos;
         this.listener = listener;
     }
-
 
     @NonNull
     @Override
@@ -48,7 +41,6 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
                 listener.favoritosClickListener(photoResponse);
             }
         });
-
     }
 
     public void update(List<PhotoEntity> listaFotos){
@@ -67,7 +59,6 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             fotoFavoritos = itemView.findViewById(R.id.imageFavoritos);
         }
 
