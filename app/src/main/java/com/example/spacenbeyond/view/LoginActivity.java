@@ -19,13 +19,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.spacenbeyond.R;
+import com.example.spacenbeyond.util.AppUtil;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -90,8 +93,22 @@ public class LoginActivity extends AppCompatActivity {
         String senha = txtSenha.getEditText().getText().toString();
 
         if (!email.isEmpty() && !senha.isEmpty()) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
+                    .addOnCompleteListener(task -> {
+                        // Caso login com sucesso vamos para tela  Home
+                        if (task.isSuccessful()) {
+                            AppUtil.salvarIdUsuario(getApplicationContext(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            // Se deu algum erro mostramos para o usuário a mensagem
+                            Snackbar.make(btnLogin, "Erro ao tentar logar \n" + task.getException().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
+                    });
+
         }
         else {
             Toast.makeText(LoginActivity.this, "Por favor, forneça os dados necessários para login.", Toast.LENGTH_LONG).show();

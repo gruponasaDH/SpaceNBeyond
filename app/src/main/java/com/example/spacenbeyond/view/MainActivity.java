@@ -8,12 +8,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public BottomNavigationView bottomNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
 
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.nav_home:
                 selectedFragment = new HomeFragment();
+                item.setChecked(true);
                 break;
             case R.id.nav_hashtag:
                 selectedFragment = new HashtagFragment();
@@ -41,9 +44,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     };
 
-
     private void replaceFragments(Fragment fragment) {
 
         getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_up, 0, 0, 0).replace(R.id.fragment_container, fragment).commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

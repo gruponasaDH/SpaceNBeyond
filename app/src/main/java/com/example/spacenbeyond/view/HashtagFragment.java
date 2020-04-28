@@ -36,8 +36,9 @@ public class HashtagFragment extends Fragment {
     }
 
     private void closefragment() {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations( R.animator.slide_up, 0, 0, R.animator.slide_down).remove(this).commit();
+        getFragmentManager().beginTransaction().remove(HashtagFragment.this).commit();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 
     private void initViews(View view) {

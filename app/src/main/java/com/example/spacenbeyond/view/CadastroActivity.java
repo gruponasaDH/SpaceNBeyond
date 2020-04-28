@@ -14,13 +14,19 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spacenbeyond.R;
+import com.example.spacenbeyond.util.AppUtil;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+
+import static java.security.AccessController.getContext;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -39,20 +45,66 @@ public class CadastroActivity extends AppCompatActivity {
 
         textoClicavel();
 
-        btncriarConta.setOnClickListener(v -> verifyFields());
+        btncriarConta.setOnClickListener(v -> {
+            String nome = txtNome.getEditText().getText().toString();
+            String email = txtEmail.getEditText().getText().toString();
+            String senha = txtSenha.getEditText().getText().toString();
+
+            if(verifyFields(nome, email, senha)) {
+                registerUser(nome, email, senha);
+            }
+        });
     }
 
-    private void verifyFields() {
-        String nome = txtNome.getEditText().getText().toString();
-        String email = txtEmail.getEditText().getText().toString();
-        String senha = txtSenha.getEditText().getText().toString();
-        if (!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
-            Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
-            startActivity(intent);
+    private void registerUser(String nome, String email, String senha) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
+                .addOnCompleteListener(task -> {
+                   if (task.isSuccessful()) {
+                       // Salvar id do usuário para pegar os dados depois
+                       AppUtil.salvarIdUsuario(getApplicationContext(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+                       Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                       startActivity(intent);
+
+                   } else {
+                       // Se deu algum erro mostramos para o usuário a mensagem
+                       Snackbar.make(btncriarConta, "Erro ao cadastrar usuário -> " + task.getException().getMessage(), Snackbar.LENGTH_SHORT).show();
+                   }
+                });
+    }
+
+    private boolean verifyFields(String nome, String email, String senha) {
+
+        if (nome.isEmpty()) {
+            txtNome.setError("Nome não pode ser vazio");
+            txtNome.requestFocus();
+            return false;
         }
-        else {
-            Toast.makeText(CadastroActivity.this, "Por favor, forneça os dados necessários para cadastro.", Toast.LENGTH_LONG).show();
+
+        if (email.isEmpty()) {
+            txtEmail.setError("Email não pode ser vazio");
+            txtEmail.requestFocus();
+            return false;
         }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            txtEmail.setError("Email inválido");
+            txtEmail.requestFocus();
+            return false;
+        }
+
+        if (senha.isEmpty()) {
+            txtSenha.setError("Senha não pode ser vazia");
+            txtSenha.requestFocus();
+            return false;
+        }
+
+        if (senha.length() < 6) {
+            txtSenha.setError("Senha deve ser maior que 6 caracters");
+            txtSenha.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 
     private void initViews() {

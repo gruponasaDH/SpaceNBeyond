@@ -21,6 +21,11 @@ public class AppUtil {
         return false;
     }
 
+    public static void salvarIdUsuario(Context context, String uiid) {
+        SharedPreferences preferences = context.getSharedPreferences("APP", Context.MODE_PRIVATE);
+        preferences.edit().putString("UIID", uiid).apply();
+    }
+
     public static String getIdUsuario(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("APP", Context.MODE_PRIVATE);
         return preferences.getString("UIID", "");

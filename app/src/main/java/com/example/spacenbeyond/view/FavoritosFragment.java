@@ -1,5 +1,6 @@
 package com.example.spacenbeyond.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoEntity;
@@ -30,6 +32,7 @@ import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
 
 public class FavoritosFragment extends Fragment implements FavoritosClick {
 
+    private ImageView btnVoltar;
     private RecyclerView recyclerView;
     private FavoritosRecyclerViewAdapter adapter;
     private PhotoViewModel photoViewModel;
@@ -65,6 +68,16 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
                 adapter.update(listaFotos);
             });
         }
+
+        btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().remove(FavoritosFragment.this).commit();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
