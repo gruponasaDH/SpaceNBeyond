@@ -164,14 +164,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/facebookButton" />
 
-<!--    <com.google.android.gms.common.SignInButton-->
-<!--        android:id="@+id/gButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="444dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/facebookButton"
         style="@style/Widget.MaterialComponents.Button.Icon"
