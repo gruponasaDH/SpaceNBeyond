@@ -10,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.spacenbeyond.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -30,9 +32,17 @@ public class SplashActivity extends AppCompatActivity {
 
         int splashTimeOut = 5000;
         new Handler().postDelayed(() -> {
-            Intent homeIntent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(homeIntent);
-            finish();
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Intent homeIntent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(homeIntent);
+                finish();
+            } else {
+                Intent homeIntent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(homeIntent);
+                finish();
+            }
         }, splashTimeOut);
     }
 }

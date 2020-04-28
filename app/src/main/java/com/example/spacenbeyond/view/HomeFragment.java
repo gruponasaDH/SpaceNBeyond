@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
 
     private PhotoResponse photoResponse;
 
+    private TextView textViewDia;
     private TextView textViewMes;
     private TextView textViewAno;
 
@@ -196,39 +197,51 @@ public class HomeFragment extends Fragment {
 
         switch (currentDate[1]) {
             case "Jan":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.jan));
                 break;
             case "Feb":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.fev));
                 break;
             case "Mar":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.mar));
                 break;
             case "Apr":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.abr));
                 break;
             case "May":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.mai));
                 break;
             case "Jun":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.jun));
                 break;
             case "Jul":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.jul));
                 break;
             case "Aug":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.ago));
                 break;
             case "Sep":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.set));
                 break;
             case "Oct":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.out));
                 break;
             case "Nov":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.nov));
                 break;
             case "Dec":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.dez));
                 break;
         }
@@ -245,39 +258,51 @@ public class HomeFragment extends Fragment {
 
         switch (currentDate[1]) {
             case "Jan":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.jan));
                 break;
             case "Feb":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.fev));
                 break;
             case "Mar":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.mar));
                 break;
             case "Apr":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.abr));
                 break;
             case "May":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.mai));
                 break;
             case "Jun":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.jun));
                 break;
             case "Jul":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.jul));
                 break;
             case "Aug":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.ago));
                 break;
             case "Sep":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.set));
                 break;
             case "Out":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.out));
                 break;
             case "Nov":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.nov));
                 break;
             case "Dec":
+                textViewDia.setText(currentDate[2]);
                 textViewMes.setText(getString(R.string.dez));
                 break;
         }
@@ -290,6 +315,7 @@ public class HomeFragment extends Fragment {
         imageViewCalendar = view.findViewById(R.id.imageViewCalendar);
         imageViewUser = view.findViewById(R.id.imageViewUser);
 
+        textViewDia = view.findViewById(R.id.textViewDia);
         textViewMes = view.findViewById(R.id.textViewMes);
         textViewAno = view.findViewById(R.id.textViewAno);
 

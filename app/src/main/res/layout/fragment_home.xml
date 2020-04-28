@@ -40,6 +40,20 @@
             android:contentDescription="@string/botao_calendario"/>
 
         <TextView
+            android:id="@+id/textViewDia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:fontFamily="@font/fira_sans"
+            android:textColor="@color/branco"
+            android:textSize="70sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewAno"
+            app:layout_constraintEnd_toStartOf="@+id/textViewMes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewMes"
+            tools:text="21" />
+
+        <TextView
             android:id="@+id/textViewMes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
