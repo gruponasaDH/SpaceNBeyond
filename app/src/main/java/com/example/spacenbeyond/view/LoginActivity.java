@@ -20,6 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.util.AppUtil;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -29,6 +34,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout txtEmail;
     private TextInputLayout txtSenha;
     private GoogleSignInClient googleSignInClient;
+    private CallbackManager callbackManager;
 
     public static final String GOOGLE_ACCOUNT = "google_account";
     public static int RC_SIGN_IN = 101;
@@ -64,10 +74,13 @@ public class LoginActivity extends AppCompatActivity {
             Intent signInIntent = googleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         });
+
+        fButton.setOnClickListener(view -> loginFacebook());
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK)
             if (requestCode == RC_SIGN_IN) {
@@ -86,6 +99,35 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(GOOGLE_ACCOUNT, googleSignInAccount);
         startActivity(intent);
         finish();
+    }
+
+    private void loginFacebook(){
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                irParaHome(loginResult.getAccessToken().getUserId());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(),"Cancelado pelo usuário", Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(),"Erro ao logar com Facebook", Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    private void irParaHome(String uiid){
+        AppUtil.salvarIdUsuario(this, uiid);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void verifyFields() {
@@ -123,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         txtSenha = findViewById(R.id.txtSenha);
         gButton = findViewById(R.id.googleButton);
         fButton = findViewById(R.id.facebookButton);
+        callbackManager = CallbackManager.Factory.create();
     }
 
     private void textoClicavel() {

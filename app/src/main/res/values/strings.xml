@@ -59,4 +59,6 @@
     <string name="nov">Nov</string>
     <string name="dez">Dez</string>
     <string name="favoritos">Favoritos</string>
+    <string name="facebook_app_id">911193665981835</string>
+    <string name="fb_login_protocol_scheme">fb911193665981835</string>
 </resources>

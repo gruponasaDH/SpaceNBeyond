@@ -3,7 +3,9 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
 
-    compileSdkVersion 28
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
     defaultConfig {
         applicationId "com.example.spacenbeyond"
         minSdkVersion 24
@@ -41,6 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
     /*######################## ViewModel and LiveData ###########################*/
     def lifecycle_version = "1.1.1"
