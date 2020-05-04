@@ -2,9 +2,7 @@ package com.example.spacenbeyond.data.remote;
 
 import com.facebook.stetho.BuildConfig;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,16 +16,13 @@ public class PhotoRetrofitService {
 
     private static Retrofit getRetrofit() {
 
-        // Se a variavéml retrofit estiver nula inicializamos
         if (retrofit == null) {
 
-            // Configuração de parametros de conexão
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.readTimeout(30, TimeUnit.SECONDS);
             httpClient.connectTimeout(30, TimeUnit.SECONDS);
             httpClient.writeTimeout(30, TimeUnit.SECONDS);
 
-            // Se estivermos em modo DEBUG habilitamos os logs
             if (BuildConfig.DEBUG) {
                 HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
                 httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -35,7 +30,6 @@ public class PhotoRetrofitService {
                 httpClient.addNetworkInterceptor(new StethoInterceptor());
             }
 
-            // inicializamos o retrofit com as configurações
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -47,7 +41,6 @@ public class PhotoRetrofitService {
         return retrofit;
     }
 
-    // Retornamos a api criada com o retrofit
     public static PhotoAPI getApiService() {
         return getRetrofit().create(PhotoAPI.class);
     }

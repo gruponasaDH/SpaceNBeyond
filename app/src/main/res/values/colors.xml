@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#00243A</color>
-    <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#FFF03A</color>
     <color name="fundo_bnav">#FF4D6E95</color>
     <color name="google_button">#ED2524</color>

@@ -1,7 +1,6 @@
 package com.example.spacenbeyond.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,17 +9,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.spacenbeyond.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
-
-    Animation topAnimation;
-    Animation bottomAnimation;
-    ImageView marca;
-    TextView descricao;
-
-    private static int splashTimeOut = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +21,24 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-        bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
+        Animation topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        Animation bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
-        marca = findViewById(R.id.marca);
-        descricao = findViewById(R.id.descricao);
+        ImageView marca = findViewById(R.id.marca);
+        TextView descricao = findViewById(R.id.descricao);
 
         marca.setAnimation(topAnimation);
         descricao.setAnimation(bottomAnimation);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        int splashTimeOut = 5000;
+        new Handler().postDelayed(() -> {
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Intent homeIntent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(homeIntent);
+                finish();
+            } else {
                 Intent homeIntent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(homeIntent);
                 finish();
