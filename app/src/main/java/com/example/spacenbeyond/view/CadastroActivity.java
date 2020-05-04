@@ -18,15 +18,11 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.util.AppUtil;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-
-import static java.security.AccessController.getContext;
 
 public class CadastroActivity extends AppCompatActivity {
 

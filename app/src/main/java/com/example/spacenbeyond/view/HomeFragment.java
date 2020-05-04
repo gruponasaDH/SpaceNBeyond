@@ -3,15 +3,23 @@ package com.example.spacenbeyond.view;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import com.example.spacenbeyond.R;
@@ -25,10 +33,12 @@ import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguag
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 import com.squareup.picasso.Picasso;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
 
 public class HomeFragment extends Fragment {
@@ -145,19 +155,35 @@ public class HomeFragment extends Fragment {
         });
 
         imageShare.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-                sendIntent.setType("text/plain");
 
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
+                try {
+                    BitmapDrawable drawable = (BitmapDrawable) imageViewFoto.getDrawable();
+                    Bitmap bitmap = drawable.getBitmap();
+
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                    String name =textViewFoto.getText().toString().replaceAll(" ","");
+                    String savedFile = saveImageFile(bitmap, "myFolder", name);
+
+                    File media = new File(savedFile);
+                    Uri imageUri =  Uri.fromFile(media);
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("image/*");
+                    share.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    share.putExtra(Intent.EXTRA_TITLE, textViewFoto.getText());
+                    startActivity(Intent.createChooser(share, "Share Image"));
+                }
+                catch (Throwable e) {
+                    Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
-        photoViewModel.getLoading().observe(this, loading -> {
+        photoViewModel.getLoading().observe(getViewLifecycleOwner(), loading -> {
             if (loading) {
                 progressBar.setVisibility(View.VISIBLE);
             }
@@ -170,7 +196,7 @@ public class HomeFragment extends Fragment {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String todayString = formatter.format(currentTime);
         photoViewModel.getPhotoOfDay(todayString, API_KEY);
-        photoViewModel.liveData.observe(this, (PhotoResponse result) -> {
+        photoViewModel.liveData.observe(getViewLifecycleOwner(), (PhotoResponse result) -> {
 
             photoResponse = result;
 
@@ -187,6 +213,31 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String saveImageFile(Bitmap image, String folder, String name){
+
+        boolean create = true;
+
+        File imageFile = new File(Environment.getExternalStorageDirectory() + "/" + folder);
+        if (!imageFile.exists()){
+            File screenShotsFolder = new File("/sdcard/Pictures/" + folder);
+            create = screenShotsFolder.mkdir();
+        }
+
+        File imageName = new File(new File("/sdcard/Pictures/" + folder + "/"), name + ".jpg");
+
+        try {
+            FileOutputStream outputStream = new FileOutputStream(imageName);
+            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+        }
+        catch (Throwable e){
+            e.printStackTrace();
+        }
+        return imageName.toPath().toString();
     }
 
     private void updateLabel(Calendar myCalendar) {
@@ -337,7 +388,7 @@ public class HomeFragment extends Fragment {
 
     private void getPhotoOfDay () {
         photoViewModel.getPhotoOfDay(dateRequest, API_KEY);
-        photoViewModel.photo.observe(this, result -> {
+        photoViewModel.photo.observe(getViewLifecycleOwner(), result -> {
 
             photoResponse = result;
 
