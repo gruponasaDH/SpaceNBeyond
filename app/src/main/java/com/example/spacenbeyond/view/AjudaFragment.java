@@ -21,7 +21,6 @@ public class AjudaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ajuda, container, false);
 
-       // BottomNavigationView bottomNav = super.getView().findViewById(R.id.bottom_navigation);
         btnVoltar = view.findViewById(R.id.btnVoltar);
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override

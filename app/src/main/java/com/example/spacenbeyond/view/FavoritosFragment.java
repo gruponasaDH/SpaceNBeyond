@@ -2,21 +2,17 @@ package com.example.spacenbeyond.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoEntity;
-
 import com.example.spacenbeyond.util.AppUtil;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.google.firebase.database.DataSnapshot;
@@ -24,10 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
 
 public class FavoritosFragment extends Fragment implements FavoritosClick {
