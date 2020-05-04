@@ -36,55 +36,75 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_calendar" />
 
-        <TextView
-            android:id="@+id/textViewDia"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearData"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="148dp"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/fira_sans"
-            android:textColor="@color/branco"
-            android:textSize="72sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="21" />
-
-        <TextView
-            android:id="@+id/textViewMes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/fira_sans"
-            android:textColor="@color/branco"
-            android:textSize="25sp"
+            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toEndOf="@+id/textViewDia"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Jan" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textViewAno"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/fira_sans"
-            android:textColor="@color/branco"
-            android:textSize="25sp"
-            app:layout_constraintStart_toEndOf="@+id/textViewDia"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMes"
-            tools:text="20" />
+            <LinearLayout
+                android:id="@+id/linearDia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="4dp">
+
+                <TextView
+                    android:id="@+id/textViewDia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fira_sans"
+                    android:gravity="center"
+                    android:textColor="@color/branco"
+                    android:textSize="75sp"
+                    tools:text="21" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearMesAno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewMes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fira_sans"
+                    android:textColor="@color/branco"
+                    android:textSize="25sp"
+                    tools:text="Jan" />
+
+                <TextView
+                    android:id="@+id/textViewAno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fira_sans"
+                    android:textColor="@color/branco"
+                    android:textSize="25sp"
+                    tools:text="20" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewAno" />
+            app:layout_constraintTop_toBottomOf="@+id/linearData" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"
