@@ -1,8 +1,9 @@
 package com.example.spacenbeyond.view;
 
 import android.app.DatePickerDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -44,7 +44,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 
 import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -173,19 +172,21 @@ public class HomeFragment extends Fragment {
 
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                    String name =textViewFoto.getText().toString().replaceAll(" ","");
-                    //String savedFile = saveImageFile(bitmap, "myFolder", name);
                     String savedFile = SaveImage(bitmap);
 
                     File media = new File(savedFile);
-                    //Uri imageUri =  Uri.fromFile(media);
                     Uri imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
 
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("image/*");
                     share.putExtra(Intent.EXTRA_STREAM, imageUri);
-                    share.putExtra(Intent.EXTRA_TITLE, textViewFoto.getText());
+                    share.putExtra(Intent.EXTRA_TEXT, textViewFoto.getText() + "\nCompartilhado de SpaceNBeyond");
                     share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Label", textViewFoto.getText().toString());
+                    clipboard.setPrimaryClip(clip);
+
                     startActivity(Intent.createChooser(share, "Share Image"));
                 }
                 catch (Throwable e) {
@@ -230,8 +231,7 @@ public class HomeFragment extends Fragment {
 
         File pictureFile = getOutputMediaFile();
         if (pictureFile == null) {
-            Log.d("SAVEIMAGE",
-                    "Error creating media file, check storage permissions: ");// e.getMessage());
+            Log.d("SAVEIMAGE", "Error creating media file, check storage permissions: ");// e.getMessage());
             return "Error creating media file, check storage permissions: ";
         }
         try {
@@ -250,13 +250,10 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private  File getOutputMediaFile(){
+    private File getOutputMediaFile(){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
-                + "/Android/data/"
-                + getApplicationContext().getPackageName()
-                + "/Files");
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/Android/data/" + getApplicationContext().getPackageName() + "/Files");
 
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
@@ -270,58 +267,9 @@ public class HomeFragment extends Fragment {
         // Create a media file name
         String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
         File mediaFile;
-        String mImageName="MI_"+ timeStamp +".jpg";
+        String mImageName = textViewFoto.getText() + ".jpg";
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         return mediaFile;
-    }
-
-    private String saveToInternalStorage(Bitmap bitmapImage, String folder, String name){
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        // path to /data/data/yourapp/app_data/imageDir
-        File directory = cw.getDir("/sdcard/Pictures/" + folder + "/", Context.MODE_PRIVATE);
-        // Create imageDir
-        File mypath = new File(directory,name + ".jpg");
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return directory.getAbsolutePath();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static String saveImageFile(Bitmap image, String folder, String name){
-
-        boolean create = true;
-
-        File imageFile = new File(Environment.getExternalStorageDirectory() + "/" + folder);
-        if (!imageFile.exists()){
-            File screenShotsFolder = new File("/sdcard/Pictures/" + folder);
-            create = screenShotsFolder.mkdir();
-        }
-
-        File imageName = new File(new File("/sdcard/Pictures/" + folder + "/"), name + ".jpg");
-
-        try {
-            FileOutputStream outputStream = new FileOutputStream(imageName);
-            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            outputStream.flush();
-            outputStream.close();
-        }
-        catch (Throwable e){
-            e.printStackTrace();
-        }
-        return imageName.toPath().toString();
     }
 
     private void updateLabel(Calendar myCalendar) {

@@ -1,50 +1,63 @@
 package com.example.spacenbeyond.view;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-
-import android.provider.MediaStore;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
-
 import static android.content.Context.MODE_PRIVATE;
 import static com.example.spacenbeyond.view.HomeFragment.API_KEY;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HashtagFragment extends Fragment {
 
     private ImageView imageViewBack;
+    private ImageView imageShare;
+    private ImageView imageFavorite;
+    private ImageView imageViewTOP;
 
     private ConstraintLayout constraintLayoutTop;
 
@@ -58,7 +71,15 @@ public class HashtagFragment extends Fragment {
     private InputStream stream = null;
     private static final int PERMISSION_CODE = 100;
 
+    private Context context;
+
     public HashtagFragment() { }
+
+    @Override
+    public void onAttach(@NonNull Context context){
+        this.context = context;
+        super.onAttach(context);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +92,40 @@ public class HashtagFragment extends Fragment {
 
         floatingActionButtonCamera.setOnClickListener(view1 -> {
             captureImage();
+        });
+
+        imageShare.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    BitmapDrawable drawable = (BitmapDrawable) imageViewTOP.getDrawable();
+                    Bitmap bitmap = drawable.getBitmap();
+
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                    String savedFile = SaveImage(bitmap);
+
+                    File media = new File(savedFile);
+                    Uri imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
+
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("image/*");
+                    share.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    share.putExtra(Intent.EXTRA_TEXT, textViewHashUm.getText() + "\n" + textViewHashDois.getText());
+                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Label", textViewHashUm.getText() + "\n" + textViewHashDois.getText());
+                    clipboard.setPrimaryClip(clip);
+
+                    startActivity(Intent.createChooser(share, "Share Image"));
+                }
+                catch (Throwable e) {
+                    Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
+                }
+            }
         });
 
         Date currentTime = Calendar.getInstance().getTime();
@@ -89,6 +144,51 @@ public class HashtagFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private String SaveImage(Bitmap finalBitmap) {
+
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.d("SAVEIMAGE", "Error creating media file, check storage permissions: ");// e.getMessage());
+            return "Error creating media file, check storage permissions: ";
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+            fos.close();
+            return pictureFile.getAbsolutePath();
+        }
+        catch (FileNotFoundException e) {
+            Log.d("SAVEIMAGE", "File not found: " + e.getMessage());
+            return e.getMessage();
+        }
+        catch (IOException e) {
+            Log.d("SAVEIMAGE", "Error accessing file: " + e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    private  File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/Android/data/" + getApplicationContext().getPackageName() + "/Files");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
     }
 
     private void captureImage() {
@@ -114,8 +214,10 @@ public class HashtagFragment extends Fragment {
                     try {
                         // Aqui podemos modificar o tamnho do arquivo antes de enviar
 
-                        Drawable d = Drawable.createFromPath(file.getPath());
-                        constraintLayoutTop.setBackground(d);
+                        Bitmap imageBitmap = BitmapFactory.decodeFile(file.getPath());
+                        imageViewTOP.setImageBitmap(imageBitmap);
+                        //Drawable d = Drawable.createFromPath(file.getPath());
+                        //constraintLayoutTop.setBackground(d);
 
                         stream = new FileInputStream(file);
                     } catch (FileNotFoundException e) {
@@ -140,6 +242,10 @@ public class HashtagFragment extends Fragment {
 
         constraintLayoutTop = view.findViewById(R.id.constraintTop);
         floatingActionButtonCamera = view.findViewById(R.id.floatingActionButtonCamera);
+
         imageViewBack = view.findViewById(R.id.ic_back);
+        imageShare = view.findViewById(R.id.ic_share);
+        imageFavorite = view.findViewById(R.id.ic_favorite);
+        imageViewTOP = view.findViewById(R.id.imageViewTop);
     }
 }
