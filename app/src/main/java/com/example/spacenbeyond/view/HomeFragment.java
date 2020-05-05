@@ -2,6 +2,7 @@ package com.example.spacenbeyond.view;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import com.example.spacenbeyond.R;
@@ -35,11 +38,16 @@ import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOption
 import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
+
 import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HomeFragment extends Fragment {
 
@@ -166,15 +174,18 @@ public class HomeFragment extends Fragment {
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                     String name =textViewFoto.getText().toString().replaceAll(" ","");
-                    String savedFile = saveImageFile(bitmap, "myFolder", name);
+                    //String savedFile = saveImageFile(bitmap, "myFolder", name);
+                    String savedFile = SaveImage(bitmap);
 
                     File media = new File(savedFile);
-                    Uri imageUri =  Uri.fromFile(media);
+                    //Uri imageUri =  Uri.fromFile(media);
+                    Uri imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
 
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("image/*");
                     share.putExtra(Intent.EXTRA_STREAM, imageUri);
                     share.putExtra(Intent.EXTRA_TITLE, textViewFoto.getText());
+                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     startActivity(Intent.createChooser(share, "Share Image"));
                 }
                 catch (Throwable e) {
@@ -213,6 +224,79 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private String SaveImage(Bitmap finalBitmap) {
+
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.d("SAVEIMAGE",
+                    "Error creating media file, check storage permissions: ");// e.getMessage());
+            return "Error creating media file, check storage permissions: ";
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.close();
+            return pictureFile.getAbsolutePath();
+        }
+        catch (FileNotFoundException e) {
+            Log.d("SAVEIMAGE", "File not found: " + e.getMessage());
+            return e.getMessage();
+        }
+        catch (IOException e) {
+            Log.d("SAVEIMAGE", "Error accessing file: " + e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    private  File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getApplicationContext().getPackageName()
+                + "/Files");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage, String folder, String name){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("/sdcard/Pictures/" + folder + "/", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath = new File(directory,name + ".jpg");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
