@@ -1,15 +1,20 @@
 package com.example.spacenbeyond.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "favorite")
-public class PhotoEntity {
+public class PhotoEntity implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private long id;
+
+    public PhotoEntity() {}
 
     public PhotoEntity(String copyright, String date, String explanation, String title, String url) {
         this.copyright = copyright;
@@ -28,6 +33,27 @@ public class PhotoEntity {
     private String title;
 
     private String url;
+
+    protected PhotoEntity(Parcel in) {
+        id = in.readLong();
+        copyright = in.readString();
+        date = in.readString();
+        explanation = in.readString();
+        title = in.readString();
+        url = in.readString();
+    }
+
+    public static final Creator<PhotoEntity> CREATOR = new Creator<PhotoEntity>() {
+        @Override
+        public PhotoEntity createFromParcel(Parcel in) {
+            return new PhotoEntity(in);
+        }
+
+        @Override
+        public PhotoEntity[] newArray(int size) {
+            return new PhotoEntity[size];
+        }
+    };
 
     public String getCopyright() {
         return copyright;
@@ -75,5 +101,18 @@ public class PhotoEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(copyright);
+        dest.writeString(date);
+        dest.writeString(explanation);
+        dest.writeString(title);
+        dest.writeString(url);
     }
 }

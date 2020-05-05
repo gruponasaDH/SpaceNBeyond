@@ -62,4 +62,7 @@
     <string name="facebook_app_id">911193665981835</string>
     <string name="fb_login_protocol_scheme">fb911193665981835</string>
     <string name="imagem_capturada">Imagem capturada</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

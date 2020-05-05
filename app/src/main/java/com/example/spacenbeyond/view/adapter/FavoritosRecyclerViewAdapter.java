@@ -1,4 +1,4 @@
-package com.example.spacenbeyond.view;
+package com.example.spacenbeyond.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoEntity;
+import com.example.spacenbeyond.view.FavoritosClick;
+import com.example.spacenbeyond.view.FavoritosFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

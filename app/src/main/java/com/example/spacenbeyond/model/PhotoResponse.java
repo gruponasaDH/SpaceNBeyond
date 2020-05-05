@@ -28,6 +28,16 @@ public class PhotoResponse {
     @SerializedName("url")
     private String mUrl;
 
+    public PhotoResponse() {}
+
+    public PhotoResponse(String mCopyright, String mDate, String mExplanation, String mTitle, String mUrl) {
+        this.mCopyright = mCopyright;
+        this.mDate = mDate;
+        this.mExplanation = mExplanation;
+        this.mTitle = mTitle;
+        this.mUrl = mUrl;
+    }
+
     public String getCopyright() {
         return mCopyright;
     }

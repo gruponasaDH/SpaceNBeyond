@@ -11,7 +11,7 @@ import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.repository.PhotoRepository;
 import com.example.spacenbeyond.util.AppUtil;
-import com.example.spacenbeyond.view.FavoritosRecyclerViewAdapter;
+import com.example.spacenbeyond.view.adapter.FavoritosRecyclerViewAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +39,6 @@ public class PhotoViewModel extends AndroidViewModel {
 
     public MutableLiveData<String> mutableLiveDataErro = new MutableLiveData<>();
     public LiveData<String> liveDataErro = mutableLiveDataErro;
-
 
     public PhotoViewModel(@NonNull Application application) {
         super(application);
@@ -69,6 +68,22 @@ public class PhotoViewModel extends AndroidViewModel {
     protected void onCleared() {
         super.onCleared();
         disposable.clear();
+    }
+
+    public void deletarFavorito(PhotoResponse photoResponse) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) { appleSnapshot.getRef().removeValue(); }
+                deletarPhotoEntity(photoResponse.getTitle());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { resultLiveDataError.setValue(new Throwable(databaseError.getMessage())); }
+        });
     }
 
     public void salvarFavorito(PhotoResponse photoResponse){
@@ -183,5 +198,22 @@ public class PhotoViewModel extends AndroidViewModel {
         new Thread(() -> {
             repository.inserePhotoBd(photoEntity, getApplication());
         }).start();
+    }
+
+    public void deletarPhotoEntity(String title) {
+
+        Boolean valid = true;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PhotoEntity photoEntity = repository.getPhotoEntity(title, getApplication());
+                repository.apagaOsDadosBD(photoEntity, getApplication());
+            }
+        }).start();
+
+        if (valid) {
+            Toast.makeText(getApplication(), "Imagem " + title + " desfavoritada com sucesso.", Toast.LENGTH_LONG).show();
+        }
     }
 }

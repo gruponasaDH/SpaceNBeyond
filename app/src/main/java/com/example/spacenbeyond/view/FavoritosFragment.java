@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoEntity;
 
 import com.example.spacenbeyond.util.AppUtil;
+import com.example.spacenbeyond.view.adapter.FavoritosRecyclerViewAdapter;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,6 +38,7 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
     private RecyclerView recyclerView;
     private FavoritosRecyclerViewAdapter adapter;
     private PhotoViewModel photoViewModel;
+    public static final String FAVORITO_CHAVE = "favorito";
 
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -56,7 +59,7 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
             photoViewModel.carregaFavoritos(adapter);
         } else {
             photoViewModel.carregaDadosBD();
-            photoViewModel.liveDataPhoto.observe(this, (List<PhotoEntity> result) -> {
+            photoViewModel.liveDataPhoto.observe(getViewLifecycleOwner(), (List<PhotoEntity> result) -> {
 
                 List<PhotoEntity> listaFotos = new ArrayList<>();
 
@@ -95,12 +98,16 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
     }
 
     @Override
-    public void favoritosClickListener(PhotoEntity photoResponse) {
+    public void favoritosClickListener(PhotoEntity photo) {
 
         reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                Fragment fragment = new VisualizarFavoritoFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(FAVORITO_CHAVE, photo);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }
 
             @Override
