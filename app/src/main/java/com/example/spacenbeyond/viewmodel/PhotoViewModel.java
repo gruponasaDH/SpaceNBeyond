@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,13 +72,17 @@ public class PhotoViewModel extends AndroidViewModel {
     }
 
     public void deletarFavorito(PhotoResponse photoResponse) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(AppUtil.getIdUsuario(getApplication()));
+        Query applesQuery = ref.child("favorites").orderByChild("title").equalTo(photoResponse.getTitle());
+        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) { appleSnapshot.getRef().removeValue(); }
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    appleSnapshot.getRef().removeValue();
+                }
                 deletarPhotoEntity(photoResponse.getTitle());
             }
 
