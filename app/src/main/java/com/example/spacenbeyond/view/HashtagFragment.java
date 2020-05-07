@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -212,9 +213,17 @@ public class HashtagFragment extends Fragment {
 
                 for (File file : imageFiles) {
                     try {
-                        // Aqui podemos modificar o tamnho do arquivo antes de enviar
 
                         Bitmap imageBitmap = BitmapFactory.decodeFile(file.getPath());
+
+                        // Aqui podemos modificar o tamnho do arquivo antes de enviar
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                            float degrees = 90;//rotation degree
+                            Matrix matrix = new Matrix();
+                            matrix.setRotate(degrees);
+                            imageBitmap = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
+                        }
+
                         imageViewTOP.setImageBitmap(imageBitmap);
                         //Drawable d = Drawable.createFromPath(file.getPath());
                         //constraintLayoutTop.setBackground(d);
