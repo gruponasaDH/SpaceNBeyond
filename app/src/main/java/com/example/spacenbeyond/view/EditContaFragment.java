@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -286,6 +288,15 @@ public class EditContaFragment extends Fragment {
                         // Aqui podemos modificar o tamnho do arquivo antes de enviar
 
                         Bitmap imageBitmap = BitmapFactory.decodeFile(file.getPath());
+
+                        // Aqui podemos modificar o tamnho do arquivo antes de enviar
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                            float degrees = 90;//rotation degree
+                            Matrix matrix = new Matrix();
+                            matrix.setRotate(degrees);
+                            imageBitmap = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
+                        }
+
                         imageViewFotoPerfil.setImageBitmap(imageBitmap);
 
                         stream = new FileInputStream(file);
