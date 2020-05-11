@@ -9,8 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/container">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageViewUser"
@@ -48,7 +47,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:id="@+id/linearDia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -66,7 +64,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linearMesAno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -221,25 +218,27 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="35dp"
                         android:layout_marginBottom="8dp"
+                        android:contentDescription="@string/botao_compartilhar"
                         android:src="@drawable/ic_share"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ic_favorite"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:contentDescription="@string/botao_compartilhar"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/ic_favorite"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:layout_height="14dp"
+                        android:layout_marginStart="13dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
+                        android:contentDescription="@string/botao_favoritar"
                         android:src="@drawable/ic_favorite"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:contentDescription="@string/botao_favoritar"/>
+                        app:layout_constraintStart_toEndOf="@+id/ic_share"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

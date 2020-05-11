@@ -40,7 +40,6 @@
     <string name="passo6_tire_fotos">Passo 6. Tire suas fotos a partir das hashtags geradas.</string>
     <string name="botao_sair">botão sair</string>
     <string name="botao_apagar_conta">botão apagar conta</string>
-    <string name="botao_download">botão download</string>
     <string name="botao_compartilhar">botão compartilhar</string>
     <string name="botao_favoritar">botão favoritar</string>
     <string name="botao_editar_conta">botão editar conta</string>
@@ -60,9 +59,7 @@
     <string name="dez">Dez</string>
     <string name="favoritos">Favoritos</string>
     <string name="facebook_app_id">911193665981835</string>
-    <string name="fb_login_protocol_scheme">fb911193665981835</string>
     <string name="imagem_capturada">Imagem capturada</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

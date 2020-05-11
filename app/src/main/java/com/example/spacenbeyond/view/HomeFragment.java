@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -150,6 +151,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
+
+                imageFavorite.setBackgroundColor(Color.parseColor("#000000"));
 
                 if (verificaConexaoComInternet(getContext())) {
                     photoViewModel.salvarFavorito(photoResponse);
