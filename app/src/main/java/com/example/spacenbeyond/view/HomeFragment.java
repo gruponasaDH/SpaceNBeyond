@@ -151,15 +151,15 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-
-                imageFavorite.setBackgroundColor(Color.parseColor("#000000"));
-
+                
                 if (verificaConexaoComInternet(getContext())) {
                     photoViewModel.salvarFavorito(photoResponse);
+                    imageFavorited();
                 }
                 else {
                     PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
                     photoViewModel.insereDadosBd(photoEntity);
+                    imageFavorited();
                 }
             }
         });
@@ -228,6 +228,11 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void imageFavorited(){
+        imageFavorite.setImageResource(R.drawable.ic_favorited);
+        Toast.makeText(getApplicationContext(), "Item salvo com sucesso", Toast.LENGTH_LONG).show();
     }
 
     private String SaveImage(Bitmap finalBitmap) {
