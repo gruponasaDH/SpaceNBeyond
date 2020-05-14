@@ -76,56 +76,40 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
-
+        android:layout_height="60dp"
         android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="45dp"
-        android:layout_marginRight="45dp"
-        android:layout_marginBottom="8dp"
         android:background="@color/colorAccent"
         android:fontFamily="@font/fira_sans_bold"
         android:text="@string/login"
         android:textAppearance="@style/criarButton"
         android:textColor="@android:color/black"
         app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/textEsqueci"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSenha"
         tools:ignore="MissingConstraints"
         tools:text="@string/login" />
 
-    <TextView
-        android:id="@+id/textEsqueci"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/esqueci_minha_senha"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-        tools:ignore="MissingConstraints" />
-
     <View
         android:id="@+id/view"
         android:layout_width="115dp"
         android:layout_height="1dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="45dp"
         android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEsqueci" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <TextView
         android:layout_width="26dp"
         android:layout_height="28dp"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="33dp"
+        android:layout_marginEnd="32dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/OU"
+        android:gravity="center"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@+id/view"

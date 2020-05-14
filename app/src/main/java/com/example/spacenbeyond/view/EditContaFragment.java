@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.util.AppUtil;
+import com.facebook.AccessToken;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +52,7 @@ import java.util.List;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import static android.content.Context.MODE_PRIVATE;
+import static com.google.firebase.remoteconfig.FirebaseRemoteConfig.TAG;
 
 public class EditContaFragment extends Fragment {
 
@@ -54,8 +62,10 @@ public class EditContaFragment extends Fragment {
 
     private TextView textoLogout;
     private TextView textViewDelete;
+    private TextView alteraFoto;
 
     private GoogleSignInClient googleSignInClient;
+    private GoogleSignInAccount googleSignInAccount;
 
     private TextInputLayout textInputLayoutNome;
     private TextInputLayout textInputLayoutEmail;
@@ -87,11 +97,18 @@ public class EditContaFragment extends Fragment {
 
         googleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
-        buscarDados();
+        verificaOrigemLogin();
 
         imageViewVoltar.setOnClickListener(v -> closefragment());
 
         imageViewFotoPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                captureImage();
+            }
+        });
+
+        alteraFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 captureImage();
@@ -157,7 +174,7 @@ public class EditContaFragment extends Fragment {
                 if (!senha.isEmpty()) {
 
                     if (senha.length() < 6) {
-                        textInputLayoutSenha.setError("Senha deve ser maior que 6 caracters");
+                        textInputLayoutSenha.setError("Senha deve ser maior que 6 caracteres");
                         textInputLayoutSenha.requestFocus();
                         return;
                     }
@@ -246,28 +263,88 @@ public class EditContaFragment extends Fragment {
         storage.getDownloadUrl()
                 .addOnSuccessListener(uri -> {
 
-                    // Mandamos o Picasso carregar a imagem com a url que veio d firebase
                     Picasso.get()
                             .load(uri)
-                            .rotate(90) // Rotaciono a imagem em 90º
+                            .rotate(90)
                             .into(imageViewFotoPerfil);
                 });
     }
 
+
+    private void buscarDadosGoogle() {
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
+
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personEmail = acct.getEmail();
+            Uri personPhoto = acct.getPhotoUrl();
+
+            textInputEditTextNome.setText(personName);
+            textInputEditTextEmail.setText(personEmail);
+
+                Picasso.get()
+                        .load(personPhoto)
+                        .into(imageViewFotoPerfil);
+            }
+        }
+
+
+    private void buscarDadosFacebook(){
+
+            Profile profile = Profile.getCurrentProfile();
+                Log.v(TAG, "Logged, user name=" + profile.getFirstName() + " " + profile.getLastName());
+                String nomeUsuario = profile.getFirstName() + " " + profile.getLastName();
+                textInputEditTextNome.setText(nomeUsuario);
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null){
+            StorageReference storage = FirebaseStorage
+                    .getInstance()
+                    .getReference()
+                    .child(AppUtil.getIdUsuario(getContext()) + "/image/profile/imagem-perfil");
+
+            storage.getDownloadUrl()
+                    .addOnSuccessListener(uri -> {
+
+                        Picasso.get()
+                                .load(uri)
+                                .rotate(90)
+                                .into(imageViewFotoPerfil);
+            });
+        } else {
+            Picasso.get()
+                    .load(profile.getProfilePictureUri(100, 100))
+                    .into(imageViewFotoPerfil);
+        }
+    }
+
+    private void verificaOrigemLogin(){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedInFacebook = accessToken != null && !accessToken.isExpired();
+
+            if (firebaseUser == null) {
+                    buscarDadosGoogle();
+                } else if (isLoggedInFacebook){
+                        buscarDadosFacebook();
+                    } else {
+                    buscarDados();
+                }
+            }
+
+
     private void salvarImagemFirebase(InputStream stream, String name) {
 
-        // Pegamos a referencia do storage para salvar a imagem usando o ID do usuário
         StorageReference storage = FirebaseStorage
                 .getInstance()
                 .getReference()
                 .child(AppUtil.getIdUsuario(getContext()) + "/image/profile/" + name);
 
-        // Subimos a imagem com ums task para o firebase
         UploadTask uploadTask = storage.putStream(stream);
 
-        // Observamos se deu suvesso ou erro
         uploadTask.addOnSuccessListener(taskSnapshot -> {
-            // Se conseguiu se registrar com sucesso vamos para a home
             Toast.makeText(getContext(), "Dados registrados com sucesso", Toast.LENGTH_LONG).show();
         }).addOnFailureListener(e -> {
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -283,9 +360,16 @@ public class EditContaFragment extends Fragment {
 
                 for (File file : imageFiles) {
                     try {
-                        // Aqui podemos modificar o tamnho do arquivo antes de enviar
 
                         Bitmap imageBitmap = BitmapFactory.decodeFile(file.getPath());
+
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                            float degrees = 90;
+                            Matrix matrix = new Matrix();
+                            matrix.setRotate(degrees);
+                            imageBitmap = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
+                        }
+
                         imageViewFotoPerfil.setImageBitmap(imageBitmap);
 
                         stream = new FileInputStream(file);
@@ -307,6 +391,7 @@ public class EditContaFragment extends Fragment {
         textoLogout = view.findViewById(R.id.textViewLogout);
 
         textViewDelete = view.findViewById(R.id.textViewDelete);
+        alteraFoto = view.findViewById(R.id.text_view_altera_foto);
 
         textInputLayoutNome = view.findViewById(R.id.textInputAlteraNome);
         textInputLayoutEmail = view.findViewById(R.id.textInputAlteraEmail);

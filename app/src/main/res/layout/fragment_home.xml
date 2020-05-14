@@ -153,7 +153,7 @@
                 <ImageView
                     android:id="@+id/imageViewFoto"
                     android:layout_width="match_parent"
-                    android:layout_height="194dp"
+                    android:layout_height="wrap_content"
                     android:contentDescription="@string/foto_do_dia_da_nasa"
                     android:scaleType="centerCrop" />
 
