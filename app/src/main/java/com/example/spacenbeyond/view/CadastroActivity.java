@@ -18,11 +18,17 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.util.AppUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -56,10 +62,25 @@ public class CadastroActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(task -> {
                    if (task.isSuccessful()) {
-                       // Salvar id do usuário para pegar os dados depois
-                       AppUtil.salvarIdUsuario(getApplicationContext(), FirebaseAuth.getInstance().getCurrentUser().getUid());
-                       Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
-                       startActivity(intent);
+
+                       FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                       UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
+
+                       user.updateProfile(profileUpdates)
+                               .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<Void> task) {
+                                       if (task.isSuccessful()) {
+                                           // Salvar id do usuário para pegar os dados depois
+                                           AppUtil.salvarIdUsuario(getApplicationContext(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                           Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                                           startActivity(intent);
+                                       }
+                                       else {
+                                           Toast.makeText(CadastroActivity.this, "Houve um problema no cadastro.", Toast.LENGTH_LONG).show();
+                                       }
+                                   }
+                               });
 
                    } else {
                        // Se deu algum erro mostramos para o usuário a mensagem

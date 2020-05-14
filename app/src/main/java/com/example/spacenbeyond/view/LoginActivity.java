@@ -14,12 +14,14 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.util.AppUtil;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -30,12 +32,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
@@ -49,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout txtSenha;
     private GoogleSignInClient googleSignInClient;
     private CallbackManager callbackManager;
+    private FirebaseAuth mAuth;
 
     public static final String GOOGLE_ACCOUNT = "google_account";
     public static int RC_SIGN_IN = 101;
@@ -107,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                irParaHome(loginResult.getAccessToken().getUserId());
+                //irParaHome(loginResult.getAccessToken().getUserId());
+                handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
@@ -122,6 +131,29 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d("FACE", "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("FACE", "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            irParaHome(user.getUid());
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("FACE", "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void irParaHome(String uiid){
@@ -166,6 +198,8 @@ public class LoginActivity extends AppCompatActivity {
         gButton = findViewById(R.id.googleButton);
         fButton = findViewById(R.id.facebookButton);
         callbackManager = CallbackManager.Factory.create();
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     private void textoClicavel() {

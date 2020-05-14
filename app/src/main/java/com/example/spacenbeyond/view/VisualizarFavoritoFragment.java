@@ -1,5 +1,6 @@
 package com.example.spacenbeyond.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -85,10 +86,12 @@ public class VisualizarFavoritoFragment extends Fragment {
                     photoViewModel.deletarFavorito(photoResponse);
                 }
                 else {
-                    PhotoResponse photoResponse = new PhotoResponse(finalPhotoEntity.getCopyright(), finalPhotoEntity.getDate(), finalPhotoEntity1.getExplanation(), finalPhotoEntity1.getTitle(), finalPhotoEntity1.getUrl());
-                    photoViewModel.deletarFavorito(photoResponse);
                     photoViewModel.deletarPhotoEntity(textViewFoto.getText().toString());
                 }
+
+                getFragmentManager().beginTransaction().remove(VisualizarFavoritoFragment.this).commit();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
 

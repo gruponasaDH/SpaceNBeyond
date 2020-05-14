@@ -200,6 +200,7 @@ public class EditContaFragment extends Fragment {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     getActivity().finish();
+                                    Toast.makeText(getActivity(), "Conta excluida com sucesso.", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -251,7 +252,6 @@ public class EditContaFragment extends Fragment {
                     // Mandamos o Picasso carregar a imagem com a url que veio d firebase
                     Picasso.get()
                             .load(uri)
-                            .rotate(90) // Rotaciono a imagem em 90º
                             .into(imageViewFotoPerfil);
                 });
     }
