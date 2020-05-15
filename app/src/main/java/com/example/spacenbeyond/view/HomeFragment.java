@@ -153,10 +153,12 @@ public class HomeFragment extends Fragment {
 
                 if (verificaConexaoComInternet(getContext())) {
                     photoViewModel.salvarFavorito(photoResponse);
+                    imageFavorite.setImageResource(R.drawable.ic_favorited);
                 }
                 else {
                     PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
                     photoViewModel.insereDadosBd(photoEntity);
+                    imageFavorite.setImageResource(R.drawable.ic_favorited);
                 }
             }
         });

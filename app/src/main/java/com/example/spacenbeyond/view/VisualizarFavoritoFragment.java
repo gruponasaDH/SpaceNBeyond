@@ -43,19 +43,16 @@ public class VisualizarFavoritoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_visualizar_favorito, container, false);
 
         initViews(view);
-
         PhotoEntity photoEntity = new PhotoEntity();
 
-        //verificação se o arguments nao está nulo
+
         if (getArguments() != null){
 
-            //passando os dados do arguments para o bundle
             Bundle bundle = getArguments();
-            //passando o contato que está chegando para a variavel do tipo contato
             photoEntity = bundle.getParcelable(FAVORITO_CHAVE);
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
