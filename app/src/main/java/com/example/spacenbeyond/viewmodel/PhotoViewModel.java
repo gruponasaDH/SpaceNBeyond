@@ -102,7 +102,7 @@ public class PhotoViewModel extends AndroidViewModel {
 
                 boolean existe = false;
                 for (DataSnapshot resultSnapshot : dataSnapshot.getChildren()){
-                    PhotoResponse firebaseResult = resultSnapshot.getValue(PhotoResponse.class);
+                    PhotoEntity firebaseResult = resultSnapshot.getValue(PhotoEntity.class);
 
                     if (firebaseResult != null && firebaseResult.getDate() != null && firebaseResult.getDate().equals(photoResponse.getDate())) {
                         existe = true;
