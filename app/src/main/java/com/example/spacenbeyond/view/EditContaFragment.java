@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -23,11 +24,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.util.AppUtil;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -167,7 +171,7 @@ public class EditContaFragment extends Fragment {
                 if (!senha.isEmpty()) {
 
                     if (senha.length() < 6) {
-                        textInputLayoutSenha.setError("Senha deve ser maior que 6 caracters");
+                        textInputLayoutSenha.setError("Senha deve ser maior que 6 caracteres");
                         textInputLayoutSenha.requestFocus();
                         return;
                     }
@@ -181,7 +185,7 @@ public class EditContaFragment extends Fragment {
                                         valid = true;
                                     }
                                     else {
-                                        Toast.makeText(getContext(), "Faça login novamente para atualizar a senha.", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getContext(), "Faça login novamente para atualizar a senha.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -192,7 +196,7 @@ public class EditContaFragment extends Fragment {
                 }
 
                 if (valid) {
-                    Toast.makeText(getContext(), "Dados atualizados com sucesso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Dados atualizados com sucesso", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -208,7 +212,7 @@ public class EditContaFragment extends Fragment {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     getActivity().finish();
-                                    Toast.makeText(getActivity(), "Conta excluida com sucesso.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Conta excluída com sucesso.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -246,6 +250,9 @@ public class EditContaFragment extends Fragment {
     private void buscarDados() {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
+        Profile profile = Profile.getCurrentProfile();
+
         StorageReference storage = FirebaseStorage
                 .getInstance()
                 .getReference()
@@ -255,32 +262,40 @@ public class EditContaFragment extends Fragment {
         textInputEditTextEmail.setText(user.getEmail());
 
         storage.getDownloadUrl()
-                .addOnSuccessListener(uri -> {
+                .addOnSuccessListener((Uri uri) -> Picasso.get()
+                        .load(uri)
+                        .rotate(90)
+                        .into(imageViewFotoPerfil))
+                .addOnFailureListener(e -> {
+                    if (acct != null) {
+                        Uri personPhoto = acct.getPhotoUrl();
+                        Picasso.get()
+                                .load(personPhoto)
+                                .into(imageViewFotoPerfil);
+                    }
 
-                    // Mandamos o Picasso carregar a imagem com a url que veio d firebase
-                    Picasso.get()
-                            .load(uri)
-                            .into(imageViewFotoPerfil);
+                    if (profile != null){
+                        Picasso.get()
+                                .load(profile.getProfilePictureUri(100, 100))
+                                .into(imageViewFotoPerfil);
+                    }
                 });
     }
 
-    private void salvarImagemFirebase(InputStream stream, String name) {
+        private void salvarImagemFirebase(InputStream stream, String name) {
 
-        // Pegamos a referencia do storage para salvar a imagem usando o ID do usuário
         StorageReference storage = FirebaseStorage
                 .getInstance()
                 .getReference()
                 .child(AppUtil.getIdUsuario(getContext()) + "/image/profile/" + name);
 
-        // Subimos a imagem com ums task para o firebase
         UploadTask uploadTask = storage.putStream(stream);
 
-        // Observamos se deu suvesso ou erro
         uploadTask.addOnSuccessListener(taskSnapshot -> {
-            // Se conseguiu se registrar com sucesso vamos para a home
-            Toast.makeText(getContext(), "Dados registrados com sucesso", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(getContext(), "Nova foto de perfil salva.", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(e -> {
-            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 

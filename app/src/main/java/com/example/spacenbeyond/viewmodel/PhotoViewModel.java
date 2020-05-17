@@ -102,7 +102,7 @@ public class PhotoViewModel extends AndroidViewModel {
 
                 boolean existe = false;
                 for (DataSnapshot resultSnapshot : dataSnapshot.getChildren()){
-                    PhotoResponse firebaseResult = resultSnapshot.getValue(PhotoResponse.class);
+                    PhotoEntity firebaseResult = resultSnapshot.getValue(PhotoEntity.class);
 
                     if (firebaseResult != null && firebaseResult.getDate() != null && firebaseResult.getDate().equals(photoResponse.getDate())) {
                         existe = true;
@@ -143,7 +143,7 @@ public class PhotoViewModel extends AndroidViewModel {
 
                 insereDadosBd(photoEntity);
 
-                Toast.makeText(getApplication(), "Imagem " + photoEntity.getTitle() + " favoritada com sucesso.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Foto " + photoEntity.getTitle() + " inserida nos favoritos.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -218,7 +218,7 @@ public class PhotoViewModel extends AndroidViewModel {
         }).start();
 
         if (valid) {
-            Toast.makeText(getApplication(), "Imagem " + title + " desfavoritada com sucesso.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Foto " + title + " retirada dos favoritos.", Toast.LENGTH_SHORT).show();
         }
     }
 }
