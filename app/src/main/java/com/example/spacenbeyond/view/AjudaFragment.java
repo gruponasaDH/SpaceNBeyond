@@ -13,8 +13,6 @@ import com.example.spacenbeyond.R;
 
 public class AjudaFragment extends Fragment {
 
-    private ImageView btnVoltar;
-
     public AjudaFragment() { }
 
     @Override
@@ -22,14 +20,11 @@ public class AjudaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ajuda, container, false);
 
        // BottomNavigationView bottomNav = super.getView().findViewById(R.id.bottom_navigation);
-        btnVoltar = view.findViewById(R.id.btnVoltar);
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(AjudaFragment.this).commit();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
+        ImageView btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(v -> {
+            getFragmentManager().beginTransaction().remove(AjudaFragment.this).commit();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         });
 
         return view;

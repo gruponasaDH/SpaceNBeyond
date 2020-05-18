@@ -17,7 +17,7 @@ import java.util.List;
 public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<FavoritosRecyclerViewAdapter.ViewHolder> {
 
     private List<PhotoEntity> listaFotos;
-    private FavoritosClick listener;
+    private final FavoritosClick listener;
 
     public FavoritosRecyclerViewAdapter(List<PhotoEntity> listaFotos, FavoritosFragment listener) {
         this.listaFotos = listaFotos;
@@ -37,12 +37,7 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
         PhotoEntity photoResponse = listaFotos.get(position);
         holder.bind(photoResponse);
 
-        holder.fotoFavoritos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.favoritosClickListener(photoResponse);
-            }
-        });
+        holder.fotoFavoritos.setOnClickListener(view -> listener.favoritosClickListener(photoResponse));
     }
 
     public void update(List<PhotoEntity> listaFotos){
@@ -55,16 +50,16 @@ public class FavoritosRecyclerViewAdapter extends RecyclerView.Adapter<Favoritos
         return listaFotos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView fotoFavoritos;
+        final ImageView fotoFavoritos;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             fotoFavoritos = itemView.findViewById(R.id.imageFavoritos);
         }
 
-        public void bind(PhotoEntity photoResponse){
+        void bind(PhotoEntity photoResponse){
             Picasso.get().load(photoResponse.getUrl()).into(fotoFavoritos);
         }
     }

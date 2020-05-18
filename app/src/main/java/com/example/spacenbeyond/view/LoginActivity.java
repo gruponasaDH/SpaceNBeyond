@@ -31,18 +31,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private FirebaseAuth mAuth;
 
-    public static final String GOOGLE_ACCOUNT = "google_account";
-    public static int RC_SIGN_IN = 101;
+    private static final String GOOGLE_ACCOUNT = "google_account";
+    private static final int RC_SIGN_IN = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginFacebook(){
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Collections.singletonList("public_profile"));
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -140,19 +138,16 @@ public class LoginActivity extends AppCompatActivity {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("GOOGLE", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            irParaHome(user.getUid());
-                        } else {
-                            Log.w("GOOGLE", "signInWithCredential:failure", task.getException());
-                            Snackbar.make(findViewById(R.id.googleButton), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                        }
-
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("GOOGLE", "signInWithCredential:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        irParaHome(user.getUid());
+                    } else {
+                        Log.w("GOOGLE", "signInWithCredential:failure", task.getException());
+                        Snackbar.make(findViewById(R.id.googleButton), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                     }
+
                 });
     }
 
@@ -162,18 +157,15 @@ public class LoginActivity extends AppCompatActivity {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("FACE", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            irParaHome(user.getUid());
-                        } else {
-                            Log.w("FACE", "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("FACE", "signInWithCredential:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        irParaHome(user.getUid());
+                    } else {
+                        Log.w("FACE", "signInWithCredential:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }

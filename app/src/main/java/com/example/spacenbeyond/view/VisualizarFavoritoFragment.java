@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.spacenbeyond.R;
-import com.example.spacenbeyond.data.remote.PhotoDAO;
 import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
@@ -75,21 +74,18 @@ public class VisualizarFavoritoFragment extends Fragment {
 
         PhotoEntity finalPhotoEntity = photoEntity;
         PhotoEntity finalPhotoEntity1 = photoEntity;
-        imageViewFavorited.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (verificaConexaoComInternet(getContext())) {
-                    PhotoResponse photoResponse = new PhotoResponse(finalPhotoEntity.getCopyright(), finalPhotoEntity.getDate(), finalPhotoEntity1.getExplanation(), finalPhotoEntity1.getTitle(), finalPhotoEntity1.getUrl());
-                    photoViewModel.deletarFavorito(photoResponse);
-                }
-                else {
-                    photoViewModel.deletarPhotoEntity(textViewFoto.getText().toString());
-                }
-
-                getFragmentManager().beginTransaction().remove(VisualizarFavoritoFragment.this).commit();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+        imageViewFavorited.setOnClickListener(v -> {
+            if (verificaConexaoComInternet(getContext())) {
+                PhotoResponse photoResponse = new PhotoResponse(finalPhotoEntity.getCopyright(), finalPhotoEntity.getDate(), finalPhotoEntity1.getExplanation(), finalPhotoEntity1.getTitle(), finalPhotoEntity1.getUrl());
+                photoViewModel.deletarFavorito(photoResponse);
             }
+            else {
+                photoViewModel.deletarPhotoEntity(textViewFoto.getText().toString());
+            }
+
+            getFragmentManager().beginTransaction().remove(VisualizarFavoritoFragment.this).commit();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         });
 
         return view;
@@ -101,14 +97,11 @@ public class VisualizarFavoritoFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -120,14 +113,11 @@ public class VisualizarFavoritoFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -139,14 +129,11 @@ public class VisualizarFavoritoFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -158,20 +145,17 @@ public class VisualizarFavoritoFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
     }
 
-    public void initViews(View view) {
+    private void initViews(View view) {
         textViewFoto = view.findViewById(R.id.textViewFoto);
         textViewAutor = view.findViewById(R.id.textViewAutor);
         imageViewFoto = view.findViewById(R.id.imageViewFoto);

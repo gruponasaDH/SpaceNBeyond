@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -146,54 +144,46 @@ public class HomeFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         });
 
-        imageFavorite.setOnClickListener(new View.OnClickListener() {
+        imageFavorite.setOnClickListener(view12 -> {
 
-            @Override
-            public void onClick(View view) {
-
-                if (verificaConexaoComInternet(getContext())) {
-                    photoViewModel.salvarFavorito(photoResponse);
-                    imageFavorite.setImageResource(R.drawable.ic_favorited);
-                }
-                else {
-                    PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
-                    photoViewModel.insereDadosBd(photoEntity);
-                    imageFavorite.setImageResource(R.drawable.ic_favorited);
-                }
+            if (verificaConexaoComInternet(getContext())) {
+                photoViewModel.salvarFavorito(photoResponse);
+                imageFavorite.setImageResource(R.drawable.ic_favorited);
+            }
+            else {
+                PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
+                photoViewModel.insereDadosBd(photoEntity);
+                imageFavorite.setImageResource(R.drawable.ic_favorited);
             }
         });
 
-        imageShare.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
+        imageShare.setOnClickListener(v -> {
 
-                try {
-                    BitmapDrawable drawable = (BitmapDrawable) imageViewFoto.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
+            try {
+                BitmapDrawable drawable = (BitmapDrawable) imageViewFoto.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
 
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                    String savedFile = SaveImage(bitmap);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                String savedFile = SaveImage(bitmap);
 
-                    File media = new File(savedFile);
-                    Uri imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
+                File media = new File(savedFile);
+                Uri imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("image/*");
-                    share.putExtra(Intent.EXTRA_STREAM, imageUri);
-                    share.putExtra(Intent.EXTRA_TEXT, textViewFoto.getText() + "\nCompartilhado de SpaceNBeyond");
-                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("image/*");
+                share.putExtra(Intent.EXTRA_STREAM, imageUri);
+                share.putExtra(Intent.EXTRA_TEXT, textViewFoto.getText() + "\nCompartilhado de SpaceNBeyond");
+                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("Label", textViewFoto.getText().toString());
-                    clipboard.setPrimaryClip(clip);
+                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Label", textViewFoto.getText().toString());
+                clipboard.setPrimaryClip(clip);
 
-                    startActivity(Intent.createChooser(share, "Share Image"));
-                }
-                catch (Throwable e) {
-                    Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
-                }
+                startActivity(Intent.createChooser(share, "Share Image"));
+            }
+            catch (Throwable e) {
+                Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -445,14 +435,11 @@ public class HomeFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -464,14 +451,11 @@ public class HomeFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -483,14 +467,11 @@ public class HomeFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -502,14 +483,11 @@ public class HomeFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });

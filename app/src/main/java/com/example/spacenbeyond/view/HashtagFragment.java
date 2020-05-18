@@ -10,13 +10,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -57,10 +55,7 @@ public class HashtagFragment extends Fragment {
 
     private ImageView imageViewBack;
     private ImageView imageShare;
-    private ImageView imageFavorite;
     private ImageView imageViewTOP;
-
-    private ConstraintLayout constraintLayoutTop;
 
     private FloatingActionButton floatingActionButtonCamera;
 
@@ -91,41 +86,35 @@ public class HashtagFragment extends Fragment {
 
         imageViewBack.setOnClickListener(v -> closefragment());
 
-        floatingActionButtonCamera.setOnClickListener(view1 -> {
-            captureImage();
-        });
+        floatingActionButtonCamera.setOnClickListener(view1 -> captureImage());
 
-        imageShare.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
+        imageShare.setOnClickListener(v -> {
 
-                try {
-                    BitmapDrawable drawable = (BitmapDrawable) imageViewTOP.getDrawable();
-                    Bitmap bitmap = drawable.getBitmap();
+            try {
+                BitmapDrawable drawable = (BitmapDrawable) imageViewTOP.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
 
-                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-                    String savedFile = SaveImage(bitmap);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                String savedFile = SaveImage(bitmap);
 
-                    File media = new File(savedFile);
-                    Uri imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
+                File media = new File(savedFile);
+                Uri imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
 
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("image/*");
-                    share.putExtra(Intent.EXTRA_STREAM, imageUri);
-                    share.putExtra(Intent.EXTRA_TEXT, textViewHashUm.getText() + "\n" + textViewHashDois.getText());
-                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("image/*");
+                share.putExtra(Intent.EXTRA_STREAM, imageUri);
+                share.putExtra(Intent.EXTRA_TEXT, textViewHashUm.getText() + "\n" + textViewHashDois.getText());
+                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("Label", textViewHashUm.getText() + "\n" + textViewHashDois.getText());
-                    clipboard.setPrimaryClip(clip);
+                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Label", textViewHashUm.getText() + "\n" + textViewHashDois.getText());
+                clipboard.setPrimaryClip(clip);
 
-                    startActivity(Intent.createChooser(share, "Share Image"));
-                }
-                catch (Throwable e) {
-                    Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
-                }
+                startActivity(Intent.createChooser(share, "Share Image"));
+            }
+            catch (Throwable e) {
+                Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -249,12 +238,12 @@ public class HashtagFragment extends Fragment {
         textViewHashUm = view.findViewById(R.id.textViewHashtagUm);
         textViewHashDois = view.findViewById(R.id.textViewHashtagDois);
 
-        constraintLayoutTop = view.findViewById(R.id.constraintTop);
+        ConstraintLayout constraintLayoutTop = view.findViewById(R.id.constraintTop);
         floatingActionButtonCamera = view.findViewById(R.id.floatingActionButtonCamera);
 
         imageViewBack = view.findViewById(R.id.ic_back);
         imageShare = view.findViewById(R.id.ic_share);
-        imageFavorite = view.findViewById(R.id.ic_favorite);
+        ImageView imageFavorite = view.findViewById(R.id.ic_favorite);
         imageViewTOP = view.findViewById(R.id.imageViewTop);
     }
 }

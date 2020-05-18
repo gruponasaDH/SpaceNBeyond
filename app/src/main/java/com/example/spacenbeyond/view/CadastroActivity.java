@@ -22,8 +22,6 @@ import android.widget.Toast;
 
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.util.AppUtil;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,18 +65,15 @@ public class CadastroActivity extends AppCompatActivity {
                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
 
                        user.updateProfile(profileUpdates)
-                               .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                   @Override
-                                   public void onComplete(@NonNull Task<Void> task) {
-                                       if (task.isSuccessful()) {
-                                           // Salvar id do usuário para pegar os dados depois
-                                           AppUtil.salvarIdUsuario(getApplicationContext(), FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                           Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
-                                           startActivity(intent);
-                                       }
-                                       else {
-                                           Toast.makeText(CadastroActivity.this, "Houve um problema no cadastro.", Toast.LENGTH_LONG).show();
-                                       }
+                               .addOnCompleteListener(task1 -> {
+                                   if (task1.isSuccessful()) {
+                                       // Salvar id do usuário para pegar os dados depois
+                                       AppUtil.salvarIdUsuario(getApplicationContext(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                       Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                                       startActivity(intent);
+                                   }
+                                   else {
+                                       Toast.makeText(CadastroActivity.this, "Houve um problema no cadastro.", Toast.LENGTH_LONG).show();
                                    }
                                });
 

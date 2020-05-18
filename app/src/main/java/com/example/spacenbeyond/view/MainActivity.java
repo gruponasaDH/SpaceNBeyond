@@ -12,7 +12,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public BottomNavigationView bottomNav;
     private static final int PERMISSION_CODE = 100;
 
     @Override
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottomNav = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
         captureImage();
 
@@ -71,6 +70,4 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_up, 0, 0, 0).replace(R.id.fragment_container, fragment).commit();
     }
 
-    @Override
-    protected void onResume() { super.onResume(); }
 }

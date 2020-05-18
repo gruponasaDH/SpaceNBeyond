@@ -30,9 +30,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -98,133 +95,86 @@ public class EditContaFragment extends Fragment {
 
         imageViewVoltar.setOnClickListener(v -> closefragment());
 
-        imageViewFotoPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                captureImage();
-            }
-        });
+        imageViewFotoPerfil.setOnClickListener(v -> captureImage());
 
-        alteraFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                captureImage();
-            }
-        });
+        alteraFoto.setOnClickListener(v -> captureImage());
 
-        imageViewSair.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout(googleSignInClient);
-            }
-        });
+        imageViewSair.setOnClickListener(v -> logout(googleSignInClient));
 
-        materialButtonSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        materialButtonSalvar.setOnClickListener(v -> {
 
-                String nome = textInputLayoutNome.getEditText().getText().toString();
-                String email = textInputLayoutEmail.getEditText().getText().toString();
-                String senha = textInputLayoutSenha.getEditText().getText().toString();
+            String nome = textInputLayoutNome.getEditText().getText().toString();
+            String email = textInputLayoutEmail.getEditText().getText().toString();
+            String senha = textInputLayoutSenha.getEditText().getText().toString();
 
-                if (!nome.isEmpty()) {
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
-
-                    user.updateProfile(profileUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        valid = true;
-                                    }
-                                    else {
-                                        valid = false;
-                                    }
-                                }
-                            });
-                }
-
-                if (!email.isEmpty()) {
-
-                    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                        textInputLayoutEmail.setError("Email inválido");
-                        textInputLayoutEmail.requestFocus();
-                        return;
-                    }
-
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    user.updateEmail(email)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        valid = true;
-                                    }
-                                    else {
-                                        Toast.makeText(getContext(), "Faça login novamente para atualizar o email.", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                }
-
-                if (!senha.isEmpty()) {
-
-                    if (senha.length() < 6) {
-                        textInputLayoutSenha.setError("Senha deve ser maior que 6 caracteres");
-                        textInputLayoutSenha.requestFocus();
-                        return;
-                    }
-
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    user.updatePassword(senha)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        valid = true;
-                                    }
-                                    else {
-                                        Toast.makeText(getContext(), "Faça login novamente para atualizar a senha.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-
-                if (stream != null) {
-                    salvarImagemFirebase(stream, "imagem-perfil");
-                }
-
-                if (valid) {
-                    Toast.makeText(getContext(), "Dados atualizados com sucesso", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        textViewDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            if (!nome.isEmpty()) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
 
-                user.delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    getActivity().finish();
-                                    Toast.makeText(getActivity(), "Conta excluída com sucesso.", Toast.LENGTH_SHORT).show();
-                                }
+                user.updateProfile(profileUpdates)
+                        .addOnCompleteListener(task -> valid = task.isSuccessful());
+            }
+
+            if (!email.isEmpty()) {
+
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    textInputLayoutEmail.setError("Email inválido");
+                    textInputLayoutEmail.requestFocus();
+                    return;
+                }
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.updateEmail(email)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                valid = true;
+                            } else {
+                                Toast.makeText(getContext(), "Faça login novamente para atualizar o email.", Toast.LENGTH_LONG).show();
                             }
                         });
             }
-        });
 
-        textoLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout(googleSignInClient);
+            if (!senha.isEmpty()) {
+
+                if (senha.length() < 6) {
+                    textInputLayoutSenha.setError("Senha deve ser maior que 6 caracteres");
+                    textInputLayoutSenha.requestFocus();
+                    return;
+                }
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.updatePassword(senha)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                valid = true;
+                            } else {
+                                Toast.makeText(getContext(), "Faça login novamente para atualizar a senha.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+
+            if (stream != null) {
+                salvarImagemFirebase(stream);
+            }
+
+            if (valid) {
+                Toast.makeText(getContext(), "Dados atualizados com sucesso", Toast.LENGTH_SHORT).show();
             }
         });
+
+        textViewDelete.setOnClickListener(v -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            user.delete()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            getActivity().finish();
+                            Toast.makeText(getActivity(), "Conta excluída com sucesso.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
+
+        textoLogout.setOnClickListener(v -> logout(googleSignInClient));
 
         return view;
     }
@@ -282,21 +232,16 @@ public class EditContaFragment extends Fragment {
                 });
     }
 
-        private void salvarImagemFirebase(InputStream stream, String name) {
+        private void salvarImagemFirebase(InputStream stream) {
 
         StorageReference storage = FirebaseStorage
                 .getInstance()
                 .getReference()
-                .child(AppUtil.getIdUsuario(getContext()) + "/image/profile/" + name);
+                .child(AppUtil.getIdUsuario(getContext()) + "/image/profile/" + "imagem-perfil");
 
         UploadTask uploadTask = storage.putStream(stream);
 
-        uploadTask.addOnSuccessListener(taskSnapshot -> {
-
-            Toast.makeText(getContext(), "Nova foto de perfil salva.", Toast.LENGTH_SHORT).show();
-        }).addOnFailureListener(e -> {
-            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        });
+        uploadTask.addOnSuccessListener(taskSnapshot -> Toast.makeText(getContext(), "Nova foto de perfil salva.", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -351,14 +296,11 @@ public class EditContaFragment extends Fragment {
     }
 
     private void logout(GoogleSignInClient googleSignInClient) {
-        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                LoginManager.getInstance().logOut();
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
+        googleSignInClient.signOut().addOnCompleteListener(task -> {
+            LoginManager.getInstance().logOut();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
         });
     }
 }

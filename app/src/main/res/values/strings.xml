@@ -12,7 +12,6 @@
     <string name="login">Login</string>
     <string name="google">Google</string>
     <string name="ainda_n_o_tem_conta">Ainda não tem conta?</string>
-    <string name="esqueci_minha_senha">Esqueci minha senha</string>
     <string name="alterar_foto">Alterar foto</string>
     <string name="salvar_alteracoes">Salvar alterações</string>
     <string name="logout">Logout</string>
@@ -21,8 +20,6 @@
     <string name="eng">ENG</string>
     <string name="hashtag_do_dia"># do dia</string>
     <string name="escolha_foto">1| Escolha a foto do dia</string>
-    <string name="clique_no">Clique no dia desejado ou abra o calendário.</string>
-    <string name="deslize_para">Deslize para a direita para ver as fotos dos dias anteriores.</string>
     <string name="escolha_idioma">Escolha o idioma da descrição da foto.</string>
     <string name="gerando_hashtags">2 | Gerando as Hashtags</string>
     <string name="clique_icone">Clique no ícone Hashtag na barra de navegação.</string>
@@ -40,7 +37,6 @@
     <string name="passo6_tire_fotos">Passo 6. Tire suas fotos a partir das hashtags geradas.</string>
     <string name="botao_sair">botão sair</string>
     <string name="botao_apagar_conta">botão apagar conta</string>
-    <string name="botao_download">botão download</string>
     <string name="botao_compartilhar">botão compartilhar</string>
     <string name="botao_favoritar">botão favoritar</string>
     <string name="botao_editar_conta">botão editar conta</string>
@@ -62,7 +58,5 @@
     <string name="facebook_app_id">911193665981835</string>
     <string name="fb_login_protocol_scheme">fb911193665981835</string>
     <string name="imagem_capturada">Imagem capturada</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="clique_no_calendario">Clique no calendário para escolher uma data diferente do dia atual.</string>
 </resources>

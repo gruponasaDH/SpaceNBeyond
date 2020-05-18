@@ -32,13 +32,13 @@ public class PhotoViewModel extends AndroidViewModel {
     private final CompositeDisposable disposable = new CompositeDisposable();
     private final PhotoRepository repository = new PhotoRepository();
 
-    public MutableLiveData<Throwable> resultLiveDataError = new MutableLiveData<>();
-    public MutableLiveData<PhotoEntity> favoriteAdded = new MutableLiveData<>();
+    private final MutableLiveData<Throwable> resultLiveDataError = new MutableLiveData<>();
+    private final MutableLiveData<PhotoEntity> favoriteAdded = new MutableLiveData<>();
 
-    public MutableLiveData<List<PhotoEntity>> mutableLiveDataPhoto = new MutableLiveData<>();
-    public LiveData<List<PhotoEntity>> liveDataPhoto = mutableLiveDataPhoto;
+    private final MutableLiveData<List<PhotoEntity>> mutableLiveDataPhoto = new MutableLiveData<>();
+    public final LiveData<List<PhotoEntity>> liveDataPhoto = mutableLiveDataPhoto;
 
-    public MutableLiveData<String> mutableLiveDataErro = new MutableLiveData<>();
+    private final MutableLiveData<String> mutableLiveDataErro = new MutableLiveData<>();
     public LiveData<String> liveDataErro = mutableLiveDataErro;
 
     public PhotoViewModel(@NonNull Application application) {
@@ -155,32 +155,29 @@ public class PhotoViewModel extends AndroidViewModel {
 
     public void carregaFavoritos(FavoritosRecyclerViewAdapter adapter){
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
-                reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        List<PhotoEntity> listaFotos = new ArrayList<>();
-                        for (DataSnapshot child : dataSnapshot.getChildren()){
-                            FirebasePhoto photoResponse = new FirebasePhoto();
-                            photoResponse = child.getValue(FirebasePhoto.class);
-                            PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
-                            listaFotos.add(photoEntity);
-                        }
-
-                        adapter.update(listaFotos);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
+            reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<PhotoEntity> listaFotos = new ArrayList<>();
+                    for (DataSnapshot child : dataSnapshot.getChildren()){
+                        FirebasePhoto photoResponse = new FirebasePhoto();
+                        photoResponse = child.getValue(FirebasePhoto.class);
+                        PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
+                        listaFotos.add(photoEntity);
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(getApplication(), databaseError.toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
+                    adapter.update(listaFotos);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getApplication(), databaseError.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
         }).start();
     }
 
@@ -191,8 +188,7 @@ public class PhotoViewModel extends AndroidViewModel {
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(subscription -> loading.setValue(true))
                         .doAfterTerminate(() -> loading.setValue(false))
-                        .subscribe(albumList ->
-                                        mutableLiveDataPhoto.setValue(albumList),
+                        .subscribe(mutableLiveDataPhoto::setValue,
                                 throwable ->
                                         mutableLiveDataErro.setValue(throwable.getMessage() + "problema banco de dados"))
         );
@@ -200,21 +196,16 @@ public class PhotoViewModel extends AndroidViewModel {
 
     public void insereDadosBd(PhotoEntity photoEntity) {
 
-        new Thread(() -> {
-            repository.inserePhotoBd(photoEntity, getApplication());
-        }).start();
+        new Thread(() -> repository.inserePhotoBd(photoEntity, getApplication())).start();
     }
 
     public void deletarPhotoEntity(String title) {
 
         Boolean valid = true;
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                PhotoEntity photoEntity = repository.getPhotoEntity(title, getApplication());
-                repository.apagaOsDadosBD(photoEntity, getApplication());
-            }
+        new Thread(() -> {
+            PhotoEntity photoEntity = repository.getPhotoEntity(title, getApplication());
+            repository.apagaOsDadosBD(photoEntity, getApplication());
         }).start();
 
         if (valid) {

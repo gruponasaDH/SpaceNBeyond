@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class PhotoTypeConverter {
+class PhotoTypeConverter {
 
     @TypeConverter
     public Object fromObject(String value) {

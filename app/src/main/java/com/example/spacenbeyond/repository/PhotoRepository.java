@@ -2,9 +2,6 @@ package com.example.spacenbeyond.repository;
 
 import android.content.Context;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-
 import com.example.spacenbeyond.data.remote.PhotoDatabase;
 import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;

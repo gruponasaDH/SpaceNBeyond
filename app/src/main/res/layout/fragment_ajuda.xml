@@ -82,7 +82,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Clique no calendário para escolher uma data diferente do dia atual."
+                android:text="@string/clique_no_calendario"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:contentDescription="@string/passo1_selecionar_data"/>
