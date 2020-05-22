@@ -1,6 +1,8 @@
 package com.example.spacenbeyond.view;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,10 +17,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,11 +48,16 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import static android.content.Context.MODE_PRIVATE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class EditContaFragment extends Fragment {
 
@@ -75,6 +85,8 @@ public class EditContaFragment extends Fragment {
     private InputStream stream = null;
     private static final int PERMISSION_CODE = 100;
 
+    private AlertDialog alerta;
+
     public EditContaFragment() { }
 
     @Override
@@ -99,9 +111,34 @@ public class EditContaFragment extends Fragment {
 
         alteraFoto.setOnClickListener(v -> captureImage());
 
-        imageViewSair.setOnClickListener(v -> logout(googleSignInClient));
+        imageViewSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View view = getActivity().getLayoutInflater().inflate(R.layout.custom_alert, null);
+                builder.setView(view);
+                final AlertDialog alert = builder.create();
+                Button sim = (Button) view.findViewById(R.id.botao_sim);
+                Button nao = (Button) view.findViewById(R.id.botao_nao);
+                sim.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        logout(googleSignInClient);
+                    }
+                });
+                nao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alert.dismiss();
+                    }
+                });
+                alert.show();
+            }
+        });
 
         materialButtonSalvar.setOnClickListener(v -> {
+
+            AppUtil.hideKeyboard(getActivity());
 
             String nome = textInputLayoutNome.getEditText().getText().toString();
             String email = textInputLayoutEmail.getEditText().getText().toString();
@@ -162,19 +199,68 @@ public class EditContaFragment extends Fragment {
             }
         });
 
-        textViewDelete.setOnClickListener(v -> {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        textViewDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            user.delete()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            getActivity().finish();
-                            Toast.makeText(getActivity(), "Conta excluída com sucesso.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View view = getActivity().getLayoutInflater().inflate(R.layout.custom_alert, null);
+                builder.setView(view);
+                final AlertDialog alert = builder.create();
+                TextView dialogTextView = view.findViewById(R.id.dialog_text);
+                dialogTextView.setText("Tem certeza que deseja excluir a conta?");
+                Button sim = (Button) view.findViewById(R.id.botao_sim);
+                Button nao = (Button) view.findViewById(R.id.botao_nao);
+                sim.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        user.delete()
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        getActivity().finish();
+                                        Toast.makeText(getActivity(), "Conta excluída com sucesso.", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                    }
+                });
+                nao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alert.dismiss();
+                    }
+                });
+                alert.show();
+            }
         });
 
-        textoLogout.setOnClickListener(v -> logout(googleSignInClient));
+        textoLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View view = getActivity().getLayoutInflater().inflate(R.layout.custom_alert, null);
+                builder.setView(view);
+                final AlertDialog alert = builder.create();
+                Button sim = (Button) view.findViewById(R.id.botao_sim);
+                Button nao = (Button) view.findViewById(R.id.botao_nao);
+                sim.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        logout(googleSignInClient);
+                    }
+                });
+                nao.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alert.dismiss();
+                    }
+                });
+                alert.show();
+            }
+        });
 
         return view;
     }
@@ -211,28 +297,53 @@ public class EditContaFragment extends Fragment {
         textInputEditTextNome.setText(user.getDisplayName());
         textInputEditTextEmail.setText(user.getEmail());
 
-        storage.getDownloadUrl()
-                .addOnSuccessListener((Uri uri) -> Picasso.get()
-                        .load(uri)
-                        .rotate(90)
-                        .into(imageViewFotoPerfil))
-                .addOnFailureListener(e -> {
-                    if (acct != null) {
-                        Uri personPhoto = acct.getPhotoUrl();
-                        Picasso.get()
-                                .load(personPhoto)
-                                .into(imageViewFotoPerfil);
-                    }
 
-                    if (profile != null){
-                        Picasso.get()
-                                .load(profile.getProfilePictureUri(100, 100))
-                                .into(imageViewFotoPerfil);
-                    }
-                });
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+
+            storage.getDownloadUrl()
+                    .addOnSuccessListener((Uri uri) -> Picasso.get()
+                            .load(uri)
+                            .rotate(90)
+                            .into(imageViewFotoPerfil))
+                    .addOnFailureListener(e -> {
+                        if (acct != null) {
+                            Uri personPhoto = acct.getPhotoUrl();
+                            Picasso.get()
+                                    .load(personPhoto)
+                                    .into(imageViewFotoPerfil);
+                        }
+
+                        if (profile != null){
+                            Picasso.get()
+                                    .load(profile.getProfilePictureUri(100, 100))
+                                    .into(imageViewFotoPerfil);
+                        }
+                    });
+        }
+        else {
+
+            storage.getDownloadUrl()
+                    .addOnSuccessListener((Uri uri) -> Picasso.get()
+                            .load(uri)
+                            .into(imageViewFotoPerfil))
+                    .addOnFailureListener(e -> {
+                        if (acct != null) {
+                            Uri personPhoto = acct.getPhotoUrl();
+                            Picasso.get()
+                                    .load(personPhoto)
+                                    .into(imageViewFotoPerfil);
+                        }
+
+                        if (profile != null){
+                            Picasso.get()
+                                    .load(profile.getProfilePictureUri(100, 100))
+                                    .into(imageViewFotoPerfil);
+                        }
+                    });
+        }
     }
 
-        private void salvarImagemFirebase(InputStream stream) {
+    private void salvarImagemFirebase(InputStream stream) {
 
         StorageReference storage = FirebaseStorage
                 .getInstance()
@@ -263,15 +374,67 @@ public class EditContaFragment extends Fragment {
                             imageBitmap = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
                         }
 
-                        imageViewFotoPerfil.setImageBitmap(imageBitmap);
+                        Bitmap bitmapImage = new AppUtil().getResizedBitmap(imageBitmap, 500);
 
-                        stream = new FileInputStream(file);
+                        imageViewFotoPerfil.setImageBitmap(bitmapImage);
+
+
+                        String path = SaveImage(bitmapImage);
+
+                        File media = new File(path);
+
+                        stream = new FileInputStream(media);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                 }
             }
         });
+    }
+
+    private String SaveImage(Bitmap finalBitmap) {
+
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.d("SAVEIMAGE", "Error creating media file, check storage permissions: ");// e.getMessage());
+            return "Error creating media file, check storage permissions: ";
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 40, fos);
+            fos.close();
+            return pictureFile.getAbsolutePath();
+        }
+        catch (FileNotFoundException e) {
+            Log.d("SAVEIMAGE", "File not found: " + e.getMessage());
+            return e.getMessage();
+        }
+        catch (IOException e) {
+            Log.d("SAVEIMAGE", "Error accessing file: " + e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    private  File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/Android/data/" + getApplicationContext().getPackageName() + "/Files");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
     }
 
     private void initViews(View view){

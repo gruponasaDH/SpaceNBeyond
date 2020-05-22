@@ -1,5 +1,6 @@
 package com.example.spacenbeyond.view;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -8,13 +9,18 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage;
@@ -54,9 +60,7 @@ public class VisualizarFavoritoFragment extends Fragment {
             Bundle bundle = getArguments();
             photoEntity = bundle.getParcelable(FAVORITO_CHAVE);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                Picasso.get().load(photoEntity.getUrl()).into(imageViewFoto);
-            }
+            Picasso.get().load(photoEntity.getUrl()).into(imageViewFoto);
 
             textViewFoto.setText(photoEntity.getTitle());
             textViewAutor.setText(photoEntity.getCopyright());
@@ -75,17 +79,38 @@ public class VisualizarFavoritoFragment extends Fragment {
         PhotoEntity finalPhotoEntity = photoEntity;
         PhotoEntity finalPhotoEntity1 = photoEntity;
         imageViewFavorited.setOnClickListener(v -> {
-            if (verificaConexaoComInternet(getContext())) {
-                PhotoResponse photoResponse = new PhotoResponse(finalPhotoEntity.getCopyright(), finalPhotoEntity.getDate(), finalPhotoEntity1.getExplanation(), finalPhotoEntity1.getTitle(), finalPhotoEntity1.getUrl());
-                photoViewModel.deletarFavorito(photoResponse);
-            }
-            else {
-                photoViewModel.deletarPhotoEntity(textViewFoto.getText().toString());
-            }
 
-            getFragmentManager().beginTransaction().remove(VisualizarFavoritoFragment.this).commit();
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            View viewDialog = getActivity().getLayoutInflater().inflate(R.layout.custom_alert, null);
+            builder.setView(viewDialog);
+            final AlertDialog alert = builder.create();
+            TextView dialogTextView = viewDialog.findViewById(R.id.dialog_text);
+            dialogTextView.setText("Tem certeza que deseja desfavoritar " + textViewFoto.getText() + "?");
+            Button sim = (Button) viewDialog.findViewById(R.id.botao_sim);
+            Button nao = (Button) viewDialog.findViewById(R.id.botao_nao);
+            sim.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (verificaConexaoComInternet(getContext())) {
+                        PhotoResponse photoResponse = new PhotoResponse(finalPhotoEntity.getCopyright(), finalPhotoEntity.getDate(), finalPhotoEntity1.getExplanation(), finalPhotoEntity1.getTitle(), finalPhotoEntity1.getUrl());
+                        photoViewModel.deletarFavorito(photoResponse);
+                    }
+                    else {
+                        photoViewModel.deletarPhotoEntity(textViewFoto.getText().toString());
+                    }
+
+                    getFragmentManager().beginTransaction().remove(VisualizarFavoritoFragment.this).commit();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+            nao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alert.dismiss();
+                }
+            });
+            alert.show();
         });
 
         return view;

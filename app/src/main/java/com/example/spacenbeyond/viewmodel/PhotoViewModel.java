@@ -72,8 +72,6 @@ public class PhotoViewModel extends AndroidViewModel {
     }
 
     public void deletarFavorito(PhotoResponse photoResponse) {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(AppUtil.getIdUsuario(getApplication()));
         Query applesQuery = ref.child("favorites").orderByChild("title").equalTo(photoResponse.getTitle());
@@ -201,7 +199,7 @@ public class PhotoViewModel extends AndroidViewModel {
 
     public void deletarPhotoEntity(String title) {
 
-        Boolean valid = true;
+        boolean valid = true;
 
         new Thread(() -> {
             PhotoEntity photoEntity = repository.getPhotoEntity(title, getApplication());

@@ -145,7 +145,7 @@ public class HashtagFragment extends Fragment {
         }
         try {
             FileOutputStream fos = new FileOutputStream(pictureFile);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 70, fos);
             fos.close();
             return pictureFile.getAbsolutePath();
         }
@@ -238,12 +238,10 @@ public class HashtagFragment extends Fragment {
         textViewHashUm = view.findViewById(R.id.textViewHashtagUm);
         textViewHashDois = view.findViewById(R.id.textViewHashtagDois);
 
-        ConstraintLayout constraintLayoutTop = view.findViewById(R.id.constraintTop);
         floatingActionButtonCamera = view.findViewById(R.id.floatingActionButtonCamera);
 
         imageViewBack = view.findViewById(R.id.ic_back);
         imageShare = view.findViewById(R.id.ic_share);
-        ImageView imageFavorite = view.findViewById(R.id.ic_favorite);
         imageViewTOP = view.findViewById(R.id.imageViewTop);
     }
 }

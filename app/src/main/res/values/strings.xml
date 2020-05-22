@@ -56,7 +56,6 @@
     <string name="dez">Dez</string>
     <string name="favoritos">Favoritos</string>
     <string name="facebook_app_id">911193665981835</string>
-    <string name="fb_login_protocol_scheme">fb911193665981835</string>
     <string name="imagem_capturada">Imagem capturada</string>
     <string name="clique_no_calendario">Clique no calendário para escolher uma data diferente do dia atual.</string>
 </resources>

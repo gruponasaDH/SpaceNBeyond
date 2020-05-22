@@ -177,6 +177,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void verifyFields() {
+
+        AppUtil.hideKeyboard(this);
+
         String email = txtEmail.getEditText().getText().toString();
         String senha = txtSenha.getEditText().getText().toString();
 

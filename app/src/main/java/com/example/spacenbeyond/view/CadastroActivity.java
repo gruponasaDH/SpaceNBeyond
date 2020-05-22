@@ -46,11 +46,16 @@ public class CadastroActivity extends AppCompatActivity {
         textoClicavel();
 
         btncriarConta.setOnClickListener(v -> {
+
+
             String nome = txtNome.getEditText().getText().toString();
             String email = txtEmail.getEditText().getText().toString();
             String senha = txtSenha.getEditText().getText().toString();
 
             if(verifyFields(nome, email, senha)) {
+
+                AppUtil.hideKeyboard(this);
+
                 registerUser(nome, email, senha);
             }
         });

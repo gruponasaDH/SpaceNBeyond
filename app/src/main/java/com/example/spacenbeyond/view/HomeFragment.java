@@ -257,7 +257,6 @@ public class HomeFragment extends Fragment {
             }
         }
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
         File mediaFile;
         String mImageName = textViewFoto.getText() + ".jpg";
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
