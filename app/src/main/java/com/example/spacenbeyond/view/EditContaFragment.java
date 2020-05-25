@@ -309,7 +309,6 @@ public class EditContaFragment extends Fragment {
                             Uri personPhoto = acct.getPhotoUrl();
                             Picasso.get()
                                     .load(personPhoto)
-                                    .rotate(90)
                                     .into(imageViewFotoPerfil);
                         }
 
@@ -331,7 +330,6 @@ public class EditContaFragment extends Fragment {
                             Uri personPhoto = acct.getPhotoUrl();
                             Picasso.get()
                                     .load(personPhoto)
-                                    .rotate(90)
                                     .into(imageViewFotoPerfil);
                         }
 
