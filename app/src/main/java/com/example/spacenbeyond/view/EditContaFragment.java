@@ -303,13 +303,13 @@ public class EditContaFragment extends Fragment {
             storage.getDownloadUrl()
                     .addOnSuccessListener((Uri uri) -> Picasso.get()
                             .load(uri)
-                            .rotate(90)
                             .into(imageViewFotoPerfil))
                     .addOnFailureListener(e -> {
                         if (acct != null) {
                             Uri personPhoto = acct.getPhotoUrl();
                             Picasso.get()
                                     .load(personPhoto)
+                                    .rotate(90)
                                     .into(imageViewFotoPerfil);
                         }
 
@@ -331,6 +331,7 @@ public class EditContaFragment extends Fragment {
                             Uri personPhoto = acct.getPhotoUrl();
                             Picasso.get()
                                     .load(personPhoto)
+                                    .rotate(90)
                                     .into(imageViewFotoPerfil);
                         }
 
@@ -416,20 +417,16 @@ public class EditContaFragment extends Fragment {
     }
 
     private  File getOutputMediaFile(){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
+
         File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/Android/data/" + getApplicationContext().getPackageName() + "/Files");
 
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
 
-        // Create the storage directory if it does not exist
         if (! mediaStorageDir.exists()){
             if (! mediaStorageDir.mkdirs()){
                 return null;
             }
         }
-        // Create a media file name
+
         String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
         File mediaFile;
         String mImageName="MI_"+ timeStamp +".jpg";
