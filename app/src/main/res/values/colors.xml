@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#00243A</color>
+    <color name="colorAccent">#FFF03A</color>
+    <color name="fundo_bnav">#FF4D6E95</color>
+    <color name="google_button">#ED2524</color>
+    <color name="facebook_button">#3B5998</color>
+    <color name="branco">#FFFFFF</color>
+    <color name="top_color_hashfragment">#C0CCDA</color>
+    <color name="fundo_hashtag">#2200243A</color>
+
 </resources>
