@@ -124,16 +124,45 @@ public class HashtagFragment extends Fragment {
         photoViewModel.getPhotoOfDay(todayString, API_KEY);
         photoViewModel.liveData.observe(getViewLifecycleOwner(), (PhotoResponse result) -> {
 
-            Random random = new Random();
-            String[] arr = result.getExplanation().split(" ");
-            int randomIdx1 = random.nextInt(arr.length);
-            int randomIdx2 = random.nextInt(arr.length);
-
-            textViewHashUm.setText("#" + arr[randomIdx1]);
-            textViewHashDois.setText("#" + arr[randomIdx2]);
+            sorteioHashtags(result);
         });
 
         return view;
+    }
+
+    private void sorteioHashtags(PhotoResponse result) {
+        Random random = new Random();
+        String[] arr = result.getExplanation().split(" ");
+
+        int len = arr.length;
+        String[] novoArr = new String[len];
+        int j = 0;
+
+        for (int i=0; i < len -1; i++){
+
+            if (!arr[i].equals("the") && !arr[i].equals("is") && !arr[i].equals("on") && !arr[i].equals("at")
+                    && !arr[i].equals("in") && !arr[i].equals("of") && !arr[i].equals("that")
+                    && !arr[i].equals("are") && !arr[i].equals("The") && !arr[i].equals("and")
+                    && !arr[i].equals("than")&& !arr[i].equals("to")&& !arr[i].equals("from")
+                    && !arr[i].equals("do")&& !arr[i].equals("this")&& !arr[i].equals("don't")
+                    && !arr[i].equals("doesn't")&& !arr[i].equals("will")&& !arr[i].equals("a")
+                    && !arr[i].equals("an")&& !arr[i].equals("our")&& !arr[i].equals("mine")
+                    && !arr[i].equals("ours")&& !arr[i].equals("it") && !arr[i].equals("those")
+                    && !arr[i].equals(" ") && !arr[i].equals("  ") && !arr[i].equals("with")
+                    && !arr[i].equals("its") && !arr[i].equals("if")){
+                novoArr[j++] = arr[i];
+            }
+        }
+
+        int randomIdx1 = random.nextInt(j);
+        int randomIdx2 = random.nextInt(j);
+
+        if (novoArr[randomIdx1].equals(novoArr[randomIdx2])){
+            randomIdx2 = random.nextInt(j);
+        }
+
+        textViewHashUm.setText("#" + novoArr[randomIdx1]);
+        textViewHashDois.setText("#" + novoArr[randomIdx2]);
     }
 
     private String SaveImage(Bitmap finalBitmap) {
