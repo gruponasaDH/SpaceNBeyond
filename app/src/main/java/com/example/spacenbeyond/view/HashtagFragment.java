@@ -149,7 +149,8 @@ public class HashtagFragment extends Fragment {
                     && !arr[i].equals("an")&& !arr[i].equals("our")&& !arr[i].equals("mine")
                     && !arr[i].equals("ours")&& !arr[i].equals("it") && !arr[i].equals("those")
                     && !arr[i].equals(" ") && !arr[i].equals("  ") && !arr[i].equals("with")
-                    && !arr[i].equals("its") && !arr[i].equals("if")){
+                    && !arr[i].equals("its") && !arr[i].equals("if") && !arr[i].equals("so")
+                    && !arr[i].equals("by")){
                 novoArr[j++] = arr[i];
             }
         }
