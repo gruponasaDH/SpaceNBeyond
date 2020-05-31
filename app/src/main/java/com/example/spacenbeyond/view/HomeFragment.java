@@ -132,16 +132,26 @@ public class HomeFragment extends Fragment {
         imageViewUser.setOnClickListener(v -> replaceFragments(new EditContaFragment()));
 
         materialButtonPT.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
-            getPortugueseTitle();
-            getPortugueseDescription();
-            progressBar.setVisibility(View.GONE);
+            if (verificaConexaoComInternet(getContext())) {
+                progressBar.setVisibility(View.VISIBLE);
+                getPortugueseTitle();
+                getPortugueseDescription();
+                progressBar.setVisibility(View.GONE);
+            }
+            else {
+                Toast.makeText(getContext(), "É preciso estar conectado a internet para executar esta ação.", Toast.LENGTH_LONG).show();
+            }
         });
         materialButtonENG.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
-            getEnglishTitle();
-            getEnglishDescription();
-            progressBar.setVisibility(View.GONE);
+            if (verificaConexaoComInternet(getContext())) {
+                progressBar.setVisibility(View.VISIBLE);
+                getEnglishTitle();
+                getEnglishDescription();
+                progressBar.setVisibility(View.GONE);
+            }
+            else {
+                Toast.makeText(getContext(), "É preciso estar conectado a internet para executar esta ação.", Toast.LENGTH_LONG).show();
+            }
         });
 
         imageFavorite.setOnClickListener(view12 -> {
@@ -151,39 +161,41 @@ public class HomeFragment extends Fragment {
                 imageFavorite.setImageResource(R.drawable.ic_favorited);
             }
             else {
-                PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
-                photoViewModel.insereDadosBd(photoEntity);
-                imageFavorite.setImageResource(R.drawable.ic_favorited);
+                Toast.makeText(getContext(), "É preciso estar conectado a internet para executar esta ação.", Toast.LENGTH_LONG).show();
             }
         });
 
         imageShare.setOnClickListener(v -> {
 
-            try {
-                BitmapDrawable drawable = (BitmapDrawable) imageViewFoto.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
+            if (verificaConexaoComInternet(getContext())) {
+                try {
+                    BitmapDrawable drawable = (BitmapDrawable) imageViewFoto.getDrawable();
+                    Bitmap bitmap = drawable.getBitmap();
 
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                String savedFile = SaveImage(bitmap);
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                    String savedFile = SaveImage(bitmap);
 
-                File media = new File(savedFile);
-                Uri imageUri =  FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
+                    File media = new File(savedFile);
+                    Uri imageUri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
 
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("image/*");
-                share.putExtra(Intent.EXTRA_STREAM, imageUri);
-                share.putExtra(Intent.EXTRA_TEXT, textViewFoto.getText() + "\nCompartilhado de SpaceNBeyond");
-                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("image/*");
+                    share.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    share.putExtra(Intent.EXTRA_TEXT, textViewFoto.getText() + "\nCompartilhado de SpaceNBeyond");
+                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-                ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("Label", textViewFoto.getText().toString());
-                clipboard.setPrimaryClip(clip);
+                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Label", textViewFoto.getText().toString());
+                    clipboard.setPrimaryClip(clip);
 
-                startActivity(Intent.createChooser(share, "Share Image"));
+                    startActivity(Intent.createChooser(share, "Share Image"));
+                } catch (Throwable e) {
+                    Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
+                }
             }
-            catch (Throwable e) {
-                Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
+            else {
+                Toast.makeText(getContext(), "É preciso estar conectado a internet para executar esta ação.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -199,22 +211,29 @@ public class HomeFragment extends Fragment {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String todayString = formatter.format(currentTime);
-        photoViewModel.getPhotoOfDay(todayString, API_KEY);
-        photoViewModel.liveData.observe(getViewLifecycleOwner(), (PhotoResponse result) -> {
 
-            photoResponse = result;
 
-            textViewFoto.setText(result.getTitle());
-            if (result.getCopyright() != null) {
-                textViewAutor.setVisibility(View.VISIBLE);
-                textViewAutor.setText(result.getCopyright());
-            }
-            else {
-                textViewAutor.setVisibility(View.GONE);
-            }
-            Picasso.get().load(result.getUrl()).into(imageViewFoto);
-            textViewDescricao.setText(result.getExplanation());
-        });
+        if (verificaConexaoComInternet(getContext())) {
+            photoViewModel.getPhotoOfDay(todayString, API_KEY);
+            photoViewModel.liveData.observe(getViewLifecycleOwner(), (PhotoResponse result) -> {
+
+                photoResponse = result;
+
+                textViewFoto.setText(result.getTitle());
+                if (result.getCopyright() != null) {
+                    textViewAutor.setVisibility(View.VISIBLE);
+                    textViewAutor.setText(result.getCopyright());
+                } else {
+                    textViewAutor.setVisibility(View.GONE);
+                }
+                Picasso.get().load(result.getUrl()).into(imageViewFoto);
+                textViewDescricao.setText(result.getExplanation());
+            });
+        }
+        else {
+            Toast.makeText(getContext(), "É preciso estar conectado a internet para carregar a foto do dia.", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
+        }
 
         return view;
     }
