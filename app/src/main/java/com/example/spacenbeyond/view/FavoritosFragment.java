@@ -94,20 +94,29 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
     @Override
     public void favoritosClickListener(PhotoEntity photo) {
 
-        reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Fragment fragment = new VisualizarFavoritoFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(FAVORITO_CHAVE, photo);
-                fragment.setArguments(bundle);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-            }
+        if (verificaConexaoComInternet(getContext())) {
+            reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Fragment fragment = new VisualizarFavoritoFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(FAVORITO_CHAVE, photo);
+                    fragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+        else {
+            Fragment fragment = new VisualizarFavoritoFragment();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(FAVORITO_CHAVE, photo);
+            fragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        }
     }
 }
