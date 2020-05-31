@@ -8,11 +8,8 @@
     android:fillViewport="true">
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     style="@style/StyleFundoBranco">
 
     <ImageView
@@ -109,11 +106,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputAlteraEmail">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditTextSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:hint="@string/senha" />
+            android:hint="@string/nova_senha" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

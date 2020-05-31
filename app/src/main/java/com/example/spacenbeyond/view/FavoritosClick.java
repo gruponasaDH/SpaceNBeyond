@@ -2,7 +2,7 @@ package com.example.spacenbeyond.view;
 
 import com.example.spacenbeyond.model.PhotoEntity;
 
-interface FavoritosClick {
+public interface FavoritosClick {
 
     void favoritosClickListener(PhotoEntity photoResponse);
 }

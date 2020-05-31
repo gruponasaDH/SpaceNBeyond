@@ -18,6 +18,7 @@ import com.example.spacenbeyond.R;
 import com.example.spacenbeyond.model.PhotoEntity;
 
 import com.example.spacenbeyond.util.AppUtil;
+import com.example.spacenbeyond.view.adapter.FavoritosRecyclerViewAdapter;
 import com.example.spacenbeyond.viewmodel.PhotoViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,13 +33,12 @@ import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
 
 public class FavoritosFragment extends Fragment implements FavoritosClick {
 
-    private ImageView btnVoltar;
     private RecyclerView recyclerView;
     private FavoritosRecyclerViewAdapter adapter;
     private PhotoViewModel photoViewModel;
+    public static final String FAVORITO_CHAVE = "favorito";
 
-    FirebaseDatabase database;
-    DatabaseReference reference;
+    private DatabaseReference reference;
 
     public FavoritosFragment() {
 
@@ -56,7 +56,7 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
             photoViewModel.carregaFavoritos(adapter);
         } else {
             photoViewModel.carregaDadosBD();
-            photoViewModel.liveDataPhoto.observe(this, (List<PhotoEntity> result) -> {
+            photoViewModel.liveDataPhoto.observe(getViewLifecycleOwner(), (List<PhotoEntity> result) -> {
 
                 List<PhotoEntity> listaFotos = new ArrayList<>();
 
@@ -69,14 +69,11 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
             });
         }
 
-        btnVoltar = view.findViewById(R.id.btnVoltar);
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(FavoritosFragment.this).commit();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
+        ImageView btnVoltar = view.findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(v -> {
+            getFragmentManager().beginTransaction().remove(FavoritosFragment.this).commit();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
         });
 
         return view;
@@ -90,23 +87,36 @@ public class FavoritosFragment extends Fragment implements FavoritosClick {
         adapter = new FavoritosRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
 
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         reference = database.getReference(AppUtil.getIdUsuario(getContext()) + "/favorites");
     }
 
     @Override
-    public void favoritosClickListener(PhotoEntity photoResponse) {
+    public void favoritosClickListener(PhotoEntity photo) {
 
-        reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        if (verificaConexaoComInternet(getContext())) {
+            reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Fragment fragment = new VisualizarFavoritoFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(FAVORITO_CHAVE, photo);
+                    fragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                }
+            });
+        }
+        else {
+            Fragment fragment = new VisualizarFavoritoFragment();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(FAVORITO_CHAVE, photo);
+            fragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        }
     }
 }

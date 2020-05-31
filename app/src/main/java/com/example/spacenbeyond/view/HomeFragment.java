@@ -1,14 +1,16 @@
 package com.example.spacenbeyond.view;
 
 import android.app.DatePickerDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import com.example.spacenbeyond.R;
@@ -35,11 +36,15 @@ import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOption
 import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
 import static com.example.spacenbeyond.util.AppUtil.verificaConexaoComInternet;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HomeFragment extends Fragment {
 
@@ -127,59 +132,70 @@ public class HomeFragment extends Fragment {
         imageViewUser.setOnClickListener(v -> replaceFragments(new EditContaFragment()));
 
         materialButtonPT.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
-            getPortugueseTitle();
-            getPortugueseDescription();
-            progressBar.setVisibility(View.GONE);
+            if (verificaConexaoComInternet(getContext())) {
+                progressBar.setVisibility(View.VISIBLE);
+                getPortugueseTitle();
+                getPortugueseDescription();
+                progressBar.setVisibility(View.GONE);
+            }
+            else {
+                Toast.makeText(getContext(), "É preciso estar conectado a internet para executar esta ação.", Toast.LENGTH_LONG).show();
+            }
         });
         materialButtonENG.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
-            getEnglishTitle();
-            getEnglishDescription();
-            progressBar.setVisibility(View.GONE);
-        });
-
-        imageFavorite.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                if (verificaConexaoComInternet(getContext())) {
-                    photoViewModel.salvarFavorito(photoResponse);
-                }
-                else {
-                    PhotoEntity photoEntity = new PhotoEntity(photoResponse.getCopyright(), photoResponse.getDate(), photoResponse.getExplanation(), photoResponse.getTitle(), photoResponse.getUrl());
-                    photoViewModel.insereDadosBd(photoEntity);
-                }
+            if (verificaConexaoComInternet(getContext())) {
+                progressBar.setVisibility(View.VISIBLE);
+                getEnglishTitle();
+                getEnglishDescription();
+                progressBar.setVisibility(View.GONE);
+            }
+            else {
+                Toast.makeText(getContext(), "É preciso estar conectado a internet para executar esta ação.", Toast.LENGTH_LONG).show();
             }
         });
 
-        imageShare.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
+        imageFavorite.setOnClickListener(view12 -> {
 
+            if (verificaConexaoComInternet(getContext())) {
+                photoViewModel.salvarFavorito(photoResponse);
+                imageFavorite.setImageResource(R.drawable.ic_favorited);
+            }
+            else {
+                Toast.makeText(getContext(), "É preciso estar conectado a internet para executar esta ação.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        imageShare.setOnClickListener(v -> {
+
+            if (verificaConexaoComInternet(getContext())) {
                 try {
                     BitmapDrawable drawable = (BitmapDrawable) imageViewFoto.getDrawable();
                     Bitmap bitmap = drawable.getBitmap();
 
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-                    String name =textViewFoto.getText().toString().replaceAll(" ","");
-                    String savedFile = saveImageFile(bitmap, "myFolder", name);
+                    String savedFile = SaveImage(bitmap);
 
                     File media = new File(savedFile);
-                    Uri imageUri =  Uri.fromFile(media);
+                    Uri imageUri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", media);
 
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("image/*");
                     share.putExtra(Intent.EXTRA_STREAM, imageUri);
-                    share.putExtra(Intent.EXTRA_TITLE, textViewFoto.getText());
+                    share.putExtra(Intent.EXTRA_TEXT, textViewFoto.getText() + "\nCompartilhado de SpaceNBeyond");
+                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Label", textViewFoto.getText().toString());
+                    clipboard.setPrimaryClip(clip);
+
                     startActivity(Intent.createChooser(share, "Share Image"));
-                }
-                catch (Throwable e) {
+                } catch (Throwable e) {
                     Toast.makeText(getContext(), "Não foi possível executar a ação.", Toast.LENGTH_LONG).show();
                 }
+            }
+            else {
+                Toast.makeText(getContext(), "É preciso estar conectado a internet para executar esta ação.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -195,49 +211,75 @@ public class HomeFragment extends Fragment {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String todayString = formatter.format(currentTime);
-        photoViewModel.getPhotoOfDay(todayString, API_KEY);
-        photoViewModel.liveData.observe(getViewLifecycleOwner(), (PhotoResponse result) -> {
 
-            photoResponse = result;
 
-            textViewFoto.setText(result.getTitle());
-            if (result.getCopyright() != null) {
-                textViewAutor.setVisibility(View.VISIBLE);
-                textViewAutor.setText(result.getCopyright());
-            }
-            else {
-                textViewAutor.setVisibility(View.GONE);
-            }
-            Picasso.get().load(result.getUrl()).into(imageViewFoto);
-            textViewDescricao.setText(result.getExplanation());
-        });
+        if (verificaConexaoComInternet(getContext())) {
+            photoViewModel.getPhotoOfDay(todayString, API_KEY);
+            photoViewModel.liveData.observe(getViewLifecycleOwner(), (PhotoResponse result) -> {
+
+                photoResponse = result;
+
+                textViewFoto.setText(result.getTitle());
+                if (result.getCopyright() != null) {
+                    textViewAutor.setVisibility(View.VISIBLE);
+                    textViewAutor.setText(result.getCopyright());
+                } else {
+                    textViewAutor.setVisibility(View.GONE);
+                }
+                Picasso.get().load(result.getUrl()).into(imageViewFoto);
+                textViewDescricao.setText(result.getExplanation());
+            });
+        }
+        else {
+            Toast.makeText(getContext(), "É preciso estar conectado a internet para carregar a foto do dia.", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
+        }
 
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static String saveImageFile(Bitmap image, String folder, String name){
+    private String SaveImage(Bitmap finalBitmap) {
 
-        boolean create = true;
-
-        File imageFile = new File(Environment.getExternalStorageDirectory() + "/" + folder);
-        if (!imageFile.exists()){
-            File screenShotsFolder = new File("/sdcard/Pictures/" + folder);
-            create = screenShotsFolder.mkdir();
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.d("SAVEIMAGE", "Error creating media file, check storage permissions: ");// e.getMessage());
+            return "Error creating media file, check storage permissions: ";
         }
-
-        File imageName = new File(new File("/sdcard/Pictures/" + folder + "/"), name + ".jpg");
-
         try {
-            FileOutputStream outputStream = new FileOutputStream(imageName);
-            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            outputStream.flush();
-            outputStream.close();
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            finalBitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.close();
+            return pictureFile.getAbsolutePath();
         }
-        catch (Throwable e){
-            e.printStackTrace();
+        catch (FileNotFoundException e) {
+            Log.d("SAVEIMAGE", "File not found: " + e.getMessage());
+            return e.getMessage();
         }
-        return imageName.toPath().toString();
+        catch (IOException e) {
+            Log.d("SAVEIMAGE", "Error accessing file: " + e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    private File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory() + "/Android/data/" + getApplicationContext().getPackageName() + "/Files");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        File mediaFile;
+        String mImageName = textViewFoto.getText() + ".jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
     }
 
     private void updateLabel(Calendar myCalendar) {
@@ -411,14 +453,11 @@ public class HomeFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -430,14 +469,11 @@ public class HomeFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewDescricao.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewDescricao.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -449,14 +485,11 @@ public class HomeFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });
@@ -468,14 +501,11 @@ public class HomeFragment extends Fragment {
 
         FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
         englishPortugueseTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(
-                v -> {
+                v -> englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
+                        translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
+                        e -> {
 
-                    englishPortugueseTranslator.translate(textViewFoto.getText().toString()).addOnSuccessListener(
-                            translatedText -> textViewFoto.setText(translatedText)).addOnFailureListener(
-                            e -> {
-
-                            });
-                }).addOnFailureListener(
+                        })).addOnFailureListener(
                 e -> {
 
                 });

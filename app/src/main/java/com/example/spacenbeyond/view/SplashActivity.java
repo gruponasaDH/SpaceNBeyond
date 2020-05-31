@@ -1,6 +1,7 @@
 package com.example.spacenbeyond.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.spacenbeyond.R;
+import com.facebook.AccessToken;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,11 +38,21 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
 
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+
             if (user != null) {
                 Intent homeIntent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(homeIntent);
                 finish();
-            } else {
+            }
+//            else if (account != null) {
+//                account.
+//            }
+//            else if(accessToken != null) {
+//                accessToken.get
+//            }
+            else {
                 Intent homeIntent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(homeIntent);
                 finish();

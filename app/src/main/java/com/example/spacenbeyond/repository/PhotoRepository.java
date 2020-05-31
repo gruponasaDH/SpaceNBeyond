@@ -1,6 +1,7 @@
 package com.example.spacenbeyond.repository;
 
 import android.content.Context;
+
 import com.example.spacenbeyond.data.remote.PhotoDatabase;
 import com.example.spacenbeyond.model.PhotoEntity;
 import com.example.spacenbeyond.model.PhotoResponse;
@@ -21,6 +22,10 @@ public class PhotoRepository {
 
     public void inserePhotoBd(PhotoEntity photoEntity, Context context){
         PhotoDatabase.getDatabase(context).artistaDAO().insereListaBD(photoEntity);
+    }
+
+    public PhotoEntity getPhotoEntity(String title, Context context){
+        return PhotoDatabase.getDatabase(context).artistaDAO().getPhotoEntity(title);
     }
 
     public void apagaOsDadosBD(PhotoEntity photoEntity, Context context){

@@ -14,6 +14,9 @@ public interface PhotoDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insereListaBD(PhotoEntity photoEntity);
 
+    @Query("SELECT * FROM favorite WHERE title=:title")
+    PhotoEntity getPhotoEntity(String title);
+
     @Query("SELECT * FROM favorite")
     Flowable<List<PhotoEntity>> recuperaPhotosDoBD();
 

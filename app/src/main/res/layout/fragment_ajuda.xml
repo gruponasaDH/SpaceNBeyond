@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ajuda1_data"
+                android:src="@drawable/ajuda1_novo"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/passo1_selecionar_data"/>
 
@@ -82,47 +82,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/montserrat"
-                android:text="@string/clique_no"
+                android:text="@string/clique_no_calendario"
                 android:textColor="@color/colorPrimary"
-                android:textSize="14sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="32dp"
-                android:paddingEnd="4dp">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ajuda2_mao"
-                    android:contentDescription="@string/passo2_desliza"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/ajuda3_swipe_cards"
-                    android:contentDescription="@string/passo2_desliza"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/deslize_para"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:contentDescription="@string/passo1_selecionar_data"/>
 
 
             <ImageView
@@ -131,7 +94,7 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ajuda4_traducao"
                 android:layout_marginTop="8dp"
-                android:contentDescription="@string/passo3_idioma"/>
+                android:contentDescription="@string/passo2_idioma"/>
 
 
             <TextView
